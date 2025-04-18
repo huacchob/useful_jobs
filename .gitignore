@@ -1,0 +1,5 @@
+.undodir/
+*.undodir/
+.qodo/
+*.env
+.DS_Store
