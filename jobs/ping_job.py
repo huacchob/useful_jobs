@@ -11,6 +11,7 @@ class ConnectivityCheckTask(Job):  # pylint: disable=too-many-instance-attribute
         label="IP Address",
     )
     port = IntegerVar(default=22)
+    timeout = IntegerVar(default=1)
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Simple TCP Ping"""
@@ -22,7 +23,11 @@ class ConnectivityCheckTask(Job):  # pylint: disable=too-many-instance-attribute
         """Process tcp_ping task from job."""
         ip_addresses = kwargs["ip_addresses"].replace(" ", "").split(",")
         for ipaddr in ip_addresses:
-            reach_check = tcp_ping(ipaddr, kwargs["port"])
+            reach_check: bool = tcp_ping(
+                ip=ipaddr,
+                port=kwargs["port"],
+                timeout=kwargs["timeout"],
+            )
             self.logger.info(
                 "Reachability check to %s:%s boolean result: %s",
                 ipaddr,

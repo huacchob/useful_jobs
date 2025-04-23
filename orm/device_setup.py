@@ -163,10 +163,3 @@ interface, _ = Interface.objects.get_or_create(
     role_id=role.id,
     type="virtual",
 )
-# interface = Interface.objects.get(
-#     name=interface_name,
-#     device_id=device.id,
-#     status_id=status.id,
-#     role_id=role.id,
-#     type="virtual",
-# )
