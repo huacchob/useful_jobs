@@ -39,7 +39,7 @@ sga1, _ = SecretsGroupAssociation.objects.get_or_create(
     secrets_group=sg,
 )
 sga2, _ = SecretsGroupAssociation.objects.get_or_create(
-    secret=s1,
+    secret=s2,
     access_type=sga_access_type,
     secret_type=sga2_secret_type,
     secrets_group=sg,
