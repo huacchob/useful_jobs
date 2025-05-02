@@ -147,6 +147,7 @@ namespace, _ = Namespace.objects.get_or_create(
 prefix, _ = Prefix.objects.get_or_create(
     prefix=prefix_range,
     namespace=namespace,
+    status_id=status.id,
 )
 
 # IP Address
@@ -163,3 +164,9 @@ interface, _ = Interface.objects.get_or_create(
     role_id=role.id,
     type="virtual",
 )
+
+interface.ip_addresses.add(ip)
+interface.validated_save()
+
+device.primary_ip4 = ip
+device.validated_save()
