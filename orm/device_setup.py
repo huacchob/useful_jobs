@@ -8,7 +8,13 @@ from nautobot.dcim.models import (
     Manufacturer,
     Platform,
 )
-from nautobot.extras.models import Role, Status
+from nautobot.extras.models import (
+    Role,
+    Status,
+    Secret,
+    SecretsGroup,
+    SecretsGroupAssociation,
+)
 from nautobot.ipam.models import IPAddress, Namespace, Prefix
 
 # Vars
@@ -30,9 +36,16 @@ city_name = "Charlotte"
 building_name = "UNCC"
 device_name = "netscaler1"
 namespace_name = "Global"
-prefix_range = "192.168.100.0/24"
-ip_addr = "192.168.100.10/32"
+prefix_range = "172.18.0.0/16"
+ip_addr = "172.18.0.8/32"
 interface_name = "int1"
+secret1 = "NETSCALER_USER"
+secret2 = "NETSCALER_PASS"
+provider = "environment-variable"
+secrets_group_name = "GIT"
+sga_access_type = "Generic"
+sga1_secret_type = "username"
+sga2_secret_type = "password"
 
 # Contet types
 device_ct = ContentType.objects.get_for_model(model=Device)
@@ -169,4 +182,39 @@ interface.ip_addresses.add(ip)
 interface.validated_save()
 
 device.primary_ip4 = ip
+device.validated_save()
+
+# Secrets
+s1, _ = Secret.objects.get_or_create(
+    name=secret1,
+    provider=provider,
+    parameters={"variable": secret1},
+)
+s2, _ = Secret.objects.get_or_create(
+    name=secret2,
+    provider=provider,
+    parameters={"variable": secret2},
+)
+
+sg, _ = SecretsGroup.objects.get_or_create(
+    name=secrets_group_name,
+)
+
+sga1, _ = SecretsGroupAssociation.objects.get_or_create(
+    secret=s1,
+    access_type=sga_access_type,
+    secret_type=sga1_secret_type,
+    secrets_group=sg,
+)
+sga2, _ = SecretsGroupAssociation.objects.get_or_create(
+    secret=s2,
+    access_type=sga_access_type,
+    secret_type=sga2_secret_type,
+    secrets_group=sg,
+)
+
+sg.validated_save()
+
+device.secrets_group = sg
+
 device.validated_save()
