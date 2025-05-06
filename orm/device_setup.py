@@ -17,39 +17,58 @@ from nautobot.extras.models import (
 )
 from nautobot.ipam.models import IPAddress, Namespace, Prefix
 
-# Vars
+# Status and Role
 status_name = "Active"
 role_name = "Network"
-manufacturer_name = "Citrix"
-device_type_name = "Netscaler-Type"
-platform_name = "netscaler"
-network_driver_name = "netscaler"
+
+# LT
 region_lt_name = "Region"
 country_lt_name = "Country"
 state_lt_name = "State"
 city_lt_name = "City"
 building_lt_name = "Building"
-region_name = "AMRS"
-country_name = "United States"
-state_name = "North Carolina"
-city_name = "Charlotte"
-building_name = "UNCC"
-device_name = "netscaler1"
-namespace_name = "Global"
-prefix_range = "172.18.0.0/16"
-ip_addr = "172.18.0.8/32"
-interface_name = "int1"
-secret1 = "NETSCALER_USER"
-secret2 = "NETSCALER_PASS"
-provider = "environment-variable"
-secrets_group_name = "NETSCALER"
-sga_access_type = "Generic"
-sga1_secret_type = "username"
-sga2_secret_type = "password"
+
+# Sites
+uncc_site: dict[str, str] = {
+    "region_name": "AMRS",
+    "country_name": "United States",
+    "state_name": "North Carolina",
+    "city_name": "Charlotte",
+    "building_name": "UNCC",
+}
+sites: list[dict[str, str]] = [uncc_site]
+
+# Devices
+netscaler_dev: dict[str, str] = {
+    "manufacturer_name": "Citrix",
+    "device_type_name": "Netscaler-Type",
+    "platform_name": "netscaler",
+    "network_driver_name": "netscaler",
+    "device_name": "netscaler1",
+    "location": "building",
+    "namespace_name": "Global",
+    "prefix_range": "172.18.0.0/16",
+    "ip_addr": "172.18.0.8/32",
+    "interface_name": "int1",
+}
+devices: list[dict[str, str]] = [netscaler_dev]
+
+# Secrets
+netscaler_secret: dict[str, str] = {
+    "secret1": "NETSCALER_USER",
+    "secret2": "NETSCALER_PASS",
+    "provider": "environment-variable",
+    "secrets_group_name": "NETSCALER",
+    "sga_access_type": "Generic",
+    "sga1_secret_type": "username",
+    "sga2_secret_type": "password",
+    "device": "netscaler1",
+}
+secrets: list[dict[str, str]] = [netscaler_secret]
 
 # Contet types
-device_ct = ContentType.objects.get_for_model(model=Device)
-interface_ct = ContentType.objects.get_for_model(model=Interface)
+device_ct: ContentType = ContentType.objects.get_for_model(model=Device)
+interface_ct: ContentType = ContentType.objects.get_for_model(model=Interface)
 
 # status
 status, _ = Status.objects.get_or_create(name=status_name)
@@ -83,138 +102,143 @@ building_lt, _ = LocationType.objects.get_or_create(
 )
 building_lt.content_types.add(device_ct)
 
-region, _ = Location.objects.get_or_create(
-    name=region_name,
-    defaults={
-        "location_type": region_lt,
-        "status": status,
-    },
-)
+for site in sites:
+    region, _ = Location.objects.get_or_create(
+        name=site.get("region_name"),
+        defaults={
+            "location_type": region_lt,
+            "status": status,
+        },
+    )
 
-country, _ = Location.objects.get_or_create(
-    name=country_name,
-    defaults={
-        "location_type": country_lt,
-        "status_id": status.id,
-    },
-)
+    country, _ = Location.objects.get_or_create(
+        name=site.get("country_name"),
+        defaults={
+            "location_type": country_lt,
+            "status_id": status.id,
+        },
+    )
 
-state, _ = Location.objects.get_or_create(
-    name=state_name,
-    defaults={
-        "location_type": state_lt,
-        "status_id": status.id,
-    },
-)
+    state, _ = Location.objects.get_or_create(
+        name=site.get("state_name"),
+        defaults={
+            "location_type": state_lt,
+            "status_id": status.id,
+        },
+    )
 
-city, _ = Location.objects.get_or_create(
-    name=city_name,
-    defaults={
-        "location_type": city_lt,
-        "status_id": status.id,
-    },
-)
+    city, _ = Location.objects.get_or_create(
+        name=site.get("city_name"),
+        defaults={
+            "location_type": city_lt,
+            "status_id": status.id,
+        },
+    )
 
-building, _ = Location.objects.get_or_create(
-    name=building_name,
-    defaults={
-        "location_type": building_lt,
-        "status_id": status.id,
-    },
-)
+    building, _ = Location.objects.get_or_create(
+        name=site.get("building_name"),
+        defaults={
+            "location_type": building_lt,
+            "status_id": status.id,
+        },
+    )
 
-# Manufacturer
-manufacturer, _ = Manufacturer.objects.get_or_create(
-    name=manufacturer_name,
-)
+for dev in devices:
+    # Manufacturer
+    manufacturer, _ = Manufacturer.objects.get_or_create(
+        name=dev.get("manufacturer_name"),
+    )
 
-# Device Type
-dt, _ = DeviceType.objects.get_or_create(
-    manufacturer_id=manufacturer.id,
-    model=device_type_name,
-)
+    # Device Type
+    dt, _ = DeviceType.objects.get_or_create(
+        manufacturer_id=manufacturer.id,
+        model=dev.get("device_type_name"),
+    )
 
-# Platform
-plat, _ = Platform.objects.get_or_create(
-    name=platform_name,
-    manufacturer_id=manufacturer.id,
-    network_driver=network_driver_name,
-)
+    # Platform
+    plat, _ = Platform.objects.get_or_create(
+        name=dev.get("platform_name"),
+        manufacturer_id=manufacturer.id,
+        network_driver=dev.get("network_driver_name"),
+    )
 
-# Device
-device, _ = Device.objects.get_or_create(
-    name=device_name,
-    device_type=dt,
-    role=role,
-    location=building,
-    status=status,
-    platform=plat,
-)
+    # Device
+    device, _ = Device.objects.get_or_create(
+        name=dev.get("device_name"),
+        device_type=dt,
+        role=role,
+        location=dev.get("location"),
+        status=status,
+        platform=plat,
+    )
 
-# Namespace
-namespace, _ = Namespace.objects.get_or_create(
-    name=namespace_name,
-)
+    if dev.get("ip_addr"):
+        # Namespace
+        namespace, _ = Namespace.objects.get_or_create(
+            name=dev.get("namespace_name"),
+        )
 
-# Prefix
-prefix, _ = Prefix.objects.get_or_create(
-    prefix=prefix_range,
-    namespace=namespace,
-    status_id=status.id,
-)
+        # Prefix
+        prefix, _ = Prefix.objects.get_or_create(
+            prefix=dev.get("prefix_range"),
+            namespace=namespace,
+            status_id=status.id,
+        )
 
-# IP Address
-ip, _ = IPAddress.objects.get_or_create(
-    address=ip_addr,
-    status_id=status.id,
-)
+        # IP Address
+        ip, _ = IPAddress.objects.get_or_create(
+            address=dev.get("ip_addr"),
+            status_id=status.id,
+        )
 
-# Interface
-interface, _ = Interface.objects.get_or_create(
-    name=interface_name,
-    device_id=device.id,
-    status_id=status.id,
-    role_id=role.id,
-    type="virtual",
-)
+        # Interface
+        interface, _ = Interface.objects.get_or_create(
+            name=dev.get("interface_name"),
+            device_id=device.id,
+            status_id=status.id,
+            role_id=role.id,
+            type="virtual",
+        )
 
-interface.ip_addresses.add(ip)
-interface.validated_save()
+        interface.ip_addresses.add(ip)
+        interface.validated_save()
 
-device.primary_ip4 = ip
-device.validated_save()
+        device.primary_ip4 = ip
+        device.validated_save()
 
-# Secrets
-s1, _ = Secret.objects.get_or_create(
-    name=secret1,
-    provider=provider,
-    parameters={"variable": secret1},
-)
-s2, _ = Secret.objects.get_or_create(
-    name=secret2,
-    provider=provider,
-    parameters={"variable": secret2},
-)
+for secret in secrets:
+    # Secrets
+    s1, _ = Secret.objects.get_or_create(
+        name=secret.get("secret1"),
+        provider=secret.get("provider"),
+        parameters={"variable": secret1},
+    )
+    s2, _ = Secret.objects.get_or_create(
+        name=secret.get("secret2"),
+        provider=secret.get("provider"),
+        parameters={"variable": secret.get("secret2")},
+    )
 
-sg, _ = SecretsGroup.objects.get_or_create(
-    name=secrets_group_name,
-)
+    sg, _ = SecretsGroup.objects.get_or_create(
+        name=secret.get("secrets_group_name"),
+    )
 
-sga1, _ = SecretsGroupAssociation.objects.get_or_create(
-    secret=s1,
-    access_type=sga_access_type,
-    secret_type=sga1_secret_type,
-    secrets_group=sg,
-)
-sga2, _ = SecretsGroupAssociation.objects.get_or_create(
-    secret=s2,
-    access_type=sga_access_type,
-    secret_type=sga2_secret_type,
-    secrets_group=sg,
-)
+    sga1, _ = SecretsGroupAssociation.objects.get_or_create(
+        secret=s1,
+        access_type=secret.get("sga_access_type"),
+        secret_type=secret.get("sga1_secret_type"),
+        secrets_group=sg,
+    )
+    sga2, _ = SecretsGroupAssociation.objects.get_or_create(
+        secret=s2,
+        access_type=secret.get("sga_access_type"),
+        secret_type=secret.get("sga2_secret_type"),
+        secrets_group=sg,
+    )
 
-sg.validated_save()
+    sg.validated_save()
+    
+    device: Device = Device.objects.get(name=secret.get("device"))
+    device.secrets_group = sg
 
-device.secrets_group = sg
-
-device.validated_save()
+    device.validated_save()
