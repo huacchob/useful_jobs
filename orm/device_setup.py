@@ -45,7 +45,7 @@ netscaler_dev: dict[str, str] = {
     "platform_name": "netscaler",
     "network_driver_name": "netscaler",
     "device_name": "netscaler1",
-    "location": "building",
+    "location": "UNCC",
     "namespace_name": "Global",
     "prefix_range": "172.18.0.0/16",
     "ip_addr": "172.18.0.8/32",
@@ -57,7 +57,7 @@ nxos_dev: dict[str, str] = {
     "platform_name": "cisco_nxos",
     "network_driver_name": "cisco_nxos",
     "device_name": "nxos1",
-    "location": "building",
+    "location": "UNCC",
     "namespace_name": "Global",
     "prefix_range": "172.20.0.0/16",
     "ip_addr": "172.20.20.2/32",
@@ -175,11 +175,14 @@ for dev in devices:
     )
 
     # Device
+    loc = Location.objects.get(
+        name=dev.get("location"),
+    )
     device, _ = Device.objects.get_or_create(
         name=dev.get("device_name"),
         device_type=dt,
         role=role,
-        location=dev.get("location"),
+        location=loc,
         status=status,
         platform=plat,
     )
@@ -223,7 +226,7 @@ for secret in secrets:
     s1, _ = Secret.objects.get_or_create(
         name=secret.get("secret1"),
         provider=secret.get("provider"),
-        parameters={"variable": secret1},
+        parameters={"variable": secret.get("secret1")},
     )
     s2, _ = Secret.objects.get_or_create(
         name=secret.get("secret2"),
