@@ -51,6 +51,18 @@ netscaler_dev: dict[str, str] = {
     "ip_addr": "172.18.0.8/32",
     "interface_name": "int1",
 }
+nxos_dev: dict[str, str] = {
+    "manufacturer_name": "Cisco",
+    "device_type_name": "Nxos-Type",
+    "platform_name": "cisco_nxos",
+    "network_driver_name": "cisco_nxos",
+    "device_name": "nxos1",
+    "location": "building",
+    "namespace_name": "Global",
+    "prefix_range": "172.20.0.0/16",
+    "ip_addr": "172.20.20.2/32",
+    "interface_name": "int1",
+}
 devices: list[dict[str, str]] = [netscaler_dev]
 
 # Secrets
