@@ -12,10 +12,27 @@ secrets_group_name = "GIT"
 sga_access_type = "HTTP(S)"
 sga1_secret_type = "username"
 sga2_secret_type = "token"
-remote_url = "https://github.com/huacchob/useful_jobs.git"
-repo_name = "useful_jobs"
-branch = "main"
-provided_contents = ["extras.job"]
+
+# Repo
+useful_job: dict[str, str | list[str]] = {
+    "remote_url": "https://github.com/huacchob/useful_jobs.git",
+    "repo_name": "useful_jobs",
+    "branch": "main",
+    "provided_contents": ["extras.job"],
+}
+gc_mono: dict[str, str | list[str]] = {
+    "remote_url": "https://github.com/huacchob/gc_mono.git",
+    "repo_name": "gc_mono",
+    "branch": "main",
+    "provided_contents": [
+        'extras.configcontext',
+        'nautobot_golden_config.backupconfigs',
+        'nautobot_golden_config.intendedconfigs',
+        'nautobot_golden_config.jinjatemplate',
+        'nautobot_golden_config.pluginproperties',
+    ],
+}
+repos: list[dict[str, str | list[str]]] = [useful_job, gc_mono]
 
 s1, _ = Secret.objects.get_or_create(
     name=secret1,
@@ -47,14 +64,15 @@ sga2, _ = SecretsGroupAssociation.objects.get_or_create(
 
 sg.validated_save()
 
-repo, _ = GitRepository.objects.get_or_create(
-    name=repo_name,
-    defaults={
-        "remote_url": remote_url,
-        "branch": branch,
-        "secrets_group_id": sg.id,
-        "provided_contents": provided_contents,
-    },
-)
+for repo in repos:
+    rp, _ = GitRepository.objects.get_or_create(
+        name=repo.get("repo_name"),
+        defaults={
+            "remote_url": repo.get("remote_url"),
+            "branch": repo.get("branch"),
+            "secrets_group_id": sg.id,
+            "provided_contents": repo.get("provided_contents"),
+        },
+    )
 
-repo.save()
+    rp.save()

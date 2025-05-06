@@ -63,7 +63,7 @@ nxos_dev: dict[str, str] = {
     "ip_addr": "172.20.20.2/32",
     "interface_name": "int1",
 }
-devices: list[dict[str, str]] = [netscaler_dev]
+devices: list[dict[str, str]] = [netscaler_dev, nxos_dev]
 
 # Secrets
 netscaler_secret: dict[str, str] = {
@@ -76,7 +76,17 @@ netscaler_secret: dict[str, str] = {
     "sga2_secret_type": "password",
     "device": "netscaler1",
 }
-secrets: list[dict[str, str]] = [netscaler_secret]
+nxos_secret: dict[str, str] = {
+    "secret1": "NXOS_USER",
+    "secret2": "NXOS_PASS",
+    "provider": "environment-variable",
+    "secrets_group_name": "NXOS",
+    "sga_access_type": "Generic",
+    "sga1_secret_type": "username",
+    "sga2_secret_type": "password",
+    "device": "nxos1",
+}
+secrets: list[dict[str, str]] = [netscaler_secret, nxos_secret]
 
 # Contet types
 device_ct: ContentType = ContentType.objects.get_for_model(model=Device)
