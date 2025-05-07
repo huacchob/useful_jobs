@@ -1,0 +1,13 @@
+'11':
+- action: permit
+  protocol: ipv4
+  src: 171.174.12.135
+  src_mask: 255.255.255.255
+  dst: ''
+  dst_mask: ''
+- action: permit
+  protocol: ipv4
+  src: 171.149.69.89
+  src_mask: 255.255.255.255
+  dst: ''
+  dst_mask: ''
