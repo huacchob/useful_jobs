@@ -1,6 +1,6 @@
 .undodir/
 *.undodir/
 .qodo/
-*.env
+creds.env
 .DS_Store
 .qodo
