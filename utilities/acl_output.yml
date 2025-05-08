@@ -1,13 +1,29 @@
-'11':
+cmdbSNOW:
 - action: permit
   protocol: ipv4
-  src: 171.174.12.135
-  src_mask: 255.255.255.255
+  src: 164.103.76.26
+  src_mask: null
   dst: ''
   dst_mask: ''
+  seq: 10
 - action: permit
   protocol: ipv4
-  src: 171.149.69.89
-  src_mask: 255.255.255.255
+  src: 164.103.77.20
+  src_mask: null
   dst: ''
   dst_mask: ''
+  seq: 20
+- action: permit
+  protocol: ipv4
+  src: 164.103.79.90
+  src_mask: null
+  dst: ''
+  dst_mask: ''
+  seq: 30
+- action: permit
+  protocol: ipv4
+  src: 164.103.76.144
+  src_mask: null
+  dst: ''
+  dst_mask: ''
+  seq: 40

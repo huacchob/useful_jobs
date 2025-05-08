@@ -175,15 +175,18 @@ def ios_parse_acl_entry(entry: str) -> dict[str, str] | None:
     Returns:
         dict[str, str] | None: Dictionary of the parsed ACL entries or None.
     """
-    acl_regex: str = (
-        r"access-list\s+"
-        r"\S+\s+"
+    acl_regex_standard: str = (
+        r"(?P<count>\d+)\s+"
         r"(?P<action>permit|deny)\s+"
+        r"(host\s+)?"
         r"(?P<src>\S+)?\s*"
         r"(?P<src_mask>\S+)?\s*"
     )
 
-    match: re.Match[str] | None = re.match(pattern=acl_regex, string=entry)
+    match: re.Match[str] | None = re.match(
+        pattern=acl_regex_standard,
+        string=entry,
+    )
 
     if match:
         acl_components: dict[str, str] = match.groupdict()
@@ -344,7 +347,8 @@ def clean_acl_dictionary(
         if platform.startswith("eos") and not parsed_acl.get("src_cidr"):
             parsed_acl.update({"src_mask": "255.255.255.255"})
 
-        parsed_acl.pop("src_cidr")
+        if parsed_acl.get("src_cidr"):
+            parsed_acl.pop("src_cidr")
 
     parsed_acl.update(
         {
@@ -437,12 +441,14 @@ def write_acls_to_file(
     print("Done creating acls")
 
 
-acl_string: str = """permit host 171.174.12.135
-permit host 171.149.69.89"""
+acl_string: str = """  10 permit host 164.103.76.26
+  20 permit host 164.103.77.20
+  30 permit host 164.103.79.90
+  40 permit host 164.103.76.144"""
 
 write_acls_to_file(
     acl_entries=acl_string,
     file_name="acl_output.yml",
-    acl_yaml_list_name="11",
-    platform="eos",
+    acl_yaml_list_name="cmdbSNOW",
+    platform="ios",
 )

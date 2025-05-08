@@ -10,10 +10,10 @@ from nautobot.dcim.models import (
 )
 from nautobot.extras.models import (
     Role,
-    Status,
     Secret,
     SecretsGroup,
     SecretsGroupAssociation,
+    Status,
 )
 from nautobot.ipam.models import IPAddress, Namespace, Prefix
 
@@ -63,7 +63,19 @@ nxos_dev: dict[str, str] = {
     "ip_addr": "172.20.20.2/32",
     "interface_name": "int1",
 }
-devices: list[dict[str, str]] = [netscaler_dev, nxos_dev]
+ios_dev: dict[str, str | None] = {
+    "manufacturer_name": "Cisco",
+    "device_type_name": "Ios-Type",
+    "platform_name": "cisco_ios",
+    "network_driver_name": "cisco_ios",
+    "device_name": "ios1",
+    "location": "UNCC",
+    "namespace_name": None,
+    "prefix_range": None,
+    "ip_addr": None,
+    "interface_name": None,
+}
+devices: list[dict[str, str | None]] = [netscaler_dev, nxos_dev, ios_dev]
 
 # Secrets
 netscaler_secret: dict[str, str] = {
@@ -262,7 +274,7 @@ for secret in secrets:
     )
 
     sg.validated_save()
-    
+
     device: Device = Device.objects.get(name=secret.get("device"))
     device.secrets_group = sg
 
