@@ -1,0 +1,12 @@
+{% macro netmask_to_wildcardmask(mask) %}
+  {% if mask %}
+    {% set octets = mask.split('.') %}
+    {% set w1 = 255 - (octets[0]|int) %}
+    {% set w2 = 255 - (octets[1]|int) %}
+    {% set w3 = 255 - (octets[2]|int) %}
+    {% set w4 = 255 - (octets[3]|int) %}
+    {{- w1 ~ "." ~ w2 ~ "." ~ w3 ~ "." ~ w4 }}
+  {% else %}
+    {{- "any" }}
+  {% endif %}
+{% endmacro %}

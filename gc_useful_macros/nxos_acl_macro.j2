@@ -1,0 +1,15 @@
+{% macro render_acl(acl_name, acl_entries, seq_step=10) %}
+{{- "ip access-list " ~ acl_name }}
+{% for entry in acl_entries %}
+  {% set seq_num = (loop.index0 + 1) * seq_step %}
+  {% set src = entry.src %}
+  {% set dst = entry.dst %}
+  {% if entry.src != "any" %}
+    {% set src = entry.src|string + "/" + (entry.src_mask | netmask_to_cidr | string) %}
+  {% endif %}
+  {% if entry.dst != "any" %}
+    {% set dst = entry.dst|string + "/" + (entry.dst_mask | netmask_to_cidr | string) %}
+  {% endif %}
+  {{- " " ~ seq_num ~ " " ~ entry.action ~ " " ~ entry.protocol ~ " " ~ src ~ " " ~ dst }}
+{% endfor %}
+{% endmacro %}

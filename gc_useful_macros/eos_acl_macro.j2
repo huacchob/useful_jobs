@@ -1,0 +1,52 @@
+{% macro render_acl(acl_name, acl_entries, seq_step=10, acl_type="standard") %}
+  {% set protocol = none %}
+  {% set src = none %}
+  {% set dst = none %}
+ip access-list {{ acl_type }} {{ acl_name }}
+  {% for entry in acl_entries %}
+    {# Define the src subnet mask #}
+    {% if entry.src_mask is none %}
+      {% set src_mask = none %}
+    {% else %}
+      {% set src_mask = entry.src_mask | netmask_to_cidr %}
+    {% endif %}
+    {# Define the dst subnet mask #}
+    {% if entry.dst_mask is none %}
+      {% set dst_mask = none %}
+    {% else %}
+      {% set dst_mask = entry.dst_mask | netmask_to_cidr %}
+    {% endif %}
+    {# Define the src #}
+    {% if src_mask == 32 and entry.src == "any" %}
+      {% set src = "any" %}
+    {% elif src_mask == 32 and entry.src != "any" %}
+      {% set src = "host " ~ entry.src %}
+    {% elif src_mask != none and src_mask != 32 and entry.src != "any" %}
+      {% set src = entry.src ~ "/" ~ src_mask %}
+    {% else %}
+      {% set src = "" %}
+    {% endif %}
+    {# Define the dst #}
+    {% if entry.dst_mask == 32 and entry.dst == "any" %}
+      {% set dst = "" %}
+    {% elif dst_mask == 32 and entry.dst != "any" %}
+      {% set dst = "host " ~ entry.dst %}
+    {% elif dst_mask != none and dst_mask != 32 and entry.dst != "any" %}
+      {% set dst = entry.dst ~ "/" ~ dst_mask %}
+    {% else %}
+      {% set dst = "" %}
+    {% endif %}
+    {# Define default action #}
+    {% if entry.dst == "any" and entry.src == "any" and entry.protocol == "ip" %}
+      {% set src = "any" %}
+      {% set dst = "any" %}
+      {% set protocol = "ip" %}
+    {% endif %}
+    {% set seq_num = (loop.index0 + 1) * seq_step %}
+    {% if protocol is none %}
+    {{ seq_num }} {{ entry.action }} {{ src }} {{ dst }}
+    {% else %}
+    {{ seq_num }} {{ entry.action }} {{ protocol }} {{ src }} {{ dst }}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}

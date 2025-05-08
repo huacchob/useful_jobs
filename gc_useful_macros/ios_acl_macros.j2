@@ -1,0 +1,5 @@
+{% macro render_acl(acl_name, acl_entries) %}
+{% for entry in acl_entries %}
+  {{- "access_list "~acl_name~" "~entry.action~" "~entry.src~" "~netmask_to_wildcardmask(entry.src_mask) }}
+{% endfor %}
+{% endmacro %}

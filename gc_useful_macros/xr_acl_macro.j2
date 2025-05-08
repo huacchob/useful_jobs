@@ -1,0 +1,33 @@
+{% macro render_acl(acl_name, acl_entries, seq_step=10) %}
+{{- "ipv4 access-list " ~ acl_name }}
+{% for entry in acl_entries %}
+  {# If the protocol is 'ip' replace it with 'ipv4' #}
+  {% if entry.protocol == "ip" %}
+    {% set protocol = "ipv4" %}
+  {% else %}
+    {% set protocol = entry.protocol %}
+  {% endif %}
+  {# If the src_mask is defined, replace the 'src' with src + mask #}
+  {% if entry.src_mask %}
+    {% if entry.src_mask == "255.255.255.255" %}
+      {% set src = "host " ~ entry.src %}
+    {% else %}
+      {% set src = entry.src ~ " " ~ entry.src_mask %}
+    {% endif %}
+  {% else %}
+    {% set src = entry.src %}
+  {% endif %}
+  {# If the dst_mask is defined, replace the 'dst' with dst + mask #}
+  {% if entry.dst_mask %}
+    {% if entry.dst_mask == "255.255.255.255" %}
+      {% set dst = "host " ~ entry.dst %}
+    {% else %}
+      {% set dst = entry.dst ~ " " ~ entry.dst_mask %}
+    {% endif %}
+  {% else %}
+    {% set dst = entry.dst %}
+  {% endif %}
+  {% set seq_num = (loop.index0 + 1) * seq_step %}
+  {{- " "~seq_num~" "~entry.action~" "~protocol~" "~src~" "~dst }}
+{% endfor %}
+{% endmacro %}
