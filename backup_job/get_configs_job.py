@@ -29,8 +29,13 @@ from nautobot.apps.choices import (
 )
 from nautobot.apps.jobs import BooleanVar, ChoiceVar, Job, MultiObjectVar, ObjectVar
 from nautobot.dcim.models import Device, DeviceType, Location, Platform
-from nautobot.extras.models import SecretsGroup, SecretsGroupAssociation, Status, Tag
-from nautobot_golden_config.datasources import GitRepository
+from nautobot.extras.models import (
+    GitRepository,
+    SecretsGroup,
+    SecretsGroupAssociation,
+    Status,
+    Tag,
+)
 from nautobot_golden_config.models import (
     ConfigRemove,
     ConfigReplace,
@@ -106,15 +111,10 @@ def check_repository_secrets_group(repository: GitRepository) -> bool:
     Returns:
         bool: True if the repository has secrets group, False otherwise.
     """
-    has_secrets_group = None
+    has_secrets_group = False
 
     if repository.secrets_group:
         has_secrets_group = True
-    elif repository.username and repository._token:  # pylint: disable=protected-access
-        has_secrets_group = False
-
-    if has_secrets_group is None:
-        raise ValueError("repo must have username/token or secrets_group")
 
     return has_secrets_group
 
@@ -168,8 +168,8 @@ def base_64_encode_credentials(username: str, password: str) -> str:
 
 
 # Git Utility Class
-class GitUtility:  # pylint: disable=too-many-instance-attributes
-    """Git Repo object to help with git actions."""
+class GitBase:  # pylint: disable=too-many-instance-attributes
+    """Base Git class to help with git actions."""
 
     def __init__(
         self,
@@ -177,7 +177,7 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
         debug: bool,
         logger: Logger,
     ) -> None:
-        """Initialize GitUtility.
+        """Initialize GitBase class.
 
         Args:
             repository (GitRepository): The GitRepository to use.
@@ -192,6 +192,8 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
 
         self.path: str = repository.filesystem_path
         self.url: str = repository.remote_url
+        self.token: str = ""
+        self.token_user: str = ""
 
         if check_repository_secrets_group(repository=repository):
             repository_secrets_group: SecretsGroup = repository.secrets_group
@@ -202,8 +204,7 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
             if self.debug:
                 self.logger.info("Parsing repository secrets group.")
         else:
-            self.token_user: str = repository.username
-            self.token: str = repository._token  # pylint: disable=protected-access
+            self.logger.warning("This is a public repository.")
 
         if self.token_user and self.token not in self.url:
             quoted_username: str = quote(string=str(self.token_user), safe="")
@@ -245,6 +246,8 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
 
     def configure_user_settings(self) -> None:
         """Configure local git user settings if not set."""
+        if not self.token_user:
+            return
         git_email: str = re.sub(
             pattern=r"\s",
             repl="-",
@@ -259,22 +262,8 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
                 self.logger.info("Configured local git email and/or name.")
 
     def switch_to_branch(self) -> None:
-        """Switch local to selected branch.
-
-        Raises:
-            GitCommandError: If the branch doesn't exist in remote.
-        """
-        self.git_session.fetch("--all")
-        try:
-            self.git_session.switch(self.branch)
-        except GitCommandError as e:
-            if f"invalid reference: {self.branch}" in str(e):
-                if self.debug:
-                    self.logger.info(f"Can't find branch {self.branch}")
-                raise GitCommandError(
-                    command=f"Switch command can't find branch {self.branch}"
-                ) from e
-            raise GitCommandError(command=f"Other branching error: {e}") from e
+        """Implemented in Git service class."""
+        pass
 
     def clean_unmerged_files_from_local(self) -> None:
         """When there are conflicts, this will favor remote changes."""
@@ -302,26 +291,8 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
         self.git_session.reset("--hard", f"origin/{self.branch}")
 
     def merge_with_remote(self) -> None:
-        """Merge with changes from remote.
-
-        Raises:
-            GitCommandError: Raised and handled if merge fails.
-        """
-        try:
-            self.git_session.merge(f"origin/{self.branch}")
-        except GitCommandError as e:
-            if f"couldn't find remote ref {self.branch}" in str(e):
-                if self.debug:
-                    self.logger.info(f"Can't find branch {self.branch}")
-                    raise GitCommandError(
-                        command=f"Pull command can't find branch {self.branch}",
-                    ) from e
-            if "exit code(128)" in str(e):
-                self.clean_unmerged_files_from_local()
-            if "exit code(1)" in str(e):
-                self.sync_head_with_remote()
-            self.sync_head_with_remote()
-            raise GitCommandError(command=f"Git error: {e}") from e
+        """Implemented in Git service class."""
+        pass
 
     def configure_local_git_repository(self) -> None:
         """Configure local git repository."""
@@ -355,6 +326,73 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
             self.git_session.push("origin", self.branch)
             self.logger.info(f"Pushed partial commit {num + 1}/{len(batches)}")
         self.logger.info("Finished backing up devices!")
+
+    def push(self, commit_description: str, batch_size: int = 500) -> None:
+        """Implemented in Git service class."""
+        pass
+
+
+class GitLab(GitBase):
+    """GitLab Repo object to help with git actions."""
+
+    def __init__(
+        self,
+        repository: GitRepository,
+        debug: bool,
+        logger: Logger,
+    ) -> None:
+        """Initialize GitLab class.
+
+        Args:
+            repository (GitRepository): The GitRepository to use.
+            debug (bool): Enable debug mode.
+            logger (Logger): The logger to use.
+        """
+        super().__init__(
+            repository=repository,
+            debug=debug,
+            logger=logger,
+        )
+
+    def switch_to_branch(self) -> None:
+        """Switch local to selected branch.
+
+        Raises:
+            GitCommandError: If the branch doesn't exist in remote.
+        """
+        self.git_session.fetch("--all")
+        try:
+            self.git_session.switch(self.branch)
+        except GitCommandError as e:
+            if f"invalid reference: {self.branch}" in str(e):
+                if self.debug:
+                    self.logger.info(f"Can't find branch {self.branch}")
+                raise GitCommandError(
+                    command=f"Switch command can't find branch {self.branch}"
+                ) from e
+            raise GitCommandError(command=f"Other branching error: {e}") from e
+
+    def merge_with_remote(self) -> None:
+        """Merge with changes from remote.
+
+        Raises:
+            GitCommandError: Raised and handled if merge fails.
+        """
+        try:
+            self.git_session.merge(f"origin/{self.branch}")
+        except GitCommandError as e:
+            if f"couldn't find remote ref {self.branch}" in str(e):
+                if self.debug:
+                    self.logger.info(f"Can't find branch {self.branch}")
+                    raise GitCommandError(
+                        command=f"Pull command can't find branch {self.branch}",
+                    ) from e
+            if "exit code(128)" in str(e):
+                self.clean_unmerged_files_from_local()
+            if "exit code(1)" in str(e):
+                self.sync_head_with_remote()
+            self.sync_head_with_remote()
+            raise GitCommandError(command=f"Git error: {e}") from e
 
     def push(self, commit_description: str, batch_size: int = 500) -> None:
         """Push latest to the git repo."""
@@ -418,7 +456,7 @@ class GitUtility:  # pylint: disable=too-many-instance-attributes
 
 # Connection Mixin Class
 class ConnectionMixin:
-    """NIDM mixin to connect to a service."""
+    """Nautobot mixin to connect to a service."""
 
     def configure_session(self) -> Session:
         """Configure a requests session.
@@ -446,6 +484,7 @@ class ConnectionMixin:
         headers: dict[str, str],
         body: t.Optional[dict[str, str]] = None,
         session: t.Union[Session, None] = None,
+        verify: bool = True,
         logger: t.Optional[Logger] = None,
     ) -> t.Any:
         """Create request and return response.
@@ -456,6 +495,7 @@ class ConnectionMixin:
             headers (dict): Headers to use in request.
             body (dict): Body of request.
             session (requests.Session): Session to use.
+            verify (bool): Verify SSL certificate.
             logger (t.Optional[Logger]): The Job's logger.
 
         Returns:
@@ -479,6 +519,7 @@ class ConnectionMixin:
                     headers=headers,
                     data=body,
                     timeout=(50.0, 100.0),
+                    verify=verify,
                 )
                 response.raise_for_status()
                 json_response: dict[str, t.Any] = response.json()
@@ -675,7 +716,284 @@ name: str = "Golden Configuration"
 NETWORK_CHOICES: list[tuple[str, str]] = get_list_of_networks()
 
 
-class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
+class NautobotUtility:
+    """Nautobot Utility Class."""
+
+    def __init__(
+        self,
+        logger: Logger,
+        platforms: t.Iterable[Platform],
+        device_types: t.Iterable[DeviceType],
+        devices: t.Iterable[Device],
+        regions: t.Iterable[Location],
+        sites: t.Iterable[Location],
+        tags: t.Iterable[Tag],
+        status: t.Iterable[Status],
+    ) -> None:
+        """Initialize Nautobot utility class."""
+        self.logger: Logger = logger
+        self.platforms: t.Iterable[Platform] = platforms
+        self.device_types: t.Iterable[DeviceType] = device_types
+        self.devices: t.Iterable[Device] = devices
+        self.regions: t.Iterable[Location] = regions
+        self.sites: t.Iterable[Location] = sites
+        self.tags: t.Iterable[Tag] = tags
+        self.status: t.Iterable[Status] = status
+        self.filtered_devices: set[Device]
+        self.valid_devices_names: set[str]
+
+    def get_filtered_devices(self) -> None:
+        """Get network devices by the passed Platform(s) from Nautobot."""
+        all_q: list[Q] = []
+        all_q.append(Q(platform__id__in=self.platforms))
+
+        if self.device_types:
+            all_q.append(Q(device_type__id__in=self.device_types))
+
+        if self.devices:
+            all_q.append(Q(id__in=self.devices))
+
+        sites_q: list[Q] = []
+        if self.regions:
+            for region in self.regions:
+                if region.descendants:
+                    sites_q.append(
+                        Q(location__in=region.descendants(include_self=True))
+                    )
+
+        if self.sites:
+            for site in self.sites:
+                sites_q.append(Q(location_id=site.id))
+
+        if sites_q:
+            combined_sites_q: Q = sites_q[0]
+            if len(sites_q) >= 2:
+                for q in sites_q[1:]:
+                    combined_sites_q |= q
+            all_q.append(combined_sites_q)
+
+        if self.tags:
+            all_q.append(Q(tags__id__in=self.tags))
+
+        if self.status:
+            all_q.append(Q(status__id__in=self.status))
+
+        combined_q: Q = all_q[0]
+        if len(all_q) >= 2:
+            for q in all_q[1:]:
+                combined_q &= q
+
+        self.filtered_devices = set(Device.objects.filter(combined_q))
+
+        if not self.filtered_devices:
+            raise ValueError("No devices matches the selected filter(s).")
+
+        self.logger.info("Grabbed all devices with the selected platforms.")
+
+    def get_valid_filtered_devices(self) -> None:
+        """Get all network devices from Nautobot."""
+        self.valid_devices_names = set(
+            item.name.lower() for item in self.filtered_devices if item.name
+        )
+
+
+class ForwardNetworksUtility(ConnectionMixin):
+    """Forward Networks Utility Class."""
+
+    def __init__(
+        self,
+        network_id: str,
+        logger: Logger,
+        debug: bool,
+    ) -> None:
+        """Initialize Forward Networks utility class.
+
+        Args:
+            network_id (str): FW Networks network id.
+            logger (Logger): Logger object.
+            debug (bool): Debug mode.
+        """
+        self.network_id: str = network_id
+        self.logger: Logger = logger
+        self.debug: bool = debug
+        self.session: Session = self.configure_session()
+        self.nb_device_names: set[str]
+        self.nb_device_objs: set[Device]
+        self.fw_networks_snapshot_id: str
+        self.fw_devices: set[str]
+        self.fw_device_case_mapper: dict[str, str]
+        self.device_config_mapper: list[dict[str, str | Device]] = []
+
+    def setup(
+        self,
+        nb_device_names: set[str],
+        nb_device_objs: set[Device],
+    ) -> None:
+        """Setup FW Networks utility class.
+
+        Args:
+            nb_device_names (set[str]): Set of device names.
+            nb_device_objs (set[Device]): Set of device objects.
+        """
+        self.nb_device_names = nb_device_names
+        self.nb_device_objs = nb_device_objs
+
+    def get_snapshot_id(self) -> None:
+        """Get forward network snapshot id.
+
+        Raises:
+            ValueError: If snapshot id is not found.
+        """
+        params: str = f"/api/networks/{self.network_id}/snapshots/latestProcessed"
+
+        url: str = format_base_url_with_params(
+            base_url=FORWARD_NETWORKS_URL,
+            parameters=params,
+        )
+        snapshot: dict[str, t.Any] = self.create_request(
+            method="GET",
+            url=url,
+            headers=HEADERS,
+            session=self.session,
+            logger=self.logger,
+        )
+
+        if not snapshot:
+            raise ValueError("Failed to get latest snapshot id")
+
+        self.fw_networks_snapshot_id: str = snapshot["id"]
+        self.logger.info(f"Got snapshot ID [{self.fw_networks_snapshot_id}].")
+
+    def get_all_devices(self) -> None:
+        """Get all devices from Forward Networks."""
+        params: str = f"/api/networks/{self.network_id}/devices"
+        url: str = format_base_url_with_params(
+            base_url=FORWARD_NETWORKS_URL,
+            parameters=params,
+        )
+
+        all_devices: list[dict[str, str]] = self.create_request(
+            method="GET",
+            url=url,
+            headers=HEADERS,
+            session=self.session,
+            logger=self.logger,
+        )
+
+        if not all_devices:
+            raise ValueError("There are no devices in this Forward Network network.")
+
+        return all_devices
+
+    def filtered_devices(self) -> None:
+        """Get interesting devices from Forward."""
+        all_devices = self.get_all_devices()
+        self.fw_devices: set[str] = set(
+            device["name"]
+            for device in all_devices
+            if device.get("name") and device.get("name").lower() in self.nb_device_names
+        )
+
+        if not self.fw_devices:
+            raise ValueError(
+                f"No devices in Forward Network network ID [{self.network_id}] "
+                "with a device matching the filtered Nautobot devices."
+            )
+
+        self.logger.info("Grabbed all devices from Forward Networks.")
+
+    def nb_fw_common_devices(self) -> tuple[set[Device], set[str]]:
+        """Get common devices between Nautobot and Forward Networks."""
+        self.fw_device_case_mapper: dict[str, str] = {
+            item.lower(): item for item in self.fw_devices
+        }
+
+        fw_net_nb_common_devices: set[Device] = set()
+
+        for selected_device in self.nb_device_objs:
+            if selected_device.name.lower() in list(self.fw_device_case_mapper.keys()):
+                fw_net_nb_common_devices.add(selected_device)
+
+        if not fw_net_nb_common_devices:
+            raise ValueError(
+                "There are no common devices between the Nautobot filtered devices and Forward Networks."
+            )
+
+        devices_not_in_forward_networks: set[str] = set(
+            item
+            for item in self.nb_device_names
+            if item not in list(self.fw_device_case_mapper.keys())
+        )
+
+        self.logger.info(
+            "Grabbed all common devices between Nautobot and Forward Networks."
+        )
+
+        return fw_net_nb_common_devices, devices_not_in_forward_networks
+
+    def get_device_configs(self) -> None:
+        """Get device configs from forward networks."""
+        (
+            fw_net_nb_common_devices,
+            devices_not_in_forward_networks,
+        ) = self.nb_fw_common_devices()
+
+        for fw_net_device in fw_net_nb_common_devices:
+            if fw_net_device is None:
+                continue
+
+            fw_net_device_name: str = self.fw_device_case_mapper.get(
+                fw_net_device.name.lower(), ""
+            )
+
+            params: str = (
+                f"api/snapshots/"
+                f"{self.fw_networks_snapshot_id}/devices/"
+                f"{fw_net_device_name}/files/configuration.txt"
+            )
+
+            url: str = format_base_url_with_params(
+                base_url=FORWARD_NETWORKS_URL,
+                parameters=params,
+            )
+
+            device_files: str = self.create_request(
+                method="GET",
+                url=url,
+                headers=HEADERS,
+                session=self.session,
+                logger=self.logger,
+            )
+
+            if isinstance(device_files, str):
+                self.device_config_mapper.append(
+                    {
+                        "config": device_files,
+                        "device": fw_net_device,
+                    }
+                )
+
+        if not self.device_config_mapper:
+            raise ValueError(
+                "There were no device configurations files collected from Forward Networks."
+            )
+
+        self.logger.info("Got config for devices in the selected scope.")
+        self.logger.success(f"Total backed up devices: {len(fw_net_nb_common_devices)}")
+
+        if self.debug:
+            if devices_not_in_forward_networks:
+                self.logger.warning(
+                    "Not all in Nautobot were found in Forward Networks."
+                )
+                for device in devices_not_in_forward_networks:
+                    self.logger.warning(f"Device not in Forward Networks: {device}")
+                self.logger.warning(
+                    f"Total devices not found in Forward Networks: {len(devices_not_in_forward_networks)}"
+                )
+
+
+class GetConfigsFromForwardNetworks(Job):
     """Job to get configs from forward networks."""
 
     network_name = ChoiceVar(
@@ -739,7 +1057,7 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
         model=GitRepository,
         label="Backup Repository",
         required=True,
-        description="GitLab repository to backup configs.",
+        description="Git service repository to backup configs.",
     )
 
     debug = BooleanVar(
@@ -758,7 +1076,7 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
         """Initialize GetConfigsFromForwardNetworks."""
         super().__init__(*args, **kwargs)
         self.debug: bool
-        self.fw_networks_network_id: str
+        self.network_id: str
         self.platforms: t.Iterable[Platform]
         self.device_types: t.Iterable[DeviceType]
         self.devices: t.Iterable[Device]
@@ -766,15 +1084,6 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
         self.sites: t.Iterable[Location]
         self.tags: t.Iterable[Tag]
         self.status: t.Iterable[Status]
-        self.session: Session
-        self.fw_networks_snapshot_id: int
-        self.devices_in_scope_from_nidm: t.Set[
-            Device
-        ]  # Devices selected from Job input fields
-        self.all_nidm_devices: t.Set[str]
-        self.devices_from_fw_networks: t.Set[str]
-        self.fw_net_case_mapper: dict[str, str]
-        self.device_config_mapper: list[dict[str, Device]] = []
         self.git_config: dict[str, t.Union[str, GitRepository]]
 
     def setup(
@@ -797,7 +1106,7 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
         """
         self.logger.info("Setting up the job.")
         self.debug = debug
-        self.fw_networks_network_id = network_name
+        self.network_id = network_name
         self.platforms = platforms
         self.device_types = device_types
         self.devices = devices
@@ -805,18 +1114,11 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
         self.sites = sites
         self.tags = tag_filter
         self.status = status_filter
-        self.session = self.configure_session()
 
         if check_repository_secrets_group(repository=backup_repository):
-            backup_repository_credentials: SecretsGroup = (
-                backup_repository.secrets_group
-            )
             repo_username, repo_password = parse_credentials(
-                credentials=backup_repository_credentials,
+                credentials=backup_repository.secrets_group,
             )
-        else:
-            repo_username: str = backup_repository.username
-            repo_password: str = backup_repository._token  # pylint: disable=protected-access
 
         try:
             golden_config_setting: GoldenConfigSetting = (
@@ -850,6 +1152,21 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
             "repository_current_head": backup_repository.current_head,
             "backup_path_template": golden_config_setting.backup_path_template,
         }
+        self.nb: NautobotUtility = NautobotUtility(
+            logger=self.logger,
+            platforms=self.platforms,
+            device_types=self.device_types,
+            devices=self.devices,
+            regions=self.regions,
+            sites=self.sites,
+            tags=self.tags,
+            status=self.status,
+        )
+        self.fw: ForwardNetworksUtility = ForwardNetworksUtility(
+            network_id=self.network_id,
+            logger=self.logger,
+            debug=self.debug,
+        )
 
     def atomic_get_or_create(self, model: t.Any, **kwargs: dict[t.Any, t.Any]) -> t.Any:
         """Atomic creation of objects.
@@ -883,34 +1200,6 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
             raise
 
         raise OperationalError("Max retries exceeded. Deadlock resolution failed.")
-
-    def get_forward_network_snapshot_id(self) -> None:
-        """Get forward network snapshot id.
-
-        Raises:
-            ValueError: If snapshot id is not found.
-        """
-        params: str = (
-            f"/api/networks/{self.fw_networks_network_id}/snapshots/latestProcessed"
-        )
-
-        url: str = format_base_url_with_params(
-            base_url=FORWARD_NETWORKS_URL,
-            parameters=params,
-        )
-        snapshot: dict[str, t.Any] = self.create_request(
-            method="GET",
-            url=url,
-            headers=HEADERS,
-            session=self.session,
-            logger=self.logger,
-        )
-
-        if not snapshot:
-            raise ValueError("Failed to get latest snapshot id")
-
-        self.fw_networks_snapshot_id = snapshot["id"]
-        self.logger.info(f"Got snapshot ID [{self.fw_networks_snapshot_id}].")
 
     def get_replace_patterns(self) -> bool:
         """Populate platform replace regex mappers."""
@@ -988,189 +1277,6 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
 
         return flag
 
-    def get_devices_from_nidm(self) -> None:
-        """Get network devices by the passed Platform(s) from NIDM."""
-        all_q: list[Q] = []
-        all_q.append(Q(platform__id__in=self.platforms))
-
-        if self.device_types:
-            all_q.append(Q(device_type__id__in=self.device_types))
-
-        if self.devices:
-            all_q.append(Q(id__in=self.devices))
-
-        sites_q: list[Q] = []
-        if self.regions:
-            for region in self.regions:
-                if region.descendants:
-                    sites_q.append(
-                        Q(location__in=region.descendants(include_self=True))
-                    )
-
-        if self.sites:
-            for site in self.sites:
-                sites_q.append(Q(location_id=site.id))
-
-        if sites_q:
-            combined_sites_q: Q = sites_q[0]
-            if len(sites_q) >= 2:
-                for q in sites_q[1:]:
-                    combined_sites_q |= q
-            all_q.append(combined_sites_q)
-
-        if self.tags:
-            all_q.append(Q(tags__id__in=self.tags))
-
-        if self.status:
-            all_q.append(Q(status__id__in=self.status))
-
-        combined_q: Q = all_q[0]
-        if len(all_q) >= 2:
-            for q in all_q[1:]:
-                combined_q &= q
-
-        self.devices_in_scope_from_nidm = set(Device.objects.filter(combined_q))
-
-        if not self.devices_in_scope_from_nidm:
-            raise ValueError("No devices matches the selected filter(s).")
-
-        self.logger.info("Grabbed all devices with the selected platforms.")
-
-    def get_all_devices_from_nidm(self) -> None:
-        """Get all network devices from NIDM."""
-        self.all_nidm_devices = set(
-            item.name.lower() for item in self.devices_in_scope_from_nidm if item.name
-        )
-
-    def get_all_devices_from_forward_networks(self) -> None:
-        """Get all devices from Forward Networks."""
-        params: str = f"/api/networks/{self.fw_networks_network_id}/devices"
-        url: str = format_base_url_with_params(
-            base_url=FORWARD_NETWORKS_URL,
-            parameters=params,
-        )
-
-        all_devices: list[dict[str, str]] = self.create_request(
-            method="GET",
-            url=url,
-            headers=HEADERS,
-            session=self.session,
-            logger=self.logger,
-        )
-
-        if not all_devices:
-            raise ValueError("There are no devices in this Forward Network network.")
-
-        return all_devices
-
-    def filter_devices_from_fw(self) -> None:
-        """Get interesting devices from Forward."""
-        all_devices = self.get_all_devices_from_forward_networks()
-        self.devices_from_fw_networks = set(
-            device["name"]
-            for device in all_devices
-            if device.get("name")
-            and device.get("name").lower() in self.all_nidm_devices
-        )
-
-        if not self.devices_from_fw_networks:
-            raise ValueError(
-                f"No devices in Forward Network network ID [{self.fw_networks_network_id}] "
-                "with a device matching the filtered NIDM devices."
-            )
-
-        self.logger.info("Grabbed all devices from Forward Networks.")
-
-    def nidm_fwd_net_common_devices(self) -> tuple[t.Set[Device], t.Set[str]]:
-        """Get common devices between NIDM and Forward Networks."""
-        self.fw_net_case_mapper: dict[str, str] = {
-            item.lower(): item for item in self.devices_from_fw_networks
-        }
-
-        fw_net_nidm_common_devices: t.Set[Device] = set()
-
-        for selected_device in self.devices_in_scope_from_nidm:
-            if selected_device.name.lower() in list(self.fw_net_case_mapper.keys()):
-                fw_net_nidm_common_devices.add(selected_device)
-
-        if not fw_net_nidm_common_devices:
-            raise ValueError(
-                "There are no common devices between the NIDM filtered devices and Forward Networks."
-            )
-
-        devices_not_in_forward_networks: t.Set[str] = set(
-            item
-            for item in self.all_nidm_devices
-            if item not in list(self.fw_net_case_mapper.keys())
-        )
-
-        self.logger.info(
-            "Grabbed all common devices between NIDM and Forward Networks."
-        )
-
-        return fw_net_nidm_common_devices, devices_not_in_forward_networks
-
-    def get_device_configs_from_forward_networks(self) -> None:
-        """Get device configs from forward networks."""
-        (
-            fw_net_nidm_common_devices,
-            devices_not_in_forward_networks,
-        ) = self.nidm_fwd_net_common_devices()
-
-        for fw_net_device in fw_net_nidm_common_devices:
-            if fw_net_device is None:
-                continue
-
-            fw_net_device_name: str = self.fw_net_case_mapper.get(
-                fw_net_device.name.lower(), ""
-            )
-
-            params: str = (
-                f"api/snapshots/"
-                f"{self.fw_networks_snapshot_id}/devices/"
-                f"{fw_net_device_name}/files/configuration.txt"
-            )
-
-            url: str = format_base_url_with_params(
-                base_url=FORWARD_NETWORKS_URL,
-                parameters=params,
-            )
-
-            device_files: str = self.create_request(
-                method="GET",
-                url=url,
-                headers=HEADERS,
-                session=self.session,
-                logger=self.logger,
-            )
-
-            if isinstance(device_files, str):
-                self.device_config_mapper.append(
-                    {
-                        "config": device_files,
-                        "device": fw_net_device,
-                    }
-                )
-
-        if not self.device_config_mapper:
-            raise ValueError(
-                "There were no device configurations files collected from Forward Networks."
-            )
-
-        self.logger.info("Got config for devices in the selected scope.")
-        self.logger.success(
-            f"Total backed up devices: {len(fw_net_nidm_common_devices)}"
-        )
-
-        if self.debug:
-            if devices_not_in_forward_networks:
-                self.logger.warning("Not all in NIDM were found in Forward Networks.")
-                for device in devices_not_in_forward_networks:
-                    self.logger.warning(f"Device not in Forward Networks: {device}")
-                self.logger.warning(
-                    f"Total devices not found in Forward Networks: {len(devices_not_in_forward_networks)}"
-                )
-
     def write_backup_configs(self) -> None:
         """Write sanitized configs."""
         if not isinstance(
@@ -1179,7 +1285,7 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
         ):
             raise ValueError("Backup repository is not a GitRepository.")
 
-        repository = GitUtility(
+        repository = GitLab(
             repository=self.git_config["backup_repository_object"],
             debug=self.debug,
             logger=self.logger,
@@ -1197,7 +1303,7 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
             tzinfo=pytz.timezone(zone="UTC")
         )
 
-        for config_obj in self.device_config_mapper:
+        for config_obj in self.fw.device_config_mapper:
             device: Device = config_obj.get("device")
             device_platform: str = device.platform.name
 
@@ -1316,11 +1422,15 @@ class GetConfigsFromForwardNetworks(Job, ConnectionMixin):
             backup_repository=backup_repository,
         )
 
-        self.get_forward_network_snapshot_id()
-        self.get_devices_from_nidm()
-        self.get_all_devices_from_nidm()
-        self.filter_devices_from_fw()
-        self.get_device_configs_from_forward_networks()
+        self.nb.get_filtered_devices()
+        self.nb.get_valid_filtered_devices()
+        self.fw.setup(
+            nb_device_names=self.nb,
+            nb_device_objs=self.nb,
+        )
+        self.fw.get_snapshot_id()
+        self.fw.filtered_devices()
+        self.fw.get_device_configs()
         self.write_backup_configs()
 
         if self.debug:
