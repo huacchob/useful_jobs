@@ -139,12 +139,12 @@ def parse_credentials(credentials: SecretsGroup) -> tuple[str, str]:
         )
         password = credentials.get_secret_value(
             access_type=SecretsGroupAccessTypeChoices.TYPE_HTTP,
-            secret_type=SecretsGroupSecretTypeChoices.TYPE_SECRET,
+            secret_type=SecretsGroupSecretTypeChoices.TYPE_TOKEN,
         )
         return username, password
     except SecretsGroupAssociation.DoesNotExist as e:
         raise SecretsGroupAssociation.DoesNotExist(
-            "SecretsGroupAssociation TYPE_HTTP or TYPE_USERNAME/TYPE_SECRET does not exist in the SecretsGroup"
+            "SecretsGroupAssociation TYPE_HTTP or TYPE_USERNAME/TYPE_TOKEN does not exist in the SecretsGroup"
         ) from e
 
 
@@ -535,10 +535,7 @@ class ConnectionMixin:
 
 # Regex Replace
 
-asa_regex_replace: dict[str, str] = {}
-eos_regex_replace: dict[str, str] = {}
 ios_regex_replace: dict[str, str] = {}
-ios_xr_regex_replace: dict[str, str] = {}
 nxos_regex_replace: dict[str, str] = {}
 
 platform_regex_replace_mapper: dict[str, dict[str, str]] = {
@@ -581,10 +578,7 @@ def replace_secret(
 
 
 # Regex Remove
-asa_regex_remove: list[str] = []
-eos_regex_remove: list[str] = []
 ios_regex_remove: list[str] = []
-ios_xr_regex_remove: list[str] = []
 nxos_regex_remove: list[str] = []
 
 platform_regex_remove_mapper: dict[str, list[str]] = {
