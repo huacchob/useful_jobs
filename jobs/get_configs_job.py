@@ -1404,8 +1404,8 @@ class GetConfigsFromForwardNetworks(Job):
         self.nb.get_filtered_devices()
         self.nb.get_valid_filtered_devices()
         self.fw.setup(
-            nb_device_names=self.nb,
-            nb_device_objs=self.nb,
+            nb_device_names=self.nb.valid_devices_names,
+            nb_device_objs=self.nb.filtered_devices,
         )
         self.fw.get_snapshot_id()
         self.fw.filtered_devices()
