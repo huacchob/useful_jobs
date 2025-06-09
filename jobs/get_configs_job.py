@@ -1191,11 +1191,7 @@ class GetConfigsFromForwardNetworks(Job):
     def get_replace_patterns(self) -> bool:
         """Populate platform replace regex mappers."""
         config_replace_mapper: dict[str, dict[str, str]] = {
-            "arista_eos": eos_regex_replace,
-            "cisco_asa": asa_regex_replace,
             "cisco_ios": ios_regex_replace,
-            "cisco_pix": asa_regex_replace,
-            "cisco_xr": ios_xr_regex_replace,
             "cisco_nxos": nxos_regex_replace,
         }
 
@@ -1229,11 +1225,7 @@ class GetConfigsFromForwardNetworks(Job):
     def get_remove_patterns(self) -> t.Optional[bool]:
         """Populate platform remove regex mappers."""
         config_remove_mapper: dict[str, list[str]] = {
-            "arista_eos": eos_regex_remove,
-            "cisco_asa": asa_regex_remove,
             "cisco_ios": ios_regex_remove,
-            "cisco_pix": asa_regex_remove,
-            "cisco_xr": ios_xr_regex_remove,
             "cisco_nxos": nxos_regex_remove,
         }
 
