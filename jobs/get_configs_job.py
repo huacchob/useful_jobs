@@ -337,7 +337,7 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
         modified_files: list[str] = self.repo.untracked_files
         batches = [
             modified_files[batch : (batch + batch_size)]
-            for batch in range(0, len(modified_files), step=batch_size)
+            for batch in range(0, len(modified_files), batch_size)
         ]
 
         for num, batch in enumerate(iterable=batches):
