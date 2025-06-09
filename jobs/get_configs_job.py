@@ -1417,9 +1417,9 @@ class GetConfigsFromForwardNetworks(Job):
         self.write_backup_configs()
 
         if self.debug:
-            self.logger.success("Finished running the job!")
+            self.logger.info("Finished running the job!")
 
 
-jobs = [GetConfigsFromForwardNetworks]
+jobs: list[type[Job]] = [GetConfigsFromForwardNetworks]
 
 register_jobs(*jobs)
