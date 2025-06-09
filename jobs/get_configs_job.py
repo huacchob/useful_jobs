@@ -1137,6 +1137,7 @@ class GetConfigsFromForwardNetworks(Job):
                 repo_password=repo_password,
                 repo_username=repo_username,
             )
+            self.logger.info("Found secrets group in repo.")
         else:
             git_remote_url: str = url
 
