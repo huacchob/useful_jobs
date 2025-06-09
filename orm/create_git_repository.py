@@ -25,11 +25,11 @@ gc_mono: dict[str, str | list[str]] = {
     "repo_name": "gc_mono",
     "branch": "main",
     "provided_contents": [
-        'extras.configcontext',
-        'nautobot_golden_config.backupconfigs',
-        'nautobot_golden_config.intendedconfigs',
-        'nautobot_golden_config.jinjatemplate',
-        'nautobot_golden_config.pluginproperties',
+        "extras.configcontext",
+        "nautobot_golden_config.backupconfigs",
+        "nautobot_golden_config.intendedconfigs",
+        "nautobot_golden_config.jinjatemplate",
+        "nautobot_golden_config.pluginproperties",
     ],
 }
 repos: list[dict[str, str | list[str]]] = [useful_job, gc_mono]

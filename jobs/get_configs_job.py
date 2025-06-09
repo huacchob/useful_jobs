@@ -49,7 +49,7 @@ from requests.exceptions import HTTPError, JSONDecodeError, SSLError
 from requests.sessions import Session
 from urllib3.util import Retry
 
-# pylint: disable=no-member, protected-access, too-many-arguments
+# pylint: disable=no-member, protected-access, too-many-arguments, line-too-long, logging-fstring-interpolation
 
 
 # Utility Functions
@@ -193,13 +193,12 @@ def git_auth_url_format(
             repl=f"//{quoted_username}:{quoted_token}@",
             string=remote_url,
         )
-    else:
-        # Github only requires the token.
-        return re.sub(
-            pattern="//",
-            repl=f"//{quoted_token}@",
-            string=remote_url,
-        )
+    # Github only requires the token.
+    return re.sub(
+        pattern="//",
+        repl=f"//{quoted_token}@",
+        string=remote_url,
+    )
 
 
 # Git Utility Class
@@ -286,7 +285,6 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
 
     def switch_to_branch(self) -> None:
         """Implemented in Git service class."""
-        pass
 
     def clean_unmerged_files_from_local(self) -> None:
         """When there are conflicts, this will favor remote changes."""
@@ -315,7 +313,6 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
 
     def merge_with_remote(self) -> None:
         """Implemented in Git service class."""
-        pass
 
     def configure_local_git_repository(self) -> None:
         """Configure local git repository."""
@@ -352,7 +349,6 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
 
     def push(self, commit_description: str, batch_size: int = 500) -> None:
         """Implemented in Git service class."""
-        pass
 
 
 class GitLab(GitBase):
@@ -552,7 +548,7 @@ class ConnectionMixin:
             return text_response
         except HTTPError as http_err:
             logger.error(http_err)
-            return
+            return None
 
 
 # Regex Replace
@@ -751,7 +747,7 @@ class NautobotUtility:
         self.filtered_devices: set[Device]
         self.valid_devices_names: set[str]
 
-    def get_filtered_devices(self) -> None:
+    def get_filtered_devices(self) -> None:  # pylint: disable=too-many-branches
         """Get network devices by the passed Platform(s) from Nautobot."""
         all_q: list[Q] = []
         all_q.append(Q(platform__id__in=self.platforms))
@@ -1002,7 +998,7 @@ class ForwardNetworksUtility(ConnectionMixin):
                 )
 
 
-class GetConfigsFromForwardNetworks(Job):
+class ForwardNetworksBackup(Job):
     """Job to get configs from forward networks."""
 
     network_name = ChoiceVar(
@@ -1094,6 +1090,8 @@ class GetConfigsFromForwardNetworks(Job):
         self.tags: t.Iterable[Tag]
         self.status: t.Iterable[Status]
         self.git_config: dict[str, t.Union[str, GitRepository]]
+        self.nb: NautobotUtility
+        self.fw: ForwardNetworksUtility
 
     def setup(
         self,
@@ -1159,7 +1157,7 @@ class GetConfigsFromForwardNetworks(Job):
             debug=self.debug,
         )
 
-    def atomic_get_or_create(self, model: t.Any, **kwargs: dict[t.Any, t.Any]) -> t.Any:
+    def atomic_get_or_create(self, model: t.Any, **kwargs: t.Any) -> t.Any:
         """Atomic creation of objects.
 
         Args:
@@ -1187,8 +1185,8 @@ class GetConfigsFromForwardNetworks(Job):
                     )
                     time.sleep(retry)
                     continue
-            self.logger.warning(f"Encountered DB error: {e}")
-            raise
+                self.logger.warning(f"Encountered DB error: {e}")
+                raise
 
         raise OperationalError("Max retries exceeded. Deadlock resolution failed.")
 
@@ -1241,11 +1239,11 @@ class GetConfigsFromForwardNetworks(Job):
                     f"Loading regex remove rules for Platform {platform_name}."
                 )
                 platform_object: Platform = Platform.objects.get(name=platform_name)
-                if platform_object is None:
+                if not platform_object:
                     flag = False
                     break
 
-                remove_patterns: list[BaseManager[ConfigRemove]] = (
+                remove_patterns: BaseManager[ConfigRemove] = (
                     ConfigRemove.objects.filter(platform=platform_object)
                 )
 
@@ -1288,7 +1286,6 @@ class GetConfigsFromForwardNetworks(Job):
 
         for config_obj in self.fw.device_config_mapper:
             device: Device = config_obj.get("device")
-            device_platform: str = device.platform.name
 
             try:
                 rendered_string: str = template.render(obj=device)
@@ -1298,15 +1295,17 @@ class GetConfigsFromForwardNetworks(Job):
                 )
                 continue
 
-            if device_platform in platform_regex_replace_mapper.keys():
+            if device.platform.name in platform_regex_replace_mapper:
                 sanitized_config: str = remove_secret(
-                    regex_remove_mapper=platform_regex_remove_mapper[device_platform],
+                    regex_remove_mapper=platform_regex_remove_mapper[
+                        device.platform.name
+                    ],
                     full_config=config_obj["config"],
                 )
 
                 sanitized_config: str = replace_secret(
                     platform_regex_mapper=platform_regex_replace_mapper[
-                        device_platform
+                        device.platform.name
                     ],
                     full_config=sanitized_config,
                 )
@@ -1314,7 +1313,6 @@ class GetConfigsFromForwardNetworks(Job):
                 sanitized_config: str = "Platform not supported."
 
             device_filename: str = Path(rendered_string).name
-            relative_device_directory_path: str = str(Path(rendered_string).parent)
 
             if not isinstance(
                 self.git_config["backup_repository_local_path"],
@@ -1324,7 +1322,7 @@ class GetConfigsFromForwardNetworks(Job):
 
             full_system_device_path: Path = Path(
                 self.git_config["backup_repository_local_path"]
-            ).joinpath(relative_device_directory_path)
+            ).joinpath(Path(rendered_string).parent)
 
             full_system_device_path.mkdir(
                 parents=True,
@@ -1370,16 +1368,18 @@ class GetConfigsFromForwardNetworks(Job):
     @transaction.atomic
     def run(
         self,
-        network_name,
-        platforms,
-        device_types,
-        devices,
-        regions,
-        sites,
-        tag_filter,
-        status_filter,
-        backup_repository,
-        debug,
+        network_name: str,
+        platforms: t.Iterable[Platform],
+        device_types: t.Iterable[DeviceType],
+        devices: t.Iterable[Device],
+        regions: t.Iterable[Location],
+        sites: t.Iterable[Location],
+        tag_filter: t.Iterable[Tag],
+        status_filter: t.Iterable[Status],
+        backup_repository: GitRepository,
+        debug: bool,
+        *args,
+        **kwargs,
     ) -> None:
         """Run job."""
         replace: bool = self.get_replace_patterns()
@@ -1420,6 +1420,6 @@ class GetConfigsFromForwardNetworks(Job):
             self.logger.success("Finished running the job!")
 
 
-jobs: list[type[Job]] = [GetConfigsFromForwardNetworks]
+jobs: list[type[Job]] = [ForwardNetworksBackup]
 
 register_jobs(*jobs)

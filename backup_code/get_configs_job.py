@@ -1196,8 +1196,8 @@ class GetConfigsFromForwardNetworks(Job):
                     )
                     time.sleep(retry)
                     continue
-            self.logger.warning(f"Encountered DB error: {e}")
-            raise
+                self.logger.warning(f"Encountered DB error: {e}")
+                raise
 
         raise OperationalError("Max retries exceeded. Deadlock resolution failed.")
 
