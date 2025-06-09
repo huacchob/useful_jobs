@@ -999,7 +999,7 @@ class ForwardNetworksUtility(ConnectionMixin):
 
 
 class ForwardNetworksBackup(Job):
-    """Job to get configs from forward networks."""
+    """Job to get device configs from forward networks."""
 
     network_name = ChoiceVar(
         choices=NETWORK_CHOICES,
@@ -1072,10 +1072,10 @@ class ForwardNetworksBackup(Job):
     )
 
     class Meta:  # pylint: disable=too-few-public-methods
-        """Meta class for GetConfigsFromForwardNetworks."""
+        """Meta class for ForwardNetworksBackup."""
 
-        name: str = "Get configs from Forward Networks"
-        description: str = "Get configs from forward networks."
+        name: str = "Forward Networks backup"
+        description: str = "Get device configs from forward networks."
 
     def __init__(self, *args: t.Any, **kwargs: dict[t.Any, t.Any]) -> None:
         """Initialize GetConfigsFromForwardNetworks."""
