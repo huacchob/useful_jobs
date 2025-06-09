@@ -1106,10 +1106,23 @@ class ForwardNetworksBackup(Job):
         status_filter: t.Iterable[Status],
         backup_repository: GitRepository,
     ) -> None:
-        """Create basic setup job.
+        """Create the setup for the job.
 
         Args:
-            ... (see above class variables for detail)
+            debug (bool): Whether to enable debug mode.
+            network_name (str): FW network name to get devices from.
+            platforms (t.Iterable[Platform]): Platforms filter.
+            device_types (t.Iterable[DeviceType]): Device Types filter.
+            devices (t.Iterable[Device]): Devices filter.
+            regions (t.Iterable[Location]): Regions filter.
+            sites (t.Iterable[Location]): Sites filter.
+            tag_filter (t.Iterable[Tag]): Tags to filter devices on.
+            status_filter (t.Iterable[Status]): Statuses to filter devices on.
+            backup_repository (GitRepository): Repository to backup configs.
+
+        Raises:
+            GoldenConfigSetting.DoesNotExist: If the backup repository selected
+                is not tied to any Golden Config Setting.
         """
         self.logger.info("Setting up the job.")
         self.debug = debug
@@ -1157,14 +1170,22 @@ class ForwardNetworksBackup(Job):
             debug=self.debug,
         )
 
-    def atomic_get_or_create(self, model: t.Any, **kwargs: t.Any) -> t.Any:
+    def atomic_get_or_create(
+        self,
+        model: t.Any,
+        **kwargs: t.Any,
+    ) -> tuple[t.Any, bool]:
         """Atomic creation of objects.
 
         Args:
             model (t.Any): Model to get or create in Nautobot.
+            kwargs (t.Any): Keyword arguments to create the model object.
+
+        Raises:
+            OperationalError: Raise when the DB lock can't be acquired.
 
         Returns:
-            t.Any: Created model.
+            tuple[t.Any, bool]: Model object and created status.
         """
         retry: int = 0
         max_retries: int = 3
@@ -1191,72 +1212,77 @@ class ForwardNetworksBackup(Job):
         raise OperationalError("Max retries exceeded. Deadlock resolution failed.")
 
     def get_replace_patterns(self) -> bool:
-        """Populate platform replace regex mappers."""
+        """Populate platform replace regex mappers.
+
+        Returns:
+            bool: True if at least one platform had replace rules loaded
+                successfully, False otherwise.
+        """
         config_replace_mapper: dict[str, dict[str, str]] = {
             "cisco_ios": ios_regex_replace,
             "cisco_nxos": nxos_regex_replace,
         }
 
-        flag: bool = True
+        loaded_any: bool = False
 
         for platform_name, platform_regex_dict in config_replace_mapper.items():
             self.logger.info(
                 f"Loading regex replace rules for Platform {platform_name}."
             )
             try:
-                platform_object = Platform.objects.get(name=platform_name)
-                if platform_object is None:
-                    flag = False
-                    break
-
-                replace_patterns: list[BaseManager[ConfigReplace]] = (
-                    ConfigReplace.objects.filter(platform=platform_object)
-                )
-
-                if not replace_patterns.exists():
-                    continue
-
-                for rule in replace_patterns:
-                    platform_regex_dict.update({rule.regex: rule.replace})
+                platform_object: Platform = Platform.objects.get(name=platform_name)
             except Platform.DoesNotExist:
                 self.logger.warning(f"Platform {platform_name} does not exist.")
                 continue
 
-        return flag
+            replace_patterns: BaseManager[ConfigReplace] = ConfigReplace.objects.filter(
+                platform=platform_object
+            )
 
-    def get_remove_patterns(self) -> t.Optional[bool]:
-        """Populate platform remove regex mappers."""
+            if not replace_patterns.exists():
+                continue
+
+            for rule in replace_patterns:
+                platform_regex_dict.update({rule.regex: rule.replace})
+
+        loaded_any: bool = True
+        return loaded_any
+
+    def get_remove_patterns(self) -> bool:
+        """Populate platform remove regex mappers.
+
+        Returns:
+            bool: True if at least one platform had remove rules loaded
+                successfully, False otherwise.
+        """
         config_remove_mapper: dict[str, list[str]] = {
             "cisco_ios": ios_regex_remove,
             "cisco_nxos": nxos_regex_remove,
         }
 
-        flag: bool = True
+        loaded_any: bool = False
 
         for platform_name, platform_regex_list in config_remove_mapper.items():
+            self.logger.info(
+                f"Loading regex remove rules for Platform {platform_name}."
+            )
             try:
-                self.logger.info(
-                    f"Loading regex remove rules for Platform {platform_name}."
-                )
                 platform_object: Platform = Platform.objects.get(name=platform_name)
-                if not platform_object:
-                    flag = False
-                    break
-
-                remove_patterns: BaseManager[ConfigRemove] = (
-                    ConfigRemove.objects.filter(platform=platform_object)
-                )
-
-                if not remove_patterns.exists():
-                    continue
-
-                for rule in remove_patterns:
-                    platform_regex_list.append(rule.regex)
             except Platform.DoesNotExist:
                 self.logger.warning(f"Platform {platform_name} does not exist.")
+
+            remove_patterns: BaseManager[ConfigRemove] = ConfigRemove.objects.filter(
+                platform=platform_object
+            )
+
+            if not remove_patterns.exists():
                 continue
 
-        return flag
+            for rule in remove_patterns:
+                platform_regex_list.append(rule.regex)
+
+        loaded_any: bool = True
+        return loaded_any
 
     def write_backup_configs(self) -> None:
         """Write sanitized configs."""
