@@ -185,11 +185,21 @@ def git_auth_url_format(
     """
     quoted_username: str = quote(string=str(repo_username), safe="")
     quoted_token: str = quote(string=str(repo_password), safe="")
-    return re.sub(
-        pattern="//",
-        repl=f"//{quoted_username}:{quoted_token}@",
-        string=remote_url,
-    )
+
+    # Some Git Providers require a user as well as a token.
+    if repo_username:
+        return re.sub(
+            pattern="//",
+            repl=f"//{quoted_username}:{quoted_token}@",
+            string=remote_url,
+        )
+    else:
+        # Github only requires the token.
+        return re.sub(
+            pattern="//",
+            repl=f"//{quoted_token}@",
+            string=remote_url,
+        )
 
 
 # Git Utility Class
@@ -232,23 +242,11 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
             self.logger.warning("This is a public repository.")
 
         if self.token_user and self.token not in self.url:
-            quoted_username: str = quote(string=str(self.token_user), safe="")
-            quoted_token: str = quote(string=str(self.token), safe="")
-
-            # Some Git Providers require a user as well as a token.
-            if self.token_user:
-                self.url = re.sub(
-                    pattern="//",
-                    repl=f"//{quoted_username}:{quoted_token}",
-                    string=self.url,
-                )
-            else:
-                # Github only requires the token.
-                self.url = re.sub(
-                    pattern="//",
-                    repl=f"//{quoted_token}@",
-                    string=self.url,
-                )
+            self.url: str = git_auth_url_format(
+                remote_url=self.url,
+                repo_username=self.token_user,
+                repo_password=self.token,
+            )
 
         self.branch: str = repository.branch
         self.repository: GitRepository = repository
@@ -1126,21 +1124,6 @@ class GetConfigsFromForwardNetworks(Job):
         self.tags = tag_filter
         self.status = status_filter
 
-        url: str = backup_repository.remote_url
-
-        if check_repository_secrets_group(repository=backup_repository):
-            repo_username, repo_password = parse_credentials(
-                credentials=backup_repository.secrets_group,
-            )
-            git_remote_url: str = git_auth_url_format(
-                remote_url=url,
-                repo_password=repo_password,
-                repo_username=repo_username,
-            )
-            self.logger.info(git_remote_url)
-        else:
-            git_remote_url: str = url
-
         try:
             golden_config_setting: GoldenConfigSetting = (
                 GoldenConfigSetting.objects.get(backup_repository=backup_repository)
@@ -1157,12 +1140,7 @@ class GetConfigsFromForwardNetworks(Job):
 
         self.git_config = {
             "backup_repository_object": backup_repository,
-            "backup_remote_url": git_remote_url,
             "backup_repository_local_path": backup_repository.filesystem_path,
-            "repository_branch": backup_repository.branch,
-            "repository_username": repo_username,
-            "repository_password": repo_password,
-            "repository_current_head": backup_repository.current_head,
             "backup_path_template": golden_config_setting.backup_path_template,
         }
         self.nb: NautobotUtility = NautobotUtility(
