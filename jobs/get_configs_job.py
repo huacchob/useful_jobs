@@ -168,6 +168,30 @@ def base_64_encode_credentials(username: str, password: str) -> str:
     return f"Basic {b64encode(s=credentials_str).decode(encoding='utf-8')}"
 
 
+def git_auth_url_format(
+    remote_url: str,
+    repo_username: str,
+    repo_password: str,
+) -> str:
+    """Format Git URL with username and password.
+
+    Args:
+        remote_url (str): Git remote URL.
+        repo_username (str): Git username.
+        repo_password (str): Git API token.
+
+    Returns:
+        str: HTTPS Git url.
+    """
+    quoted_username: str = quote(string=str(repo_username), safe="")
+    quoted_token: str = quote(string=str(repo_password), safe="")
+    return re.sub(
+        pattern="//",
+        repl=f"//{quoted_username}:{quoted_token}@",
+        string=remote_url,
+    )
+
+
 # Git Utility Class
 class GitBase:  # pylint: disable=too-many-instance-attributes
     """Base Git class to help with git actions."""
@@ -1102,10 +1126,19 @@ class GetConfigsFromForwardNetworks(Job):
         self.tags = tag_filter
         self.status = status_filter
 
+        url: str = backup_repository.remote_url
+
         if check_repository_secrets_group(repository=backup_repository):
             repo_username, repo_password = parse_credentials(
                 credentials=backup_repository.secrets_group,
             )
+            git_remote_url: str = git_auth_url_format(
+                remote_url=url,
+                repo_password=repo_password,
+                repo_username=repo_username,
+            )
+        else:
+            git_remote_url: str = url
 
         try:
             golden_config_setting: GoldenConfigSetting = (
@@ -1120,18 +1153,10 @@ class GetConfigsFromForwardNetworks(Job):
             ) from e
 
         self.logger.info("Parsed repo credentials.")
-        url: str = backup_repository.remote_url
-        quoted_username: str = quote(string=str(repo_username), safe="")
-        quoted_token: str = quote(string=str(repo_password), safe="")
-        authenticated_git_url: str = re.sub(
-            pattern="//",
-            repl=f"//{quoted_username}:{quoted_token}",
-            string=url,
-        )
 
         self.git_config = {
             "backup_repository_object": backup_repository,
-            "backup_remote_url": authenticated_git_url,
+            "backup_remote_url": git_remote_url,
             "backup_repository_local_path": backup_repository.filesystem_path,
             "repository_branch": backup_repository.branch,
             "repository_username": repo_username,
