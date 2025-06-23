@@ -17,9 +17,8 @@ from nautobot.extras.models import (
 )
 from nautobot.ipam.models import IPAddress, Namespace, Prefix
 
-# Status and Role
+# Status
 status_name = "Active"
-role_name = "Network"
 
 # LT
 region_lt_name = "Region"
@@ -44,6 +43,7 @@ netscaler_dev: dict[str, str] = {
     "device_type_name": "Netscaler-Type",
     "platform_name": "netscaler",
     "network_driver_name": "netscaler",
+    "role": "Core",
     "device_name": "netscaler1",
     "location": "UNCC",
     "namespace_name": "Global",
@@ -56,6 +56,7 @@ nxos_dev: dict[str, str] = {
     "device_type_name": "Nxos-Type",
     "platform_name": "cisco_nxos",
     "network_driver_name": "cisco_nxos",
+    "role": "Distribution",
     "device_name": "nxos1",
     "location": "UNCC",
     "namespace_name": "Global",
@@ -68,6 +69,7 @@ ios_dev: dict[str, str | None] = {
     "device_type_name": "Ios-Type",
     "platform_name": "cisco_ios",
     "network_driver_name": "cisco_ios",
+    "role": "Access",
     "device_name": "ios1",
     "location": "UNCC",
     "namespace_name": None,
@@ -75,7 +77,20 @@ ios_dev: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
-devices: list[dict[str, str | None]] = [netscaler_dev, nxos_dev, ios_dev]
+meraki_dev: dict[str, str | None] = {
+    "manufacturer_name": "Cisco",
+    "device_type_name": "Ios-Type",
+    "platform_name": "cisco_meraki",
+    "network_driver_name": "cisco_meraki",
+    "role": "Network",
+    "device_name": "meraki_conrtroller1",
+    "location": "UNCC",
+    "namespace_name": None,
+    "prefix_range": None,
+    "ip_addr": None,
+    "interface_name": None,
+}
+devices: list[dict[str, str | None]] = [netscaler_dev, nxos_dev, meraki_dev]
 
 # Secrets
 netscaler_secret: dict[str, str] = {
@@ -106,13 +121,6 @@ interface_ct: ContentType = ContentType.objects.get_for_model(model=Interface)
 
 # status
 status, _ = Status.objects.get_or_create(name=status_name)
-
-# Role
-role, _ = Role.objects.get_or_create(
-    name=role_name,
-)
-
-role.content_types.add(device_ct, interface_ct)
 
 # Location types
 region_lt, _ = LocationType.objects.get_or_create(
@@ -196,6 +204,14 @@ for dev in devices:
         network_driver=dev.get("network_driver_name"),
     )
 
+    # role
+    role, created_role = Role.objects.get_or_create(
+        name=dev.get("role"),
+    )
+
+    if created_role:
+        role.content_types.add(device_ct, interface_ct)
+
     # Device
     loc = Location.objects.get(
         name=dev.get("location"),
@@ -275,7 +291,8 @@ for secret in secrets:
 
     sg.validated_save()
 
-    device: Device = Device.objects.get(name=secret.get("device"))
-    device.secrets_group = sg
+    if secret.get("device"):
+        device: Device = Device.objects.get(name=secret.get("device"))
+        device.secrets_group = sg
 
-    device.validated_save()
+        device.validated_save()
