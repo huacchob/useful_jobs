@@ -1,5 +1,8 @@
+from typing import Any
+
 from django.contrib.contenttypes.models import ContentType
 from nautobot.dcim.models import (
+    Controller,
     Device,
     DeviceType,
     Interface,
@@ -9,6 +12,7 @@ from nautobot.dcim.models import (
     Platform,
 )
 from nautobot.extras.models import (
+    ExternalIntegration,
     Role,
     Secret,
     SecretsGroup,
@@ -36,6 +40,26 @@ uncc_site: dict[str, str] = {
     "building_name": "UNCC",
 }
 sites: list[dict[str, str]] = [uncc_site]
+
+# External Integrations
+meraki_integration: dict[str, Any] = {
+    "name": "Meraki Integration",
+    "remote_url": "https://api.meraki.com/api/v1/",
+    "verify_ssl": False,
+    "timeout": 30,
+}
+
+external_integrations: list[dict[str, str]] = [meraki_integration]
+
+# Controllers
+meraki_controller: dict[str, str] = {
+    "name": "Meraki Controller",
+    "location": "UNCC",
+    "platform": "cisco_meraki",
+    "external_integration": "Meraki Integration",
+}
+
+controllers: list[dict[str, str]] = [meraki_controller]
 
 # Devices
 netscaler_dev: dict[str, str] = {
@@ -77,20 +101,39 @@ ios_dev: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
-meraki_dev: dict[str, str | None] = {
+meraki_controller_device: dict[str, str | None] = {
     "manufacturer_name": "Cisco",
-    "device_type_name": "Ios-Type",
+    "device_type_name": "Meraki-Type",
     "platform_name": "cisco_meraki",
     "network_driver_name": "cisco_meraki",
     "role": "Network",
-    "device_name": "meraki_conrtroller1",
+    "device_name": "meraki_controller1",
     "location": "UNCC",
     "namespace_name": None,
     "prefix_range": None,
     "ip_addr": None,
     "interface_name": None,
 }
-devices: list[dict[str, str | None]] = [netscaler_dev, nxos_dev, meraki_dev]
+meraki_managed_device: dict[str, str | None] = {
+    "manufacturer_name": "Cisco",
+    "device_type_name": "Meraki-Type",
+    "platform_name": "meraki_managed",
+    "network_driver_name": "meraki_managed",
+    "role": "Network",
+    "device_name": "meraki_managed1",
+    "location": "UNCC",
+    "namespace_name": None,
+    "prefix_range": None,
+    "ip_addr": None,
+    "interface_name": None,
+}
+devices: list[dict[str, str | None]] = [
+    netscaler_dev,
+    nxos_dev,
+    ios_dev,
+    meraki_controller_device,
+    meraki_managed_device,
+]
 
 # Secrets
 netscaler_secret: dict[str, str] = {
@@ -113,9 +156,35 @@ nxos_secret: dict[str, str] = {
     "sga2_secret_type": "password",
     "device": "nxos1",
 }
-secrets: list[dict[str, str]] = [netscaler_secret, nxos_secret]
+meraki_controller_secret: dict[str, str] = {
+    "secret1": "NXOS_USER",
+    "secret2": "MERAKI_API_KEY",
+    "provider": "environment-variable",
+    "secrets_group_name": "MERAKI",
+    "sga_access_type": "Generic",
+    "sga1_secret_type": "username",
+    "sga2_secret_type": "password",
+    "device": "meraki_controller1",
+}
+meraki_managed_secret: dict[str, str] = {
+    "secret1": "NXOS_USER",
+    "secret2": "MERAKI_API_KEY",
+    "provider": "environment-variable",
+    "secrets_group_name": "MERAKI",
+    "sga_access_type": "Generic",
+    "sga1_secret_type": "username",
+    "sga2_secret_type": "password",
+    "device": "meraki_managed1",
+}
+secrets: list[dict[str, str]] = [
+    netscaler_secret,
+    nxos_secret,
+    meraki_controller_secret,
+    meraki_managed_secret,
+]
 
 # Contet types
+controller_ct: ContentType = ContentType.objects.get_for_model(model=Controller)
 device_ct: ContentType = ContentType.objects.get_for_model(model=Device)
 interface_ct: ContentType = ContentType.objects.get_for_model(model=Interface)
 
@@ -142,7 +211,7 @@ building_lt, _ = LocationType.objects.get_or_create(
     name=building_lt_name,
     parent_id=city_lt.id,
 )
-building_lt.content_types.add(device_ct)
+building_lt.content_types.add(device_ct, controller_ct)
 
 for site in sites:
     region, _ = Location.objects.get_or_create(
@@ -182,6 +251,32 @@ for site in sites:
         defaults={
             "location_type": building_lt,
             "status_id": status.id,
+        },
+    )
+
+for external_integration in external_integrations:
+    integration, _ = ExternalIntegration.objects.get_or_create(
+        name=external_integration.get("name"),
+        defaults={
+            "remote_url": external_integration.get("remote_url"),
+            "verify_ssl": external_integration.get("verify_ssl"),
+            "timeout": external_integration.get("timeout"),
+        },
+    )
+
+for controller in controllers:
+    cntrlr_loc: Location = Location.objects.get(name=controller.get("location"))
+    cntrlr_integration: ExternalIntegration = ExternalIntegration.objects.get(
+        name=controller.get("external_integration"),
+    )
+    cntrlr_platform: Platform = Platform.objects.get(name=controller.get("platform"))
+    cntrlr, _ = Controller.objects.get_or_create(
+        name=controller.get("name"),
+        defaults={
+            "location": cntrlr_loc,
+            "external_integration": cntrlr_integration,
+            "platform": cntrlr_platform,
+            "status": status,
         },
     )
 
@@ -272,7 +367,7 @@ for secret in secrets:
         parameters={"variable": secret.get("secret2")},
     )
 
-    sg, _ = SecretsGroup.objects.get_or_create(
+    sg, sg_created = SecretsGroup.objects.get_or_create(
         name=secret.get("secrets_group_name"),
     )
 

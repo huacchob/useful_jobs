@@ -26,6 +26,7 @@ gc_mono: dict[str, str | list[str]] = {
     "branch": "main",
     "provided_contents": [
         "extras.configcontext",
+        "extras.configcontextschema",
         "nautobot_golden_config.backupconfigs",
         "nautobot_golden_config.intendedconfigs",
         "nautobot_golden_config.jinjatemplate",
