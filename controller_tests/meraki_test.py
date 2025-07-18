@@ -1,5 +1,6 @@
 """nornir dispatcher for cisco Meraki."""
 
+import pdb
 from os import environ
 from pathlib import Path
 
@@ -16,6 +17,10 @@ dashboard = DashboardAPI(
     print_console=False,
 )
 
-# dashboard.organizations.updateOrganization(organizationId="1278859", name="test-org")
+resp = dashboard.organizations.updateOrganization(
+    organizationId="1278859", name="test-org"
+)
 # print(dashboard.organizations.getOrganization(organizationId="1278859"))
-print(dashboard.organizations.getOrganizations())
+# print(dashboard.organizations.getOrganizations())
+print(resp.values())
+pdb.set_trace()
