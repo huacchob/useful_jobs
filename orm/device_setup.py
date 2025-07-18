@@ -48,8 +48,17 @@ meraki_integration: dict[str, Any] = {
     "verify_ssl": False,
     "timeout": 30,
 }
+vmanage_integration: dict[str, Any] = {
+    "name": "vManage Integration",
+    "remote_url": "https://sandbox-sdwan-2.cisco.com/",
+    "verify_ssl": False,
+    "timeout": 30,
+}
 
-external_integrations: list[dict[str, str]] = [meraki_integration]
+external_integrations: list[dict[str, str]] = [
+    meraki_integration,
+    vmanage_integration,
+]
 
 # Controllers
 meraki_controller: dict[str, str] = {
@@ -58,8 +67,17 @@ meraki_controller: dict[str, str] = {
     "platform": "cisco_meraki",
     "external_integration": "Meraki Integration",
 }
+vmanage_controller: dict[str, str] = {
+    "name": "vManage Controller",
+    "location": "UNCC",
+    "platform": "vmanage",
+    "external_integration": "vManage Integration",
+}
 
-controllers: list[dict[str, str]] = [meraki_controller]
+controllers: list[dict[str, str]] = [
+    meraki_controller,
+    vmanage_controller,
+]
 
 # Devices
 netscaler_dev: dict[str, str] = {
@@ -127,12 +145,40 @@ meraki_managed_device: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
+vmanage_controller_device: dict[str, str | None] = {
+    "manufacturer_name": "Cisco",
+    "device_type_name": "vManage-Type",
+    "platform_name": "vmanage",
+    "network_driver_name": "vmanage",
+    "role": "Network",
+    "device_name": "vmanage_controller1",
+    "location": "UNCC",
+    "namespace_name": None,
+    "prefix_range": None,
+    "ip_addr": None,
+    "interface_name": None,
+}
+vmanage_managed_device: dict[str, str | None] = {
+    "manufacturer_name": "Cisco",
+    "device_type_name": "IOSXE-Type",
+    "platform_name": "cisco_xe",
+    "network_driver_name": "cisco_ios",
+    "role": "Network",
+    "device_name": "vmanage_router1",
+    "location": "UNCC",
+    "namespace_name": None,
+    "prefix_range": None,
+    "ip_addr": None,
+    "interface_name": None,
+}
 devices: list[dict[str, str | None]] = [
     netscaler_dev,
     nxos_dev,
     ios_dev,
     meraki_controller_device,
     meraki_managed_device,
+    vmanage_controller_device,
+    vmanage_managed_device,
 ]
 
 # Secrets
@@ -176,11 +222,33 @@ meraki_managed_secret: dict[str, str] = {
     "sga2_secret_type": "password",
     "device": "meraki_managed1",
 }
+vmanage_controller_secret: dict[str, str] = {
+    "secret1": "VMANAGE_USERNAME",
+    "secret2": "VMANAGE_PASSWORD",
+    "provider": "environment-variable",
+    "secrets_group_name": "VMANAGE",
+    "sga_access_type": "Generic",
+    "sga1_secret_type": "username",
+    "sga2_secret_type": "password",
+    "device": "vmanage_controller1",
+}
+vmanage_managed_secret: dict[str, str] = {
+    "secret1": "VMANAGE_USERNAME",
+    "secret2": "VMANAGE_PASSWORD",
+    "provider": "environment-variable",
+    "secrets_group_name": "VMANAGE",
+    "sga_access_type": "Generic",
+    "sga1_secret_type": "username",
+    "sga2_secret_type": "password",
+    "device": "vmanage_router1",
+}
 secrets: list[dict[str, str]] = [
     netscaler_secret,
     nxos_secret,
     meraki_controller_secret,
     meraki_managed_secret,
+    vmanage_controller_secret,
+    vmanage_managed_secret,
 ]
 
 # Contet types
@@ -269,7 +337,7 @@ for controller in controllers:
     cntrlr_integration: ExternalIntegration = ExternalIntegration.objects.get(
         name=controller.get("external_integration"),
     )
-    cntrlr_platform: Platform = Platform.objects.get(name=controller.get("platform"))
+    cntrlr_platform, _ = Platform.objects.get_or_create(name=controller.get("platform"))
     cntrlr, _ = Controller.objects.get_or_create(
         name=controller.get("name"),
         defaults={
@@ -293,11 +361,19 @@ for dev in devices:
     )
 
     # Platform
-    plat, _ = Platform.objects.get_or_create(
-        name=dev.get("platform_name"),
-        manufacturer_id=manufacturer.id,
-        network_driver=dev.get("network_driver_name"),
-    )
+    try:
+        plat: Platform = Platform.objects.get(
+            name=dev.get("platform_name"),
+        )
+        plat.manufacturer = manufacturer
+        plat.network_driver = dev.get("network_driver_name")
+        plat.save()
+    except Platform.DoesNotExist:
+        plat: Platform = Platform.objects.create(
+            name=dev.get("platform_name"),
+            manufacturer_id=manufacturer.id,
+            network_driver=dev.get("network_driver_name"),
+        )
 
     # role
     role, created_role = Role.objects.get_or_create(
