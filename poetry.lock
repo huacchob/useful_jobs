@@ -5373,6 +5373,18 @@ setuptools = "*"
 devenv = ["black", "coverage", "flake8", "zest.releaser[recommended]"]
 
 [[package]]
+name = "xmltodict"
+version = "0.14.2"
+description = "Makes working with XML feel like you are working with JSON"
+optional = false
+python-versions = ">=3.6"
+groups = ["main"]
+files = [
+    {file = "xmltodict-0.14.2-py2.py3-none-any.whl", hash = "sha256:20cc7d723ed729276e808f26fb6b3599f786cbc37e06c65e192ba77c40f20aac"},
+    {file = "xmltodict-0.14.2.tar.gz", hash = "sha256:201e7c28bb210e374999d1dde6382923ab0ed1a8a5faeece48ab525b7810a553"},
+]
+
+[[package]]
 name = "yamlordereddictloader"
 version = "0.4.2"
 description = "YAML loader and dumper for PyYAML allowing to keep keys order."
@@ -5530,4 +5542,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.9,<3.13"
-content-hash = "53722b412b766b61803e065e73638cd5e28bbe6bf5dcde1c4571d1bf0ece3c27"
+content-hash = "64341759ff459e86d0b4fc1b5106ad344509b4ec29f1543cf6b26ce9cea5b1ca"

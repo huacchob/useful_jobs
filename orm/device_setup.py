@@ -1,8 +1,9 @@
-from typing import Any
+from typing import Any, Union
 
 from django.contrib.contenttypes.models import ContentType
 from nautobot.dcim.models import (
     Controller,
+    ControllerManagedDeviceGroup,
     Device,
     DeviceType,
     Interface,
@@ -41,44 +42,6 @@ uncc_site: dict[str, str] = {
 }
 sites: list[dict[str, str]] = [uncc_site]
 
-# External Integrations
-meraki_integration: dict[str, Any] = {
-    "name": "Meraki Integration",
-    "remote_url": "https://api.meraki.com/api/v1/",
-    "verify_ssl": False,
-    "timeout": 30,
-}
-vmanage_integration: dict[str, Any] = {
-    "name": "vManage Integration",
-    "remote_url": "https://sandbox-sdwan-2.cisco.com/",
-    "verify_ssl": False,
-    "timeout": 30,
-}
-
-external_integrations: list[dict[str, str]] = [
-    meraki_integration,
-    vmanage_integration,
-]
-
-# Controllers
-meraki_controller: dict[str, str] = {
-    "name": "Meraki Controller",
-    "location": "UNCC",
-    "platform": "cisco_meraki",
-    "external_integration": "Meraki Integration",
-}
-vmanage_controller: dict[str, str] = {
-    "name": "vManage Controller",
-    "location": "UNCC",
-    "platform": "vmanage",
-    "external_integration": "vManage Integration",
-}
-
-controllers: list[dict[str, str]] = [
-    meraki_controller,
-    vmanage_controller,
-]
-
 # Devices
 netscaler_dev: dict[str, str] = {
     "manufacturer_name": "Citrix",
@@ -106,7 +69,7 @@ nxos_dev: dict[str, str] = {
     "ip_addr": "172.20.20.2/32",
     "interface_name": "int1",
 }
-ios_dev: dict[str, str | None] = {
+ios_dev: dict[str, Union[str, None]] = {
     "manufacturer_name": "Cisco",
     "device_type_name": "Ios-Type",
     "platform_name": "cisco_ios",
@@ -119,7 +82,7 @@ ios_dev: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
-meraki_controller_device: dict[str, str | None] = {
+meraki_controller_device: dict[str, Union[str, None]] = {
     "manufacturer_name": "Cisco",
     "device_type_name": "Meraki-Type",
     "platform_name": "cisco_meraki",
@@ -132,7 +95,7 @@ meraki_controller_device: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
-meraki_managed_device: dict[str, str | None] = {
+meraki_managed_device: dict[str, Union[str, None]] = {
     "manufacturer_name": "Cisco",
     "device_type_name": "Meraki-Type",
     "platform_name": "meraki_managed",
@@ -145,11 +108,11 @@ meraki_managed_device: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
-vmanage_controller_device: dict[str, str | None] = {
+vmanage_controller_device: dict[str, Union[str, None]] = {
     "manufacturer_name": "Cisco",
     "device_type_name": "vManage-Type",
-    "platform_name": "vmanage",
-    "network_driver_name": "vmanage",
+    "platform_name": "cisco_vmanage",
+    "network_driver_name": "cisco_vmanage",
     "role": "Network",
     "device_name": "vmanage_controller1",
     "location": "UNCC",
@@ -158,7 +121,7 @@ vmanage_controller_device: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
-vmanage_managed_device: dict[str, str | None] = {
+vmanage_managed_device: dict[str, Union[str, None]] = {
     "manufacturer_name": "Cisco",
     "device_type_name": "IOSXE-Type",
     "platform_name": "cisco_xe",
@@ -171,7 +134,7 @@ vmanage_managed_device: dict[str, str | None] = {
     "ip_addr": None,
     "interface_name": None,
 }
-devices: list[dict[str, str | None]] = [
+devices: list[dict[str, Union[str, None]]] = [
     netscaler_dev,
     nxos_dev,
     ios_dev,
@@ -251,6 +214,67 @@ secrets: list[dict[str, str]] = [
     vmanage_managed_secret,
 ]
 
+# External Integrations
+meraki_integration: dict[str, Any] = {
+    "name": "Meraki Integration",
+    "remote_url": "https://api.meraki.com/api/v1/",
+    "verify_ssl": False,
+    "timeout": 30,
+}
+vmanage_integration: dict[str, Any] = {
+    "name": "vManage Integration",
+    "remote_url": "https://sandbox-sdwan-2.cisco.com/",
+    "verify_ssl": False,
+    "timeout": 30,
+}
+
+external_integrations: list[dict[str, str]] = [
+    meraki_integration,
+    vmanage_integration,
+]
+
+# Controllers
+meraki_controller: dict[str, str] = {
+    "name": "Meraki Controller",
+    "location": "UNCC",
+    "platform": "cisco_meraki",
+    "external_integration": "Meraki Integration",
+    "controller_device": "meraki_controller1",
+}
+vmanage_controller: dict[str, str] = {
+    "name": "vManage Controller",
+    "location": "UNCC",
+    "platform": "cisco_vmanage",
+    "external_integration": "vManage Integration",
+    "controller_device": "vmanage_controller1",
+}
+
+controllers: list[dict[str, str]] = [
+    meraki_controller,
+    vmanage_controller,
+]
+
+# Controller managed device groups
+
+meraki_dev_group: dict[str, str | int | list[str]] = {
+    "name": "Meraki Dev Group",
+    "controller": "Meraki Controller",
+    "weight": 1000,
+    "devices": ["meraki_managed1"],
+}
+
+vmanage_dev_group: dict[str, str | int | list[str]] = {
+    "name": "vManage Dev Group",
+    "controller": "vManage Controller",
+    "weight": 1000,
+}
+
+device_groups: list[dict[str, str | int | list[str]]] = [
+    meraki_dev_group,
+    vmanage_dev_group,
+]
+
+
 # Contet types
 controller_ct: ContentType = ContentType.objects.get_for_model(model=Controller)
 device_ct: ContentType = ContentType.objects.get_for_model(model=Device)
@@ -319,32 +343,6 @@ for site in sites:
         defaults={
             "location_type": building_lt,
             "status_id": status.id,
-        },
-    )
-
-for external_integration in external_integrations:
-    integration, _ = ExternalIntegration.objects.get_or_create(
-        name=external_integration.get("name"),
-        defaults={
-            "remote_url": external_integration.get("remote_url"),
-            "verify_ssl": external_integration.get("verify_ssl"),
-            "timeout": external_integration.get("timeout"),
-        },
-    )
-
-for controller in controllers:
-    cntrlr_loc: Location = Location.objects.get(name=controller.get("location"))
-    cntrlr_integration: ExternalIntegration = ExternalIntegration.objects.get(
-        name=controller.get("external_integration"),
-    )
-    cntrlr_platform, _ = Platform.objects.get_or_create(name=controller.get("platform"))
-    cntrlr, _ = Controller.objects.get_or_create(
-        name=controller.get("name"),
-        defaults={
-            "location": cntrlr_loc,
-            "external_integration": cntrlr_integration,
-            "platform": cntrlr_platform,
-            "status": status,
         },
     )
 
@@ -467,3 +465,45 @@ for secret in secrets:
         device.secrets_group = sg
 
         device.validated_save()
+
+for external_integration in external_integrations:
+    integration, _ = ExternalIntegration.objects.get_or_create(
+        name=external_integration.get("name"),
+        defaults={
+            "remote_url": external_integration.get("remote_url"),
+            "verify_ssl": external_integration.get("verify_ssl"),
+            "timeout": external_integration.get("timeout"),
+        },
+    )
+
+for controller in controllers:
+    cntrlr_loc: Location = Location.objects.get(name=controller.get("location"))
+    cntrlr_integration: ExternalIntegration = ExternalIntegration.objects.get(
+        name=controller.get("external_integration"),
+    )
+    cntrlr_platform, _ = Platform.objects.get_or_create(name=controller.get("platform"))
+    controller_device = Device.objects.get(name=controller.get("controller_device"))
+    cntrlr, _ = Controller.objects.get_or_create(
+        name=controller.get("name"),
+        defaults={
+            "location": cntrlr_loc,
+            "external_integration": cntrlr_integration,
+            "platform": cntrlr_platform,
+            "status": status,
+            "controller_device": controller_device,
+        },
+    )
+
+for dev_group in device_groups:
+    group, _ = ControllerManagedDeviceGroup.objects.get_or_create(
+        name=dev_group.get("name"),
+        controller=Controller.objects.get(name=dev_group.get("controller")),
+        weight=dev_group.get("weight"),
+    )
+    if dev_group.get("devices"):
+        for device in dev_group.get("devices"):
+            dev = Device.objects.get(
+                name=device,
+            )
+            dev.controller_managed_device_group = group
+            dev.validated_save()

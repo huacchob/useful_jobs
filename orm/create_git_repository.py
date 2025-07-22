@@ -1,3 +1,5 @@
+from typing import Union
+
 from nautobot.extras.models import (
     GitRepository,
     Secret,
@@ -14,13 +16,13 @@ sga1_secret_type = "username"
 sga2_secret_type = "token"
 
 # Repo
-useful_job: dict[str, str | list[str]] = {
+useful_job: dict[str, Union[str, list[str]]] = {
     "remote_url": "https://github.com/huacchob/useful_jobs.git",
     "repo_name": "useful_jobs",
     "branch": "main",
     "provided_contents": ["extras.job"],
 }
-gc_mono: dict[str, str | list[str]] = {
+gc_mono: dict[str, Union[str, list[str]]] = {
     "remote_url": "https://github.com/huacchob/gc_mono.git",
     "repo_name": "gc_mono",
     "branch": "main",
@@ -33,7 +35,7 @@ gc_mono: dict[str, str | list[str]] = {
         "nautobot_golden_config.pluginproperties",
     ],
 }
-repos: list[dict[str, str | list[str]]] = [useful_job, gc_mono]
+repos: list[dict[str, Union[str, list[str]]]] = [useful_job, gc_mono]
 
 s1, _ = Secret.objects.get_or_create(
     name=secret1,
