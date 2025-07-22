@@ -134,6 +134,20 @@ vmanage_managed_device: dict[str, Union[str, None]] = {
     "ip_addr": None,
     "interface_name": None,
 }
+aci_controller_device: dict[str, Union[str, None]] = {
+    "manufacturer_name": "Cisco",
+    "device_type_name": "APIC-Type",
+    "platform_name": "cisco_apic",
+    "network_driver_name": "cisco_apic",
+    "role": "Network",
+    "device_name": "apic_controller1",
+    "location": "UNCC",
+    "namespace_name": None,
+    "prefix_range": None,
+    "ip_addr": None,
+    "interface_name": None,
+}
+
 devices: list[dict[str, Union[str, None]]] = [
     netscaler_dev,
     nxos_dev,
@@ -142,6 +156,7 @@ devices: list[dict[str, Union[str, None]]] = [
     meraki_managed_device,
     vmanage_controller_device,
     vmanage_managed_device,
+    aci_controller_device,
 ]
 
 # Secrets
@@ -205,6 +220,17 @@ vmanage_managed_secret: dict[str, str] = {
     "sga2_secret_type": "password",
     "device": "vmanage_router1",
 }
+apic_controller_secret: dict[str, str] = {
+    "secret1": "APIC_USERNAME",
+    "secret2": "APIC_PASSWORD",
+    "provider": "environment-variable",
+    "secrets_group_name": "APIC",
+    "sga_access_type": "Generic",
+    "sga1_secret_type": "username",
+    "sga2_secret_type": "password",
+    "device": "apic_controller1",
+}
+
 secrets: list[dict[str, str]] = [
     netscaler_secret,
     nxos_secret,
@@ -212,6 +238,7 @@ secrets: list[dict[str, str]] = [
     meraki_managed_secret,
     vmanage_controller_secret,
     vmanage_managed_secret,
+    apic_controller_secret,
 ]
 
 # External Integrations
@@ -227,10 +254,17 @@ vmanage_integration: dict[str, Any] = {
     "verify_ssl": False,
     "timeout": 30,
 }
+apic_integration: dict[str, Any] = {
+    "name": "APIC Integration",
+    "remote_url": "https://sandboxapicdc.cisco.com/",
+    "verify_ssl": False,
+    "timeout": 30,
+}
 
 external_integrations: list[dict[str, str]] = [
     meraki_integration,
     vmanage_integration,
+    apic_integration,
 ]
 
 # Controllers
@@ -248,10 +282,18 @@ vmanage_controller: dict[str, str] = {
     "external_integration": "vManage Integration",
     "controller_device": "vmanage_controller1",
 }
+apic_controller: dict[str, str] = {
+    "name": "APIC Controller",
+    "location": "UNCC",
+    "platform": "cisco_apic",
+    "external_integration": "APIC Integration",
+    "controller_device": "apic_controller1",
+}
 
 controllers: list[dict[str, str]] = [
     meraki_controller,
     vmanage_controller,
+    apic_controller,
 ]
 
 # Controller managed device groups
@@ -262,16 +304,21 @@ meraki_dev_group: dict[str, str | int | list[str]] = {
     "weight": 1000,
     "devices": ["meraki_managed1"],
 }
-
 vmanage_dev_group: dict[str, str | int | list[str]] = {
     "name": "vManage Dev Group",
     "controller": "vManage Controller",
+    "weight": 1000,
+}
+apic_dev_group: dict[str, str | int | list[str]] = {
+    "name": "APIC Dev Group",
+    "controller": "APIC Controller",
     "weight": 1000,
 }
 
 device_groups: list[dict[str, str | int | list[str]]] = [
     meraki_dev_group,
     vmanage_dev_group,
+    apic_dev_group,
 ]
 
 
