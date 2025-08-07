@@ -359,6 +359,8 @@ def clean_acl_dictionary(
                 "dst_mask": "",
             }
         )
+        if not parsed_acl.get("src_mask"):
+            parsed_acl.update({"src_mask": ""})
     else:
         parsed_acl.update(
             {
@@ -433,7 +435,8 @@ def write_acls_to_file(
             yaml_syntax: dict[str, list[dict[str, str]]] = {
                 acl_yaml_list_name: list_of_acls
             }
-            count += 10
+            if acl_yaml["action"] != "remark":
+                count += 10
         else:
             raise ValueError("Function parse_acl_entry returned None")
 
@@ -454,15 +457,19 @@ def write_acls_to_file(
     print("Done creating acls")
 
 
-acl_string: str = """  10 permit host 164.103.76.26
-  20 permit host 164.103.77.20
-  30 permit host 164.103.79.90
-  40 permit host 164.103.76.144
-  50 remark Test remark"""
+acl_string: str = """ 10 remark Solarwinds Orion Servers - Internal Addresses
+ 10 permit 164.103.230.111
+ 20 permit 164.103.230.113
+ 30 permit 164.103.230.112
+ 40 permit 164.103.230.115
+ 50 permit 164.103.230.114
+ 60 permit 164.103.240.174
+ 70 permit 167.159.135.30
+ 80 permit 164.103.77.244"""
 
 write_acls_to_file(
     acl_entries=acl_string,
     file_name="acl_output.yml",
-    acl_yaml_list_name="cmdbSNOW",
+    acl_yaml_list_name="nmsOrion_acl",
     platform="ios",
 )

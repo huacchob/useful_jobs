@@ -1,41 +1,73 @@
-cmdbSNOW:
-- action: permit
-  message: ''
-  protocol: ipv4
-  src: 164.103.76.26
-  src_mask: null
+nmsOrion_acl:
+- action: remark
+  message: Solarwinds Orion Servers - Internal Addresses
+  protocol: ''
+  src: ''
+  src_mask: ''
   dst: ''
   dst_mask: ''
   seq: 10
 - action: permit
   message: ''
   protocol: ipv4
-  src: 164.103.77.20
-  src_mask: null
+  src: 164.103.230.111
+  src_mask: ''
+  dst: ''
+  dst_mask: ''
+  seq: 10
+- action: permit
+  message: ''
+  protocol: ipv4
+  src: 164.103.230.113
+  src_mask: ''
   dst: ''
   dst_mask: ''
   seq: 20
 - action: permit
   message: ''
   protocol: ipv4
-  src: 164.103.79.90
-  src_mask: null
+  src: 164.103.230.112
+  src_mask: ''
   dst: ''
   dst_mask: ''
   seq: 30
 - action: permit
   message: ''
   protocol: ipv4
-  src: 164.103.76.144
-  src_mask: null
+  src: 164.103.230.115
+  src_mask: ''
   dst: ''
   dst_mask: ''
   seq: 40
-- action: remark
-  message: Test remark
-  protocol: ''
-  src: ''
+- action: permit
+  message: ''
+  protocol: ipv4
+  src: 164.103.230.114
   src_mask: ''
   dst: ''
   dst_mask: ''
   seq: 50
+- action: permit
+  message: ''
+  protocol: ipv4
+  src: 164.103.240.174
+  src_mask: ''
+  dst: ''
+  dst_mask: ''
+  seq: 60
+- action: permit
+  message: ''
+  protocol: ipv4
+  src: 167.159.135.30
+  src_mask: ''
+  dst: ''
+  dst_mask: ''
+  seq: 70
+- action: permit
+  message: ''
+  protocol: ipv4
+  src: 164.103.77.244
+  src_mask: ''
+  dst: ''
+  dst_mask: ''
+  seq: 80
