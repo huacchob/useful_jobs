@@ -1,5 +1,6 @@
 cmdbSNOW:
 - action: permit
+  message: ''
   protocol: ipv4
   src: 164.103.76.26
   src_mask: null
@@ -7,6 +8,7 @@ cmdbSNOW:
   dst_mask: ''
   seq: 10
 - action: permit
+  message: ''
   protocol: ipv4
   src: 164.103.77.20
   src_mask: null
@@ -14,6 +16,7 @@ cmdbSNOW:
   dst_mask: ''
   seq: 20
 - action: permit
+  message: ''
   protocol: ipv4
   src: 164.103.79.90
   src_mask: null
@@ -21,9 +24,18 @@ cmdbSNOW:
   dst_mask: ''
   seq: 30
 - action: permit
+  message: ''
   protocol: ipv4
   src: 164.103.76.144
   src_mask: null
   dst: ''
   dst_mask: ''
   seq: 40
+- action: remark
+  message: Test remark
+  protocol: ''
+  src: ''
+  src_mask: ''
+  dst: ''
+  dst_mask: ''
+  seq: 50

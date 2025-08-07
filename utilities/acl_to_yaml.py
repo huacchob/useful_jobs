@@ -177,10 +177,11 @@ def ios_parse_acl_entry(entry: str) -> dict[str, str] | None:
     """
     acl_regex_standard: str = (
         r"(?P<count>\d+)\s+"
-        r"(?P<action>permit|deny)\s+"
-        r"(host\s+)?"
-        r"(?P<src>\S+)?\s*"
-        r"(?P<src_mask>\S+)?\s*"
+        r"(?P<action>permit|deny|remark)\s+"
+        r"(host)?\s*"
+        r"(?P<src>[0-9\.]+)?\s*"
+        r"(?P<src_mask>[0-9\.]+)?\s*"
+        r"(?P<message>.*)"
     )
 
     match: re.Match[str] | None = re.match(
@@ -350,13 +351,24 @@ def clean_acl_dictionary(
         if parsed_acl.get("src_cidr"):
             parsed_acl.pop("src_cidr")
 
-    parsed_acl.update(
-        {
-            "protocol": "ipv4",
-            "dst": "",
-            "dst_mask": "",
-        }
-    )
+    if parsed_acl.get("src"):
+        parsed_acl.update(
+            {
+                "protocol": "ipv4",
+                "dst": "",
+                "dst_mask": "",
+            }
+        )
+    else:
+        parsed_acl.update(
+            {
+                "protocol": "",
+                "dst": "",
+                "dst_mask": "",
+                "src": "",
+                "src_mask": "",
+            }
+        )
 
     if platform == "ios":
         for key in [""]:
@@ -375,6 +387,7 @@ def clean_acl_dictionary(
 
     dictionary_key_order: list[str] = [
         "action",
+        "message",
         "protocol",
         "src",
         "src_mask",
@@ -444,7 +457,8 @@ def write_acls_to_file(
 acl_string: str = """  10 permit host 164.103.76.26
   20 permit host 164.103.77.20
   30 permit host 164.103.79.90
-  40 permit host 164.103.76.144"""
+  40 permit host 164.103.76.144
+  50 remark Test remark"""
 
 write_acls_to_file(
     acl_entries=acl_string,
