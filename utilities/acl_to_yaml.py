@@ -1,4 +1,5 @@
 import pathlib
+import pdb
 import re
 import typing as t
 from collections import OrderedDict
@@ -134,14 +135,16 @@ def is_wildcard_invertable(mask: str) -> bool:
     """
     mask_split: list[str] = mask.split(sep=".")
 
-    count = 0
+    last_zero = False
+    invertible = True
     for octet in mask_split:
-        if octet != "0":
-            count += 1
+        if octet != "0" and not last_zero:
+            last_zero = True
+        if octet == "0" and last_zero:
+            invertible = False
+            break
 
-    if count == 1:
-        return True
-    return False
+    return invertible
 
 
 def invert_mask(mask: str) -> str:
@@ -178,11 +181,17 @@ def ios_parse_acl_entry(entry: str) -> dict[str, str] | None:
     acl_regex_standard: str = (
         r"(?P<count>\d+)\s+"
         r"(?P<action>permit|deny|remark)\s+"
-        r"(host)?\s*"
+        r"(?P<protocol>udp|tcp|icmp)?\s*"
+        r"(host\s+)?"
         r"(?P<src>[0-9\.]+)?\s*"
         r"(?P<src_mask>[0-9\.]+)?\s*"
+        r"(?P<dst>(?:[0-9\.]+|any))?\s*"
+        r"(?P<dst_mask>[0-9\.]+)?\s*"
+        r"(?P<port_filter>eq|ne|lt|le|gt|ge|any)?\s*"
+        r"(?P<port>[0-9]+)?\s*"
         r"(?P<message>.*)"
     )
+    # pdb.set_trace()
 
     match: re.Match[str] | None = re.match(
         pattern=acl_regex_standard,
@@ -339,31 +348,47 @@ def clean_acl_dictionary(
             )
 
         parsed_acl.update({"src_cidr": find_cidr(mask=parsed_acl["src_mask"])})
-    else:
-        if platform.startswith("eos") and parsed_acl.get("src_cidr"):
-            parsed_acl.update(
-                {"src_mask": convert_cidr_to_mask(cidr=parsed_acl.get("src_cidr"))}
-            )
+    if platform.startswith("eos") and parsed_acl.get("src_cidr"):
+        parsed_acl.update(
+            {"src_mask": convert_cidr_to_mask(cidr=parsed_acl.get("src_cidr"))}
+        )
 
-        if platform.startswith("eos") and not parsed_acl.get("src_cidr"):
-            parsed_acl.update({"src_mask": "255.255.255.255"})
+    if platform.startswith("eos") and not parsed_acl.get("src_cidr"):
+        parsed_acl.update({"src_mask": "255.255.255.255"})
 
-        if parsed_acl.get("src_cidr"):
-            parsed_acl.pop("src_cidr")
+    if parsed_acl.get("src_cidr"):
+        parsed_acl.pop("src_cidr")
 
-    if parsed_acl.get("src"):
+    if parsed_acl.get("src") and not parsed_acl.get("dst"):
         parsed_acl.update(
             {
-                "protocol": "ipv4",
+                "ip_family": "ipv4",
                 "dst": "",
                 "dst_mask": "",
             }
         )
-        if not parsed_acl.get("src_mask"):
-            parsed_acl.update({"src_mask": ""})
-    else:
+    if parsed_acl.get("src") and not parsed_acl.get("protocol") and not parsed_acl.get("port_filter") and not parsed_acl.get("port"):
         parsed_acl.update(
             {
+                "protocol": "tcp",
+                "ip_family": "ipv4",
+                "port_filter": "",
+                "port": "",
+            }
+        )
+    if not parsed_acl.get("src_mask"):
+        parsed_acl.update({"src_mask": ""})
+    if not parsed_acl.get("dst_mask"):
+        parsed_acl.update({"dst_mask": ""})
+    if not parsed_acl.get("acl_type"):
+        parsed_acl.update({"acl_type": ""})
+    if parsed_acl.get("message"):
+        parsed_acl.update(
+            {
+                "ip_family": "",
+                "acl_type": "",
+                "port_filter": "",
+                "port": "",
                 "protocol": "",
                 "dst": "",
                 "dst_mask": "",
@@ -389,7 +414,11 @@ def clean_acl_dictionary(
 
     dictionary_key_order: list[str] = [
         "action",
+        "acl_type",
         "message",
+        "ip_family",
+        "port_filter",
+        "port",
         "protocol",
         "src",
         "src_mask",
@@ -408,6 +437,8 @@ def write_acls_to_file(
     acl_entries: str,
     file_name: str,
     acl_yaml_list_name: str,
+    acl_type: str,
+    ip_family: str,
     platform: str,
 ) -> None:
     list_of_acls: list[str] = []
@@ -425,6 +456,8 @@ def write_acls_to_file(
             parsed_acl = None
 
         if parsed_acl:
+            parsed_acl.update({"acl_type": acl_type})
+            parsed_acl.update({"ip_family": ip_family})
             acl_yaml: dict[str, str] = clean_acl_dictionary(
                 parsed_acl=parsed_acl,
                 platform=platform,
@@ -457,19 +490,28 @@ def write_acls_to_file(
     print("Done creating acls")
 
 
-acl_string: str = """ 10 remark Solarwinds Orion Servers - Internal Addresses
- 10 permit 164.103.230.111
- 20 permit 164.103.230.113
- 30 permit 164.103.230.112
- 40 permit 164.103.230.115
- 50 permit 164.103.230.114
- 60 permit 164.103.240.174
- 70 permit 167.159.135.30
- 80 permit 164.103.77.244"""
+acl_string: str = """ 10 permit tcp 10.0.0.0 0.255.255.255 any eq 22
+ 20 permit tcp host 10.41.173.10 any eq 22
+ 30 permit tcp host 10.140.128.131 any eq 22
+ 40 permit tcp host 10.140.164.74 any eq 22
+ 50 permit tcp 164.103.0.0 0.0.255.255 any eq 22
+ 60 permit tcp 164.103.24.208 0.0.0.15 any eq 22
+ 70 permit tcp 164.103.154.0 0.0.0.31 any eq 22
+ 80 permit tcp 164.103.170.32 0.0.0.31 any eq 22
+ 90 permit tcp 164.103.230.96 0.0.0.31 any eq 22
+ 100 permit tcp 164.103.240.172 0.0.0.3 any eq 22
+ 110 permit tcp 167.159.0.0 0.0.255.255 any eq 22
+ 120 permit tcp host 167.159.135.30 any eq 22
+ 130 permit tcp 167.159.154.0 0.0.0.31 any eq 22
+ 140 permit tcp 172.16.0.0 0.15.255.255 any eq 22
+ 150 permit tcp host 192.168.1.5 any eq 22
+ 310 permit tcp any any eq 22"""
 
 write_acls_to_file(
     acl_entries=acl_string,
     file_name="acl_output.yml",
-    acl_yaml_list_name="nmsOrion_acl",
+    acl_yaml_list_name="SSH_SNMP_ACCESS_POLICY_V01-acl-22_acl",
+    acl_type="extended",
+    ip_family="ipv4",
     platform="ios",
 )
