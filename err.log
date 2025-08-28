@@ -1,0 +1,140 @@
+20:31:40.277 WARNING nautobot.core.api.routers :
+  Something has changed an OrderedDefaultRouter's APIRootView attribute to a custom class. Please verify that class GoldenConfigRootView implements appropriate authentication controls.
+Performing database migrations...
+Operations to perform:
+  Apply all migrations: admin, auth, circuits, cloud, constance, contenttypes, dcim, django_celery_beat, django_celery_results, extras, ipam, nautobot_device_onboarding, nautobot_golden_config, nautobot_secrets_providers, nautobot_ssot, sessions, silk, social_django, taggit, tenancy, users, virtualization, wireless
+Running migrations:
+  No migrations to apply.
+20:31:42.783 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Bulk Delete Objects" from <BulkDeleteObjects>
+2025-08-28 20:31:42,783 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Bulk Delete Objects" from <BulkDeleteObjects>
+20:31:42.790 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Bulk Edit Objects" from <BulkEditObjects>
+2025-08-28 20:31:42,790 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Bulk Edit Objects" from <BulkEditObjects>
+20:31:42.795 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Export Object List" from <ExportObjectList>
+2025-08-28 20:31:42,795 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Export Object List" from <ExportObjectList>
+20:31:42.801 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Git Repository: Sync" from <GitRepositorySync>
+2025-08-28 20:31:42,801 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Git Repository: Sync" from <GitRepositorySync>
+20:31:42.806 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Git Repository: Dry-Run" from <GitRepositoryDryRun>
+2025-08-28 20:31:42,806 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Git Repository: Dry-Run" from <GitRepositoryDryRun>
+20:31:42.811 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Import Objects" from <ImportObjects>
+2025-08-28 20:31:42,811 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Import Objects" from <ImportObjects>
+20:31:42.816 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Logs Cleanup" from <LogsCleanup>
+2025-08-28 20:31:42,816 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Logs Cleanup" from <LogsCleanup>
+20:31:42.822 INFO    nautobot.extras.utils :
+  Refreshed Job "System Jobs: Refresh Dynamic Group Caches" from <RefreshDynamicGroupCaches>
+2025-08-28 20:31:42,822 - nautobot.extras.utils - INFO - Refreshed Job "System Jobs: Refresh Dynamic Group Caches" from <RefreshDynamicGroupCaches>
+20:31:42.833 INFO    nautobot.extras.utils :
+  Refreshed Job "Meraki SSoT: Meraki => Nautobot" from <MerakiDataSource>
+2025-08-28 20:31:42,833 - nautobot.extras.utils - INFO - Refreshed Job "Meraki SSoT: Meraki => Nautobot" from <MerakiDataSource>
+20:31:42.838 INFO    nautobot.extras.utils :
+  Refreshed Job "SolarWinds SSoT: SolarWinds to Nautobot" from <SolarWindsDataSource>
+2025-08-28 20:31:42,838 - nautobot.extras.utils - INFO - Refreshed Job "SolarWinds SSoT: SolarWinds to Nautobot" from <SolarWindsDataSource>
+20:31:42.844 INFO    nautobot.extras.utils :
+  Refreshed Job "SSoT Examples: Example Data Source" from <ExampleDataSource>
+2025-08-28 20:31:42,844 - nautobot.extras.utils - INFO - Refreshed Job "SSoT Examples: Example Data Source" from <ExampleDataSource>
+20:31:42.849 INFO    nautobot.extras.utils :
+  Refreshed Job "SSoT Examples: Example Data Target" from <ExampleDataTarget>
+2025-08-28 20:31:42,849 - nautobot.extras.utils - INFO - Refreshed Job "SSoT Examples: Example Data Target" from <ExampleDataTarget>
+20:31:42.854 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Backup Configurations" from <BackupJob>
+2025-08-28 20:31:42,854 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Backup Configurations" from <BackupJob>
+20:31:42.861 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Generate Intended Configurations" from <IntendedJob>
+2025-08-28 20:31:42,861 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Generate Intended Configurations" from <IntendedJob>
+20:31:42.867 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Perform Configuration Compliance" from <ComplianceJob>
+2025-08-28 20:31:42,867 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Perform Configuration Compliance" from <ComplianceJob>
+20:31:42.875 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Generate Config Plans" from <GenerateConfigPlans>
+2025-08-28 20:31:42,875 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Generate Config Plans" from <GenerateConfigPlans>
+20:31:42.882 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Deploy Config Plans" from <DeployConfigPlans>
+2025-08-28 20:31:42,882 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Deploy Config Plans" from <DeployConfigPlans>
+20:31:42.887 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Deploy Config Plan (Job Button Receiver)" from <DeployConfigPlanJobButtonReceiver>
+2025-08-28 20:31:42,887 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Deploy Config Plan (Job Button Receiver)" from <DeployConfigPlanJobButtonReceiver>
+20:31:42.892 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Execute All Golden Configuration Jobs - Single Device" from <AllGoldenConfig>
+2025-08-28 20:31:42,892 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Execute All Golden Configuration Jobs - Single Device" from <AllGoldenConfig>
+20:31:42.897 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Execute All Golden Configuration Jobs - Multiple Device" from <AllDevicesGoldenConfig>
+2025-08-28 20:31:42,897 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Execute All Golden Configuration Jobs - Multiple Device" from <AllDevicesGoldenConfig>
+20:31:42.903 INFO    nautobot.extras.utils :
+  Refreshed Job "Golden Configuration: Sync GoldenConfig Table" from <SyncGoldenConfigWithDynamicGroups>
+2025-08-28 20:31:42,903 - nautobot.extras.utils - INFO - Refreshed Job "Golden Configuration: Sync GoldenConfig Table" from <SyncGoldenConfigWithDynamicGroups>
+20:31:42.908 INFO    nautobot.extras.utils :
+  Refreshed Job "Device Onboarding: Perform Device Onboarding (Original)" from <OnboardingTask>
+2025-08-28 20:31:42,908 - nautobot.extras.utils - INFO - Refreshed Job "Device Onboarding: Perform Device Onboarding (Original)" from <OnboardingTask>
+20:31:42.916 INFO    nautobot.extras.utils :
+  Refreshed Job "Device Onboarding: Sync Devices From Network" from <SSOTSyncDevices>
+2025-08-28 20:31:42,916 - nautobot.extras.utils - INFO - Refreshed Job "Device Onboarding: Sync Devices From Network" from <SSOTSyncDevices>
+20:31:42.925 INFO    nautobot.extras.utils :
+  Refreshed Job "Device Onboarding: Sync Network Data From Network" from <SSOTSyncNetworkData>
+2025-08-28 20:31:42,925 - nautobot.extras.utils - INFO - Refreshed Job "Device Onboarding: Sync Network Data From Network" from <SSOTSyncNetworkData>
+20:31:42.931 INFO    nautobot.extras.utils :
+  Refreshed Job "Device Onboarding: Runs Commands on a Device to simulate SSoT Command Getter." from <DeviceOnboardingTroubleshootingJob>
+2025-08-28 20:31:42,931 - nautobot.extras.utils - INFO - Refreshed Job "Device Onboarding: Runs Commands on a Device to simulate SSoT Command Getter." from <DeviceOnboardingTroubleshootingJob>
+Traceback (most recent call last):
+  File "/opt/nautobot/venv_3_11/bin/nautobot-server", line 8, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/nautobot/core/cli/__init__.py", line 301, in main
+    execute_from_command_line([sys.argv[0], *unparsed_args])
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+    utility.execute()
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/__init__.py", line 436, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/base.py", line 412, in run_from_argv
+    self.execute(*args, **cmd_options)
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/base.py", line 458, in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/nautobot/core/management/commands/post_upgrade.py", line 91, in handle
+    call_command(
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/__init__.py", line 194, in call_command
+    return command.execute(*args, **defaults)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/base.py", line 458, in execute
+    output = self.handle(*args, **options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/base.py", line 106, in wrapper
+    res = handle_func(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/commands/migrate.py", line 383, in handle
+    emit_post_migrate_signal(
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/core/management/sql.py", line 52, in emit_post_migrate_signal
+    models.signals.post_migrate.send(
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/dispatch/dispatcher.py", line 176, in send
+    return [
+           ^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/dispatch/dispatcher.py", line 177, in <listcomp>
+    (receiver, receiver(signal=self, sender=sender, **named))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/nautobot/core/apps/__init__.py", line 316, in post_migrate_send_nautobot_database_ready
+    nautobot_database_ready.send(sender=app_conf, app_config=app_conf, **kwargs)
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/dispatch/dispatcher.py", line 176, in send
+    return [
+           ^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/dispatch/dispatcher.py", line 177, in <listcomp>
+    (receiver, receiver(signal=self, sender=sender, **named))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/nautobot_ssot/integrations/meraki/signals.py", line 33, in nautobot_database_ready_callback
+    Platform.objects.update_or_create(name__icontains="Meraki", defaults=plat_dict)
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/db/models/query.py", line 949, in update_or_create
+    obj, created = self.select_for_update().get_or_create(defaults, **kwargs)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/db/models/query.py", line 916, in get_or_create
+    return self.get(**kwargs), False
+           ^^^^^^^^^^^^^^^^^^
+  File "/opt/nautobot/venv_3_11/lib64/python3.11/site-packages/django/db/models/query.py", line 640, in get
+    raise self.model.MultipleObjectsReturned(
+__fake__.Platform.MultipleObjectsReturned: get() returned more than one Platform -- it returned 2!
