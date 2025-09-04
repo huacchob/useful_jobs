@@ -1,4 +1,3 @@
-import pdb
 from typing import Any, Optional, Union
 
 from requests import Response, Session
@@ -162,6 +161,7 @@ class NetmikoCiscoVmanage(ConnectionMixin):
             headers=token_headers,
             verify=False,
         )
+        print(token_resp)
         self.get_headers.update(
             {
                 "Cookie": j_session_id,
@@ -171,7 +171,29 @@ class NetmikoCiscoVmanage(ConnectionMixin):
         )
         return self.get_headers
 
+    def send_call(self) -> Any:
+        """Send API call to controller.
+
+        Args:
+            method (str): HTTP Method to use.
+            endpoint (str): API endpoint to send request to.
+            body (Optional[dict[str, Any]]): Body of request.
+
+        Returns:
+            Any: API Response.
+        """
+        endpoint = "template/feature"
+        url: str = f"https://sandbox-sdwan-2.cisco.com/dataservice/{endpoint}"
+        response: Any = self.return_response_content(
+            session=self.session,
+            method="GET",
+            url=url,
+            headers=self.get_headers,
+            verify=False,
+        )
+        return response
+
 
 dev = NetmikoCiscoVmanage()
-resp = dev.authenticate()
-pdb.set_trace()
+resp = dev.send_call()
+print(resp)

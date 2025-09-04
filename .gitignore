@@ -4,3 +4,4 @@
 creds.env
 .DS_Store
 .qodo
+*.csv
