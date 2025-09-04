@@ -3,56 +3,9 @@
         "code": 0,
         "text": "ok"
     },
-    "aaaserver": [
-        {
-            "service": "tacacs",
-            "enable": 1,
-            "ietf-ipv4": {
-                "primary": [
-                    {
-                        "ip": "IP",
-                        "secret": "<SECRET>"
-                    }
-                ],
-                "secondary": [
-                    {
-                        "ip": "IP",
-                        "secret": "<SECRET>"
-                    }
-                ]
-            },
-            "ietf-ipv6": {
-                "primary": [
-                    {
-                        "ip": "",
-                        "secret": "<SECRET>"
-                    }
-                ],
-                "secondary": [
-                    {
-                        "ip": "",
-                        "secret": "<SECRET>"
-                    }
-                ]
-            },
-            "fallbacktime": 15,
-            "fallbacklocal": 1,
-            "authport": 49,
-            "sessionenable": 0,
-            "managementenable": 1,
-            "servicename": "wti",
-            "debug": 0,
-            "prt_acc_def": "11111111111111111111111111111111111111111111111111111111111111111111111111",
-            "plg_acc_def": "11111111111111111111",
-            "grp_acc_def": "111111111111111111111111111111111111111111111111111111",
-            "def_en": 0,
-            "acc_lev_def": 3,
-            "ser_def": 1,
-            "tel_def": 1,
-            "web_def": 1,
-            "api_def": 1,
-            "outbound_def": 1,
-            "mon_def": 1
-        }
-    ]
+    "telnet": {
+        "enable": 0,
+        "port": 23,
+        "persource": 4
+    }
 }

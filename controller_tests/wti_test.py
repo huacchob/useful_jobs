@@ -33,13 +33,8 @@ def base_64_encode_credentials(username: str, password: str) -> str:
     return f"Basic {b64encode(s=credentials_str).decode(encoding='utf-8')}"
 
 
-hostname_put: dict[str, str] = {"unitid": {
-        "timestamp": "2025-08-20T15:10:49+00:00",
-        "siteid": "02B - Memphis Test Lab, TN",
-        "location": "02B_Memphis Test Lab_TN",
-        "assettag": "",
-        "hostname": "02B-WTI-OOB-LAB-1",
-        "domain": "ipaper.com",
+data_put: dict[str, str] = {"unitid": {
+        "hostname": "02B-WTI-OOB-LAB1",
 },}
 
 def WTI1():
@@ -60,10 +55,11 @@ def WTI1():
 
     x = request(
         url=URI + SITE_NAME + BASE_PATH,
-	method="GET",
+	# method="GET",
+        method="PUT",
         verify=False,
         headers=HEADER,
-	# data=hostname_put
+	data=data_put
         # params="ports=eth0",
     )
     print(json.dumps(x.json(), indent=4))
@@ -75,7 +71,7 @@ def WTI2():
     SITE_NAME = "164.103.40.67"
 
     # put in the username and password to your WTI device here
-    BASE_PATH = "/api/v2/config/aaaserver"
+    BASE_PATH = "/api/v2/config/telnet"
     encoded_creds = base_64_encode_credentials(
         username=environ["WTI_USERNAME"],
         password=environ["WTI_PASSWORD"],
@@ -100,4 +96,4 @@ def WTI2():
 
 if __name__ == "__main__":
     # get_devices()
-    WTI2()
+    WTI1()
