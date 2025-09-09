@@ -10,12 +10,14 @@ from nautobot.extras.models import GraphQLQuery
 # Get the stored query text
 obj: GraphQLQuery = GraphQLQuery.objects.get(name="Template enrichment")
 query_text: str = obj.query
-variables: dict[str, str] = {"device_id": str(Device.objects.first().id)}
+variables: dict[str, str] = {
+    "device_id": str(Device.objects.get(name="02B-WTI-OOB-LAB").id)
+}
 
 # Provide a request/user for permission checks
 rf = RequestFactory()
 request = rf.post(path="/api/graphql/")
-request.user = get_user_model().objects.get(username="CHUACCH")
+request.user = get_user_model().objects.get(username="chuacch")
 
 # Execute via Graphene schema
 result: dict[Any, Any] = schema.execute(
@@ -24,7 +26,7 @@ result: dict[Any, Any] = schema.execute(
     context_value=request,
 )
 
-path_to_file = "/home/chuacch/useful_jobs/utilities/grapgql_output.json"
+path_to_file = "/home/chuacch/useful_jobs/utilities/graphql_output.json"
 
-with open(file=path_to_file, mode="r", encoding="utf-8") as f:
+with open(file=path_to_file, mode="w", encoding="utf-8") as f:
     f.write(json.dumps(obj=result.data, indent=4))
