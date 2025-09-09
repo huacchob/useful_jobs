@@ -1,26 +1,23 @@
 """nornir dispatcher for cisco Meraki."""
 
 import pdb
-from os import environ
-from pathlib import Path
 
-from dotenv import load_dotenv
 from meraki import DashboardAPI
+from retrieve_secrets import get_secret
 
-cur_dir: Path = Path(__file__).parent
-load_dotenv(dotenv_path=cur_dir.joinpath("creds.env"))
+org_id, token = get_secret("meraki")
 
 dashboard = DashboardAPI(
-    api_key=environ["API_KEY"],
+    api_key=token,
     base_url="https://api.meraki.com/api/v1/",
     output_log=False,
     print_console=False,
 )
 
-resp = dashboard.organizations.updateOrganization(
-    organizationId="1278859", name="test-org"
-)
-# print(dashboard.organizations.getOrganization(organizationId="1278859"))
+# resp = dashboard.organizations.updateOrganization(
+#     organizationId="1278859", name="test-org"
+# )
+print(dashboard.administered.getAdministeredIdentitiesMe())
 # print(dashboard.organizations.getOrganizations())
-print(resp.values())
-pdb.set_trace()
+# print(resp.values())
+# pdb.set_trace()

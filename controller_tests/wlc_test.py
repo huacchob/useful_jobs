@@ -1,8 +1,11 @@
 import datetime
 import getpass
 import logging
+import pdb
 import re
 import sys
+
+from retrieve_secrets import get_secret as sec
 
 try:
     import netmiko
@@ -25,8 +28,7 @@ ips = ["172.30.34.20"]
     um = "admin"
     pw = "insecure_password"
 """
-un = input("Username: ")
-pw = getpass.getpass()
+un, pw = sec("ios")
 
 """
     No Need to change below here!
@@ -82,6 +84,7 @@ for device in devices:
 
     for cmd in commands:
         logger.info("Sending cmd: %s", cmd)
+        pdb.set_trace()
         this_cmd = net_connect.send_command(cmd)
         config_filename_f = open(config_filename, "a")
         config_filename_f.write(this_cmd)
