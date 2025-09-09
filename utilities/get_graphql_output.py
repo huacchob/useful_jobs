@@ -11,7 +11,7 @@ from nautobot.extras.models import GraphQLQuery
 obj: GraphQLQuery = GraphQLQuery.objects.get(name="Template enrichment")
 query_text: str = obj.query
 variables: dict[str, str] = {
-    "device_id": str(Device.objects.get(name="02B-WTI-OOB-LAB").id)
+    "device_id": str(Device.objects.get(name="I02A-M1-WLCTEST-2504").id)
 }
 
 # Provide a request/user for permission checks
