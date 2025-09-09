@@ -1,0 +1,986 @@
+{
+    "device": {
+        "config_context": {
+            "nmsISE_acl": {
+                "acl_type": "standard",
+                "ip_family": "ipv4",
+                "acl_entries": [
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "10.41.173.10",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 20,
+                        "src": "10.140.128.131",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 30,
+                        "src": "164.103.154.15",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 40,
+                        "src": "164.103.154.20",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 50,
+                        "src": "164.103.154.25",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 60,
+                        "src": "164.103.154.26",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 70,
+                        "src": "164.103.154.27",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 80,
+                        "src": "164.103.154.28",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 90,
+                        "src": "167.159.154.15",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 100,
+                        "src": "167.159.154.20",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 110,
+                        "src": "167.159.154.25",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 120,
+                        "src": "167.159.154.26",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 130,
+                        "src": "167.159.154.27",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 140,
+                        "src": "167.159.154.28",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    }
+                ]
+            },
+            "nmsCSPC_acl": {
+                "acl_type": "standard",
+                "ip_family": "ipv4",
+                "acl_entries": [
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "",
+                        "port": "",
+                        "action": "remark",
+                        "message": "Cisco CSPC",
+                        "dst_mask": "",
+                        "protocol": "",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "164.103.154.234",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    }
+                ]
+            },
+            "cmdbSNOW_acl": {
+                "acl_type": "standard",
+                "ip_family": "ipv4",
+                "acl_entries": [
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "",
+                        "port": "",
+                        "action": "remark",
+                        "message": "ServiceNow production environment discovery",
+                        "dst_mask": "",
+                        "protocol": "",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "164.103.76.26",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 20,
+                        "src": "164.103.76.144",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 30,
+                        "src": "164.103.77.20",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 40,
+                        "src": "164.103.79.90",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    }
+                ]
+            },
+            "nmsOrion_acl": {
+                "acl_type": "standard",
+                "ip_family": "ipv4",
+                "acl_entries": [
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "",
+                        "port": "",
+                        "action": "remark",
+                        "message": "Solarwinds Orion Servers - Internal Addresses",
+                        "dst_mask": "",
+                        "protocol": "",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "164.103.230.111",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 20,
+                        "src": "164.103.230.112",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 30,
+                        "src": "164.103.230.113",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 40,
+                        "src": "164.103.230.114",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 50,
+                        "src": "164.103.230.115",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 60,
+                        "src": "164.103.240.174",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 70,
+                        "src": "167.159.135.30",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 80,
+                        "src": "164.103.24.220",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 90,
+                        "src": "164.103.76.134",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 100,
+                        "src": "164.103.170.37",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 110,
+                        "src": "164.103.230.111",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 120,
+                        "src": "164.103.76.233",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 130,
+                        "src": "164.103.170.36",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 140,
+                        "src": "164.103.170.38",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 150,
+                        "src": "164.103.230.112",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 160,
+                        "src": "164.103.230.113",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 170,
+                        "src": "164.103.230.114",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 180,
+                        "src": "164.103.230.115",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 190,
+                        "src": "164.103.240.174",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 200,
+                        "src": "164.103.240.175",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 210,
+                        "src": "164.103.25.11",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 220,
+                        "src": "164.103.76.84",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    }
+                ]
+            },
+            "AdcomSNMP_acl": {
+                "acl_type": "standard",
+                "ip_family": "ipv4",
+                "acl_entries": [
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "164.103.80.185",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 20,
+                        "src": "164.103.80.186",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 30,
+                        "src": "167.159.118.16",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 40,
+                        "src": "167.159.118.17",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    }
+                ]
+            },
+            "nmsLiveAct_acl": {
+                "acl_type": "standard",
+                "ip_family": "ipv4",
+                "acl_entries": [
+                    {
+                        "dst": "",
+                        "seq": 10,
+                        "src": "164.103.170.36",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 20,
+                        "src": "164.103.170.37",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    },
+                    {
+                        "dst": "",
+                        "seq": 30,
+                        "src": "164.103.170.38",
+                        "port": "",
+                        "action": "permit",
+                        "message": "",
+                        "acl_type": "standard",
+                        "dst_mask": "",
+                        "protocol": "tcp",
+                        "src_mask": "",
+                        "port_filter": ""
+                    }
+                ]
+            },
+            "line_acl": "",
+            "banner_motd": true,
+            "dns_servers": [
+                {
+                    "ip": "164.103.14.19",
+                    "vrf": ""
+                },
+                {
+                    "ip": "164.103.15.10",
+                    "vrf": ""
+                }
+            ],
+            "domain_name": "ipaper.com",
+            "local_users": [
+                {
+                    "name": "LAN32Support",
+                    "group": "",
+                    "privilege": 1,
+                    "password_rule": false,
+                    "secret_encryption": 0
+                },
+                {
+                    "name": "Mls32Support",
+                    "group": "",
+                    "privilege": 15,
+                    "password_rule": false,
+                    "secret_encryption": 0
+                }
+            ],
+            "ntp_servers": [
+                {
+                    "ip": "141.129.123.1",
+                    "vrf": "",
+                    "preferred": true
+                },
+                {
+                    "ip": "167.159.123.1",
+                    "vrf": "",
+                    "preferred": false
+                }
+            ],
+            "service_vrf": "10",
+            "banner_login": true,
+            "radius_group": "ISE-Radius",
+            "tacacs_group": "IP_TACACS_SRV_2025",
+            "ntp_interface": "Vlan10",
+            "ssh_interface": "Loopback0",
+            "logging_buffer": 10000,
+            "radius_servers": [
+                {
+                    "ip": "164.103.21.34",
+                    "name": "s02aciseVIP01",
+                    "coa_enabled": true
+                },
+                {
+                    "ip": "167.159.114.34",
+                    "name": "s29eciseVIP01",
+                    "coa_enabled": false
+                },
+                {
+                    "ip": "164.103.154.25",
+                    "name": "s02acisec02PSN01",
+                    "coa_enabled": true
+                },
+                {
+                    "ip": "164.103.154.26",
+                    "name": "s02acisec02PSN02",
+                    "coa_enabled": true
+                },
+                {
+                    "ip": "164.103.154.27",
+                    "name": "s02acisec02PSN03",
+                    "coa_enabled": true
+                },
+                {
+                    "ip": "164.103.154.28",
+                    "name": "s02acisec02PSN04",
+                    "coa_enabled": true
+                },
+                {
+                    "ip": "167.159.154.25",
+                    "name": "s29ecisec02PSN01",
+                    "coa_enabled": false
+                },
+                {
+                    "ip": "167.159.154.26",
+                    "name": "s29ecisec02PSN02",
+                    "coa_enabled": false
+                },
+                {
+                    "ip": "167.159.154.27",
+                    "name": "s29ecisec02PSN03",
+                    "coa_enabled": false
+                },
+                {
+                    "ip": "167.159.154.28",
+                    "name": "s29ecisec02PSN04",
+                    "coa_enabled": false
+                }
+            ],
+            "tacacs_servers": [
+                {
+                    "ip": "164.103.21.39",
+                    "key": true,
+                    "timeout": 5
+                },
+                {
+                    "ip": "167.159.114.35",
+                    "key": true,
+                    "timeout": 5
+                }
+            ],
+            "core_switch1_ip": "1.1.1.1",
+            "core_switch2_ip": "1.1.1.2",
+            "core_switch3_ip": "1.1.1.3",
+            "logging_servers": [
+                {
+                    "ip": "10.199.8.11",
+                    "vrf": ""
+                }
+            ],
+            "site_router1_ip": "2.2.2.1",
+            "site_router2_ip": "2.2.2.2",
+            "site_router3_ip": "2.2.2.3",
+            "radius_interface": "Loopback0",
+            "tacacs_interface": "Loopback0",
+            "logging_interface": "Loopback0",
+            "ospf_id": 65003,
+            "ospf_redistributions": [
+                {
+                    "metric": 110,
+                    "subnets": true,
+                    "protocol": "static",
+                    "route_map": "allow-static"
+                }
+            ],
+            "ospf_distribute_lists": [],
+            "ospf_non_passive_interfaces": [
+                "Vlan12"
+            ],
+            "snmp_contact": "Placeholder",
+            "snmpv3_users": [
+                {
+                    "acl": "nmsOrion",
+                    "auth": "sha",
+                    "name": "nms21Orion",
+                    "priv": "aes 128",
+                    "group": "nms21roGrp"
+                },
+                {
+                    "acl": "nmsCSPC",
+                    "auth": "sha",
+                    "name": "nms21CSPC",
+                    "priv": "aes 128",
+                    "group": "nms21roGrp"
+                },
+                {
+                    "acl": "cmdbSNOW",
+                    "auth": "sha",
+                    "name": "cmdb21SNOW",
+                    "priv": "aes 128",
+                    "group": "cmdbSNOWGrpRO"
+                },
+                {
+                    "acl": "nmsISE",
+                    "auth": "sha",
+                    "name": "nms21ISE",
+                    "priv": "aes 128",
+                    "group": "nms21roGrp"
+                },
+                {
+                    "acl": "",
+                    "auth": "sha",
+                    "name": "mls22LANB",
+                    "priv": "aes 128",
+                    "group": "LANBDGrpRO"
+                }
+            ],
+            "snmpv3_views": [
+                {
+                    "mibs": [
+                        {
+                            "oid": "iso",
+                            "action": "included"
+                        },
+                        {
+                            "oid": "1.3.6.1.2.1.4.21",
+                            "action": "excluded"
+                        },
+                        {
+                            "oid": "1.3.6.1.2.1.4.22",
+                            "action": "excluded"
+                        },
+                        {
+                            "oid": "1.3.6.1.2.1.3",
+                            "action": "excluded"
+                        },
+                        {
+                            "oid": "1.3.6.1.6.3.15",
+                            "action": "excluded"
+                        },
+                        {
+                            "oid": "1.3.6.1.6.3.16",
+                            "action": "excluded"
+                        },
+                        {
+                            "oid": "1.3.6.1.6.3.18",
+                            "action": "excluded"
+                        }
+                    ],
+                    "name": "SNOWViewRO"
+                }
+            ],
+            "snmpv3_groups": [
+                {
+                    "name": "nms21Grp",
+                    "view": "nms21ViewRW",
+                    "access": "write"
+                },
+                {
+                    "name": "AdcomGrpRO",
+                    "view": "AdcomViewRO",
+                    "access": "read"
+                },
+                {
+                    "name": "cmdbSNOWGrpRO",
+                    "view": "SNOWViewRO",
+                    "access": "read"
+                },
+                {
+                    "name": "nms21roGrp",
+                    "view": "",
+                    "access": ""
+                },
+                {
+                    "name": "LANBDGrpRO",
+                    "view": "",
+                    "access": ""
+                }
+            ],
+            "config_command": "show run-config commands"
+        },
+        "hostname": "I02A-M1-WLCTEST-2504",
+        "tags": [],
+        "device_type": {
+            "model": "AIR-CT2504-K9"
+        },
+        "role": {
+            "name": "WLC"
+        },
+        "primary_ip4": {
+            "address": "10.199.192.24/26",
+            "host": "10.199.192.24",
+            "interfaces": [
+                {
+                    "name": "management"
+                }
+            ]
+        },
+        "interfaces": [
+            {
+                "name": "management",
+                "description": "",
+                "enabled": true,
+                "mac_address": null,
+                "mode": null,
+                "role": null,
+                "ip_addresses": [
+                    {
+                        "address": "10.199.192.24/26",
+                        "host": "10.199.192.24",
+                        "mask_length": 26,
+                        "role": null
+                    }
+                ]
+            }
+        ],
+        "location": {
+            "name": "02B_MemphisTestLab",
+            "cf_tier": "I",
+            "parent": {
+                "name": "Oak",
+                "cf_tier": null
+            }
+        }
+    }
+}
