@@ -3,7 +3,13 @@ from typing import Any, Optional, Union
 from requests import Response, Session
 from requests.adapters import HTTPAdapter
 from requests.exceptions import JSONDecodeError
+from retrieve_secrets import get_secret
 from urllib3.util import Retry
+
+
+verify: bool = True
+username, password = get_secret("vmanage")
+controller_url: str = "http://10.206.92.166/"
 
 
 class ConnectionMixin:
@@ -129,8 +135,6 @@ class NetmikoCiscoVmanage(ConnectionMixin):
         Returns:
             Any: Controller object.
         """
-        controller_url: str = "https://sandbox-sdwan-2.cisco.com/"
-        username, password = "devnetuser", "RG!_Yw919_83"
         j_security_headers = {
             "Content-Type": "application/x-www-form-urlencoded",
         }
@@ -142,7 +146,7 @@ class NetmikoCiscoVmanage(ConnectionMixin):
             url=f"{controller_url}/j_security_check",
             headers=j_security_headers,
             body=j_security_payload,
-            verify=False,
+            verify=verify,
         )
         j_session_id: str = security_resp.headers.get("Set-Cookie", "")
         if not j_session_id:
@@ -159,7 +163,7 @@ class NetmikoCiscoVmanage(ConnectionMixin):
             method="GET",
             url=f"{controller_url}dataservice/client/token",
             headers=token_headers,
-            verify=False,
+            verify=verify,
         )
         print(token_resp)
         self.get_headers.update(
@@ -182,18 +186,18 @@ class NetmikoCiscoVmanage(ConnectionMixin):
         Returns:
             Any: API Response.
         """
+        self.authenticate()
         endpoint = "template/feature"
-        url: str = f"https://sandbox-sdwan-2.cisco.com/dataservice/{endpoint}"
         response: Any = self.return_response_content(
             session=self.session,
             method="GET",
-            url=url,
+            url=conytoller_url,
             headers=self.get_headers,
-            verify=False,
+            verify=verify,
         )
         return response
 
 
 dev = NetmikoCiscoVmanage()
-resp = dev.send_call()
+resp = dev.authenticate()
 print(resp)
