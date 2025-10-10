@@ -4,14 +4,15 @@ from typing import Any
 from django.contrib.auth import get_user_model
 from django.test.client import RequestFactory
 from nautobot.core.graphql.schema_init import schema
-from nautobot.dcim.models import Device
+from nautobot.dcim.models import Device, Platform
 from nautobot.extras.models import GraphQLQuery
 
 # Get the stored query text
 obj: GraphQLQuery = GraphQLQuery.objects.get(name="Template enrichment")
 query_text: str = obj.query
+ios_plat = Platform.objects.get(name="cisco_ios")
 variables: dict[str, str] = {
-    "device_id": str(Device.objects.get(name="I02A-M1-WLCTEST-2504").id)
+    "device_id": str(Device.objects.filter(platform=ios_plat).first().id)
 }
 
 # Provide a request/user for permission checks
