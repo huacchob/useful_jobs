@@ -111,8 +111,6 @@ class ConnectionMixin:
             return response
 
 
-username = ""
-password = ""
 hostname = "i335nsvpxlbsnip.ipaper.com"
 session = ConnectionMixin().configure_session()
 endpoint = f"{hostname}/nitro/v1/config/ntpserver"
@@ -130,5 +128,5 @@ response: Any = ConnectionMixin().return_response_content(
     method="GET",
     url=endpoint,
     headers=get_headers,
-    verify=False,
+    verify=verify,
 )
