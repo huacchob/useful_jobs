@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 85C_Minneapolis_MN Config Context Definitions
+  description: 85C_Minneapolis_MN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.35
+site_router1_ip: 10.14.3.34
+site_router2_ip: 10.210.10.206

@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: A4C_Visalia_CA Config Context Definitions
+  description: A4C_Visalia_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.46
+site_router1_ip: 172.16.3.33
+site_router2_ip: 10.210.10.52

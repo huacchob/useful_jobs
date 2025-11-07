@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: A4F_Grand Prairie_TX Config Context Definitions
+  description: A4F_Grand Prairie_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.89
+site_router1_ip: 10.50.3.88
+site_router2_ip: 10.210.10.50

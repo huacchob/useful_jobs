@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BC8_De Kalb_MS Config Context Definitions
+  description: BC8_De Kalb_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.56.3.247
+site_router1_ip: 10.56.3.246
+site_router2_ip: 10.210.9.197

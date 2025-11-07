@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 222_Bay Minette_AL Config Context Definitions
+  description: 222_Bay Minette_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.156
+site_router1_ip: 172.16.3.20
+site_router2_ip: 10.210.11.21
+
+# Meraki Network ID
+networkId: N_712131691078009255

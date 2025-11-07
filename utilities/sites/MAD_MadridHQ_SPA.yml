@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: MAD_MadridHQ_SPA Config Context Definitions
+  description: MAD_MadridHQ_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.99
+site_router1_ip: 10.42.3.98
+site_router2_ip: 10.210.11.101

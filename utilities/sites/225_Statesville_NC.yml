@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 225_Statesville_NC Config Context Definitions
+  description: 225_Statesville_NC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.158
+site_router1_ip: 172.16.3.217
+site_router2_ip: 10.210.11.19
+
+# Meraki Network ID
+networkId: N_712131691078007773

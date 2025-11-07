@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: C5C_Ticonderoga Office_NY Config Context Definitions
+  description: C5C_Ticonderoga Office_NY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_core_unknown_ip: 10.14.3.168
+site_router1_ip: 10.210.11.154
+
+# Meraki Network ID
+networkId: N_712131691078007813

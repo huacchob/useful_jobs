@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 948_Cleveland_TN Config Context Definitions
+  description: 948_Cleveland_TN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.117
+site_router1_ip: 10.49.3.10
+site_router2_ip: 10.210.10.165

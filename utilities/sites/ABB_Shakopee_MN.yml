@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: ABB_Shakopee_MN Config Context Definitions
+  description: ABB_Shakopee_MN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.94.3.137
+site_router1_ip: 10.94.3.136
+site_router2_ip: 10.210.9.252
+
+# Meraki Network ID
+networkId: N_712131691078010084

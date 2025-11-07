@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 8EC_Guyancourt_FRA Config Context Definitions
+  description: 8EC_Guyancourt_FRA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.40.3.185
+site_router2_ip: 10.40.3.187

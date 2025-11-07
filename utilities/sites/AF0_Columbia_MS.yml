@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AF0_Columbia_MS Config Context Definitions
+  description: AF0_Columbia_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.93.3.185
+site_router1_ip: 10.93.3.184
+site_router2_ip: 10.210.9.236

@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: C44_Valls_SPA Config Context Definitions
+  description: C44_Valls_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.3.108
+core_switch2_ip: 10.41.3.109
+site_router1_ip: 10.40.3.230
+site_router2_ip: 10.40.3.231
+site_router3_ip: 10.210.11.116

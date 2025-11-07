@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: ABC_Spotswood_NJ Config Context Definitions
+  description: ABC_Spotswood_NJ Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.96.3.21
+site_router2_ip: 10.210.9.251
+
+# Meraki Network ID
+networkId: N_712131691078008673

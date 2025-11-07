@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 3A9_Bloomingdale_GA Config Context Definitions
+  description: 3A9_Bloomingdale_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.8.3.91
+site_router1_ip: 10.8.3.23
+site_router2_ip: 10.210.10.232
+
+# Meraki Network ID
+networkId: N_712131691078007844

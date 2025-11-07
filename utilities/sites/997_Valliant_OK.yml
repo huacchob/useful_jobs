@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 997_Valliant_OK Config Context Definitions
+  description: 997_Valliant_OK Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.41
+core_switch2_ip: 10.49.3.217
+core_switch3_ip: 10.140.3.20
+site_router1_ip: 10.49.3.152
+site_router2_ip: 10.49.3.150
+site_router3_ip: 10.210.10.73
+
+# Meraki Network ID
+networkId: N_712131691078010956

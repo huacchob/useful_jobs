@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AD4_Monterrey_MEX Config Context Definitions
+  description: AD4_Monterrey_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.3.9
+site_router1_ip: 10.22.3.8
+site_router2_ip: 10.210.11.73

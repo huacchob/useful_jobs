@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 92F_Austin_MN Config Context Definitions
+  description: 92F_Austin_MN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.69
+site_router1_ip: 10.48.3.50
+site_router2_ip: 10.210.10.189
+
+# Meraki Network ID
+networkId: N_712131691078010081

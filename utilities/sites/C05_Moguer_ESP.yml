@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C05_Moguer_ESP Config Context Definitions
+  description: C05_Moguer_ESP Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.78
+site_router1_ip: 10.42.3.79

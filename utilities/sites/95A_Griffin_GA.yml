@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 95A_Griffin_GA Config Context Definitions
+  description: 95A_Griffin_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.116
+site_router1_ip: 10.49.3.42
+site_router2_ip: 10.210.10.124
+
+# Meraki Network ID
+networkId: N_712131691078010820

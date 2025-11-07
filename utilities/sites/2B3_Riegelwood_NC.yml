@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 2B3_Riegelwood_NC Config Context Definitions
+  description: 2B3_Riegelwood_NC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.20.3.91
+core_switch2_ip: 172.20.3.92
+core_switch3_ip: 10.140.3.24
+site_router1_ip: 172.20.3.235
+site_router2_ip: 172.20.3.234
+site_router3_ip: 10.210.11.6
+
+# Meraki Network ID
+networkId: N_712131691078011580

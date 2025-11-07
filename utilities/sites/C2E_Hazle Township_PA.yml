@@ -1,0 +1,12 @@
+---
+_metadata:
+  name: C2E_Hazle Township_PA Config Context Definitions
+  description: C2E_Hazle Township_PA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.101.0.3
+site_router1_ip: 10.101.0.1
+site_router2_ip: 10.101.0.2
+site_router_unknown_ip: 10.101.5.100

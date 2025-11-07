@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 229_Carson_CA Config Context Definitions
+  description: 229_Carson_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.74
+site_router1_ip: 172.16.3.27
+site_router2_ip: 10.210.11.16
+
+# Meraki Network ID
+networkId: N_712131691078009316

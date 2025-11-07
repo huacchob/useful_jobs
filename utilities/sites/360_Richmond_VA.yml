@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 360_Richmond_VA Config Context Definitions
+  description: 360_Richmond_VA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.7.3.145
+site_router2_ip: 10.210.10.241
+
+# Meraki Network ID
+networkId: N_712131691078007772

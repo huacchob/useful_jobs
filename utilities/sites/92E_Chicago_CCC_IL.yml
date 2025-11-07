@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: 92E_Chicago_CCC_IL Config Context Definitions
+  description: 92E_Chicago_CCC_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078009450

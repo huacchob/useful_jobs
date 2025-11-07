@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: B87_Sam_Jones_Whs_IN Config Context Definitions
+  description: B87_Sam_Jones_Whs_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078007795

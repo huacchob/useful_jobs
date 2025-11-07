@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 98E_Silao_MEX Config Context Definitions
+  description: 98E_Silao_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.169
+site_router1_ip: 10.22.3.48
+site_router2_ip: 10.210.11.69

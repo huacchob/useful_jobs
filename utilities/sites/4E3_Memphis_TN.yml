@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 4E3_Memphis_TN Config Context Definitions
+  description: 4E3_Memphis_TN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.29.3.140
+site_router1_ip: 172.29.3.229
+site_router2_ip: 10.210.10.220
+
+# Meraki Network ID
+networkId: N_712131691078007846

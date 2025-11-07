@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 8A3_Ait Amira_MOR Config Context Definitions
+  description: 8A3_Ait Amira_MOR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.40.3.87
+site_router1_ip: 10.41.1.113
+site_router2_ip: 10.42.3.87

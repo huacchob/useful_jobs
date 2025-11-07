@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 226_Shreveport_LA Config Context Definitions
+  description: 226_Shreveport_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.22
+site_router1_ip: 172.16.3.24
+site_router2_ip: 10.210.11.18
+
+# Meraki Network ID
+networkId: N_712131691078006207

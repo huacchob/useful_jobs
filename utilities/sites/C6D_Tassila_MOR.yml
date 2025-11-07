@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C6D_Tassila_MOR Config Context Definitions
+  description: C6D_Tassila_MOR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.21.114
+site_router1_ip: 10.41.21.112

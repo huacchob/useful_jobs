@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 123_Washington_DC Config Context Definitions
+  description: 123_Washington_DC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.30.3.34
+site_router1_ip: 172.30.3.45
+site_router2_ip: 10.210.11.45
+
+# Meraki Network ID
+networkId: N_712131691078007849

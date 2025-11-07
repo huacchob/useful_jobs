@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 155_Kansas City_MO Config Context Definitions
+  description: 155_Kansas City_MO Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.119
+site_router1_ip: 172.16.3.28
+site_router2_ip: 172.16.3.92

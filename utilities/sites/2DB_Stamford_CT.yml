@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 2DB_Stamford_CT Config Context Definitions
+  description: 2DB_Stamford_CT Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.6.3.12
+site_router1_ip: 10.6.3.13
+site_router2_ip: 10.210.11.2
+
+# Meraki Network ID
+networkId: N_712131691078007845

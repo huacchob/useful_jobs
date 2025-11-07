@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: KRA_Krakow_POL Config Context Definitions
+  description: KRA_Krakow_POL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.42.3.24
+site_router2_ip: 10.42.3.25
+site_router3_ip: 10.210.11.97

@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C62_Tampa_FL Config Context Definitions
+  description: C62_Tampa_FL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.104
+site_router1_ip: 10.7.3.103

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 992_Terre Haute_IN Config Context Definitions
+  description: 992_Terre Haute_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.168
+site_router1_ip: 10.48.3.15
+site_router2_ip: 10.210.10.79
+
+# Meraki Network ID
+networkId: N_712131691078009411

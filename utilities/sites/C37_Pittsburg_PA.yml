@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C37_Pittsburg_PA Config Context Definitions
+  description: C37_Pittsburg_PA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.12.92

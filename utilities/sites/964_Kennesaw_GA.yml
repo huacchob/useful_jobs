@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 964_Kennesaw_GA Config Context Definitions
+  description: 964_Kennesaw_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.156
+site_router1_ip: 10.49.3.53
+site_router2_ip: 10.210.10.117

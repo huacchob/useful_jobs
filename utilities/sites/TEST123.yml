@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: TEST123 Config Context Definitions
+  description: TEST123 Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_3823556083637551154

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 942_Cedar Rapids_IA Config Context Definitions
+  description: 942_Cedar Rapids_IA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.108
+site_router1_ip: 10.49.3.17
+site_router2_ip: 10.210.10.170
+
+# Meraki Network ID
+networkId: N_712131691078006146

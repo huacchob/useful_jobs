@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B73_Plain Dealing_LA Config Context Definitions
+  description: B73_Plain Dealing_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.28.3.245
+site_router1_ip: 172.28.3.244
+site_router2_ip: 10.210.9.214
+
+# Meraki Network ID
+networkId: N_712131691078007756

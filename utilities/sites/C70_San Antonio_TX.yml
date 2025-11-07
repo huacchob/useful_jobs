@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C70_San Antonio_TX Config Context Definitions
+  description: C70_San Antonio_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.8.7
+site_router1_ip: 10.80.8.6

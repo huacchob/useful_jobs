@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 24C_Aurora_IL Config Context Definitions
+  description: 24C_Aurora_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.93.3.73
+site_router1_ip: 10.93.3.72
+site_router2_ip: 10.210.11.148

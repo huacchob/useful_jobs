@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 5A4_Hong Kong_CHN Config Context Definitions
+  description: 5A4_Hong Kong_CHN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.60.3.27
+site_router1_ip: 10.60.3.8
+site_router2_ip: 10.210.11.143

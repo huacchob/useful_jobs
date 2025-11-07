@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 958_Grand Prairie_TX Config Context Definitions
+  description: 958_Grand Prairie_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.83
+site_router1_ip: 10.48.3.42
+site_router2_ip: 10.210.10.153

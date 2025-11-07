@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: C3F_McCarran_NV Config Context Definitions
+  description: C3F_McCarran_NV Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.12
+site_router1_ip: 10.7.3.75
+site_router2_ip: 10.210.9.244

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 9A0_Yuma_AZ Config Context Definitions
+  description: 9A0_Yuma_AZ Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.244
+site_router1_ip: 10.49.3.4
+site_router2_ip: 10.210.10.67
+
+# Meraki Network ID
+networkId: N_712131691078009607

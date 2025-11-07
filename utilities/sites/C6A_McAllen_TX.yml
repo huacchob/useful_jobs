@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C6A_McAllen_TX Config Context Definitions
+  description: C6A_McAllen_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.9.226

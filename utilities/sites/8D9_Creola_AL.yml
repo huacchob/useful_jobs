@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 8D9_Creola_AL Config Context Definitions
+  description: 8D9_Creola_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.17.3.125
+site_router1_ip: 10.210.10.97

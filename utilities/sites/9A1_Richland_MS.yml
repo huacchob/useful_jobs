@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 9A1_Richland_MS Config Context Definitions
+  description: 9A1_Richland_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.48.3.32
+site_router2_ip: 10.210.10.66
+
+# Meraki Network ID
+networkId: N_712131691078006017

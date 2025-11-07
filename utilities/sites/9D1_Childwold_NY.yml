@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: 9D1_Childwold_NY Config Context Definitions
+  description: 9D1_Childwold_NY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.10.74

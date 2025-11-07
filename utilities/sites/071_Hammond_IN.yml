@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 071_Hammond_IN Config Context Definitions
+  description: 071_Hammond_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.19.3.104
+site_router1_ip: 172.19.3.35
+site_router2_ip: 10.210.11.37
+
+# Meraki Network ID
+networkId: N_712131691078009324

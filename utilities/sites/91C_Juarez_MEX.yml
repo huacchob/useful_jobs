@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 91C_Juarez_MEX Config Context Definitions
+  description: 91C_Juarez_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.20.3.120
+site_router1_ip: 10.22.3.31
+site_router2_ip: 10.210.11.66

@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C74_Apodaca_MEX Config Context Definitions
+  description: C74_Apodaca_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.136.7
+site_router1_ip: 10.80.136.1

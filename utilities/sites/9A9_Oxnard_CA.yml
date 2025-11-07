@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 9A9_Oxnard_CA Config Context Definitions
+  description: 9A9_Oxnard_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.60.7
+site_router1_ip: 10.80.60.1

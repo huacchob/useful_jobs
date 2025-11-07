@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BF0_Swedesboro_NJ Config Context Definitions
+  description: BF0_Swedesboro_NJ Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.81
+site_router1_ip: 10.50.3.80
+site_router2_ip: 10.210.9.189

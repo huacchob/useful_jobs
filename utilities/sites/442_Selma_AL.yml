@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 442_Selma_AL Config Context Definitions
+  description: 442_Selma_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.4.3.62
+site_router1_ip: 10.4.3.61
+site_router2_ip: 10.210.10.221

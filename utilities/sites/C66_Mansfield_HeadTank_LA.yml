@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C66_Mansfield_HeadTank_LA Config Context Definitions
+  description: C66_Mansfield_HeadTank_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.9.240

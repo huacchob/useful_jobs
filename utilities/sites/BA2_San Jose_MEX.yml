@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: BA2_San Jose_MEX Config Context Definitions
+  description: BA2_San Jose_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.3.62
+site_router1_ip: 10.210.11.167

@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: BEL_Bellusco_ITA Config Context Definitions
+  description: BEL_Bellusco_ITA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.232
+core_switch2_ip: 10.42.3.233
+site_router1_ip: 10.42.3.56
+site_router2_ip: 10.42.3.37
+site_router3_ip: 10.210.11.80

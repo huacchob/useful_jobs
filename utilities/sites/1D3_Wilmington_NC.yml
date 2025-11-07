@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: 1D3_Wilmington_NC Config Context Definitions
+  description: 1D3_Wilmington_NC Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078008650

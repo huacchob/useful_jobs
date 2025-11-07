@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 9B6_Morristown_TN Config Context Definitions
+  description: 9B6_Morristown_TN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.16.3.68
+site_router1_ip: 10.16.3.181
+site_router2_ip: 10.210.10.64

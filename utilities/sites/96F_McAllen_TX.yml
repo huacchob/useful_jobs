@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 96F_McAllen_TX Config Context Definitions
+  description: 96F_McAllen_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.92
+site_router1_ip: 10.48.3.41
+site_router2_ip: 10.210.10.108

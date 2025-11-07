@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: B8A_Aurora_IL Config Context Definitions
+  description: B8A_Aurora_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.200
+site_router1_ip: 10.50.3.201
+site_router2_ip: 10.210.9.209

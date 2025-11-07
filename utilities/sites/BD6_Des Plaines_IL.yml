@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BD6_Des Plaines_IL Config Context Definitions
+  description: BD6_Des Plaines_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.6.3.35
+site_router1_ip: 10.6.3.34
+site_router2_ip: 10.210.9.193

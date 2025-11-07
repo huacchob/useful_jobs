@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AD6_Guadalajara_MEX Config Context Definitions
+  description: AD6_Guadalajara_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.28.1
+site_router1_ip: 10.22.3.18
+site_router2_ip: 10.210.11.76

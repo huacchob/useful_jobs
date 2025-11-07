@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: BA4_SalinasWhse_CA Config Context Definitions
+  description: BA4_SalinasWhse_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078009519

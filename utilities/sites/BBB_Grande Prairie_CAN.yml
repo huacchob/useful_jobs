@@ -1,0 +1,16 @@
+---
+_metadata:
+  name: BBB_Grande Prairie_CAN Config Context Definitions
+  description: BBB_Grande Prairie_CAN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.56.3.17
+core_switch2_ip: 10.56.3.18
+core_switch3_ip: 10.140.3.152
+site_router1_ip: 10.56.3.196
+site_router2_ip: 10.56.3.194
+
+# Meraki Network ID
+networkId: N_3823556083637551148

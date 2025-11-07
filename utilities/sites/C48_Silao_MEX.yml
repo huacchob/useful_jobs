@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C48_Silao_MEX Config Context Definitions
+  description: C48_Silao_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.80.24.1

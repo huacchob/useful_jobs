@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 84A_Kisatchie_LA Config Context Definitions
+  description: 84A_Kisatchie_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.29.3.202
+site_router1_ip: 172.29.3.201
+site_router2_ip: 10.210.10.211

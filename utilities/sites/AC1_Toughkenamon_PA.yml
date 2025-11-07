@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AC1_Toughkenamon_PA Config Context Definitions
+  description: AC1_Toughkenamon_PA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.97.3.9
+site_router1_ip: 10.97.3.8
+site_router2_ip: 10.210.9.248
+
+# Meraki Network ID
+networkId: N_712131691078007837

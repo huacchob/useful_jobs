@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: B2C_Danville_IL_IPB Config Context Definitions
+  description: B2C_Danville_IL_IPB Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.80.120.1

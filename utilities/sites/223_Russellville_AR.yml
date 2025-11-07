@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 223_Russellville_AR Config Context Definitions
+  description: 223_Russellville_AR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.95
+site_router1_ip: 172.16.3.21
+site_router2_ip: 10.210.11.20

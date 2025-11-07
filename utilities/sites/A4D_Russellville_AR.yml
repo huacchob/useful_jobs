@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: A4D_Russellville_AR Config Context Definitions
+  description: A4D_Russellville_AR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.214
+site_router1_ip: 172.16.3.213
+site_router2_ip: 10.210.10.51
+
+# Meraki Network ID
+networkId: N_712131691078006019

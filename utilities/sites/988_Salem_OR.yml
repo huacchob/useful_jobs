@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 988_Salem_OR Config Context Definitions
+  description: 988_Salem_OR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.94
+site_router1_ip: 10.49.3.56
+site_router2_ip: 10.210.10.88

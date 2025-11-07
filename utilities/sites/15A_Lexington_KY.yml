@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 15A_Lexington_KY Config Context Definitions
+  description: 15A_Lexington_KY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.176
+site_router1_ip: 172.16.3.149
+site_router2_ip: 10.210.11.29
+
+# Meraki Network ID
+networkId: N_712131691078007816

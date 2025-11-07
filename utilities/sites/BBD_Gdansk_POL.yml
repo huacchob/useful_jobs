@@ -1,0 +1,12 @@
+---
+_metadata:
+  name: BBD_Gdansk_POL Config Context Definitions
+  description: BBD_Gdansk_POL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_core_unknown_ip: 10.140.3.156
+site_router1_ip: 10.40.3.56
+site_router2_ip: 10.40.3.62
+site_router3_ip: 10.210.11.91

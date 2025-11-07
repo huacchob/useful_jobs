@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: B58_Orlando_FL Config Context Definitions
+  description: B58_Orlando_FL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.92.3.142
+site_router1_ip: 10.92.3.140
+site_router2_ip: 10.92.3.141

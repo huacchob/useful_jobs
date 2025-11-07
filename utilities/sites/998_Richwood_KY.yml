@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 998_Richwood_KY Config Context Definitions
+  description: 998_Richwood_KY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.71
+site_router1_ip: 10.49.3.57
+site_router2_ip: 10.210.10.72
+
+# Meraki Network ID
+networkId: N_712131691078007847

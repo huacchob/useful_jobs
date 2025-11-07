@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 975_Mount Vernon_OH Config Context Definitions
+  description: 975_Mount Vernon_OH Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.102
+site_router1_ip: 10.48.3.20
+site_router2_ip: 10.210.10.105
+
+# Meraki Network ID
+networkId: N_712131691078009808

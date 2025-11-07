@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 3FB_Eastover_SC Config Context Definitions
+  description: 3FB_Eastover_SC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.8.22.1
+site_router1_ip: 10.8.3.65
+
+# Meraki Network ID
+networkId: N_712131691078010548

@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C4B_Kwidzyn_POL Config Context Definitions
+  description: C4B_Kwidzyn_POL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.173.18
+site_router1_ip: 10.42.3.90

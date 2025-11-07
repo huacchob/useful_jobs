@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AB9_Santa Fe Springs_CA Config Context Definitions
+  description: AB9_Santa Fe Springs_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.92.3.97
+site_router1_ip: 10.92.3.96
+site_router2_ip: 10.210.9.254
+
+# Meraki Network ID
+networkId: N_712131691078009323

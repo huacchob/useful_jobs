@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: 02B_MemphisTestLab Config Context Definitions
+  description: 02B_MemphisTestLab Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.206.3.20

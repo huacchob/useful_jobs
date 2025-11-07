@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C2A_Cottondale_AL Config Context Definitions
+  description: C2A_Cottondale_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.10.152

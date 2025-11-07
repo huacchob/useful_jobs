@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 95D_Huntsville_AL Config Context Definitions
+  description: 95D_Huntsville_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.94
+site_router1_ip: 10.48.3.6
+site_router2_ip: 10.210.10.120

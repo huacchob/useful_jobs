@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: A10_Roseville_MN Config Context Definitions
+  description: A10_Roseville_MN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.62
+site_router1_ip: 10.50.3.58
+site_router2_ip: 10.210.10.57

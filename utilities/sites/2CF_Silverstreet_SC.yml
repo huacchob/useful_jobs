@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 2CF_Silverstreet_SC Config Context Definitions
+  description: 2CF_Silverstreet_SC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.10.3.104
+site_router1_ip: 10.14.3.105
+site_router2_ip: 10.210.11.3
+
+# Meraki Network ID
+networkId: N_712131691078010824

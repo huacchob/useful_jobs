@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 231_Putnam_CT Config Context Definitions
+  description: 231_Putnam_CT Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.43
+site_router1_ip: 172.16.3.35
+site_router2_ip: 10.210.11.10
+
+# Meraki Network ID
+networkId: N_712131691078008671

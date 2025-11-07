@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: ABD_Streetsboro_OH Config Context Definitions
+  description: ABD_Streetsboro_OH Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.96.3.81
+site_router1_ip: 10.96.3.80
+site_router2_ip: 10.210.9.250
+
+# Meraki Network ID
+networkId: N_712131691078010080

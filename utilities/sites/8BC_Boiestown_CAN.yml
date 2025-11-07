@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 8BC_Boiestown_CAN Config Context Definitions
+  description: 8BC_Boiestown_CAN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.130.3.12
+core_switch2_ip: 10.130.3.14
+site_router1_ip: 10.130.3.11
+
+# Meraki Network ID
+networkId: N_712131691078009334

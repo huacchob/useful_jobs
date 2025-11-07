@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 35B_Forest Park_GA Config Context Definitions
+  description: 35B_Forest Park_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.7.3.20
+site_router2_ip: 10.210.10.244

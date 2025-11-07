@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: FEL_San Felice_ITA Config Context Definitions
+  description: FEL_San Felice_ITA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.224
+core_switch2_ip: 10.42.3.225
+site_router1_ip: 10.40.3.243
+site_router2_ip: 10.42.3.38
+site_router3_ip: 10.210.11.108

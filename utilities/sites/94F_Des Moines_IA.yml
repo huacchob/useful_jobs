@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 94F_Des Moines_IA Config Context Definitions
+  description: 94F_Des Moines_IA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.82
+site_router1_ip: 10.49.3.18
+site_router2_ip: 10.210.10.161

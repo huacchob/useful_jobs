@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: 22E_Soperton_GA Config Context Definitions
+  description: 22E_Soperton_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.11.12

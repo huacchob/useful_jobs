@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AB6_St. Louis_MO Config Context Definitions
+  description: AB6_St. Louis_MO Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.94.3.169
+site_router1_ip: 10.94.3.245
+site_router2_ip: 10.210.10.1
+
+# Meraki Network ID
+networkId: N_712131691078011244

@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: A6D_Biglerville_PA Config Context Definitions
+  description: A6D_Biglerville_PA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.96.3.246
+site_router1_ip: 10.96.3.229
+site_router2_ip: 10.210.10.43

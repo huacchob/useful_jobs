@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 356_Edinburg_TX Config Context Definitions
+  description: 356_Edinburg_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.62
+site_router1_ip: 10.7.3.15
+site_router2_ip: 10.210.10.247

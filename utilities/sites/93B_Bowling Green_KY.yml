@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 93B_Bowling Green_KY Config Context Definitions
+  description: 93B_Bowling Green_KY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.82
+site_router1_ip: 10.48.3.17
+site_router2_ip: 10.210.10.179
+
+# Meraki Network ID
+networkId: N_712131691078009327

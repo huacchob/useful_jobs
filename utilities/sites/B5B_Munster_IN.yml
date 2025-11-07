@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B5B_Munster_IN Config Context Definitions
+  description: B5B_Munster_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.30.3.178
+site_router1_ip: 172.30.3.177
+site_router2_ip: 10.210.9.220
+
+# Meraki Network ID
+networkId: N_712131691078009171

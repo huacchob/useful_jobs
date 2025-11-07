@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 94A_Compton_CA Config Context Definitions
+  description: 94A_Compton_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.88
+site_router1_ip: 10.49.3.21
+site_router2_ip: 10.210.10.163
+
+# Meraki Network ID
+networkId: N_712131691078009317

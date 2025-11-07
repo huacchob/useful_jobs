@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 8DC_Lake Pleasant_NY Config Context Definitions
+  description: 8DC_Lake Pleasant_NY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.206.3.58
+site_router1_ip: 10.206.3.53
+
+# Meraki Network ID
+networkId: N_712131691078007843

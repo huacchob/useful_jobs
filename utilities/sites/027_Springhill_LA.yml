@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 027_Springhill_LA Config Context Definitions
+  description: 027_Springhill_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.28.3.238
+site_router1_ip: 172.28.3.237
+site_router2_ip: 10.210.11.40
+
+# Meraki Network ID
+networkId: N_712131691078007848

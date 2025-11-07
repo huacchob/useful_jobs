@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 0B4_Russellville_AR Config Context Definitions
+  description: 0B4_Russellville_AR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.12.3.112
+site_router1_ip: 10.12.3.38
+site_router2_ip: 10.210.11.34
+
+# Meraki Network ID
+networkId: N_712131691078007468

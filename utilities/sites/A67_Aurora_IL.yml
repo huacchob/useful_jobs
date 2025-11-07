@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: A67_Aurora_IL Config Context Definitions
+  description: A67_Aurora_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.92.3.161
+site_router1_ip: 10.92.3.162
+site_router2_ip: 10.210.10.45

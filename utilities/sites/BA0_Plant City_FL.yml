@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: BA0_Plant City_FL Config Context Definitions
+  description: BA0_Plant City_FL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.138
+site_router1_ip: 10.50.3.137
+site_router2_ip: 10.210.9.203
+
+# Meraki Network ID
+networkId: N_712131691078009358

@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 220_Fond Du Lac _WI Config Context Definitions
+  description: 220_Fond Du Lac _WI Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.140
+site_router1_ip: 172.16.3.18
+site_router2_ip: 10.210.11.22

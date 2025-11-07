@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AD5_San Jose_MEX Config Context Definitions
+  description: AD5_San Jose_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.3.13
+site_router1_ip: 10.22.3.12
+site_router2_ip: 10.22.3.14

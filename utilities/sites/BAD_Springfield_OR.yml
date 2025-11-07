@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BAD_Springfield_OR Config Context Definitions
+  description: BAD_Springfield_OR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.48
+site_router1_ip: 10.49.3.213
+site_router2_ip: 10.210.9.199

@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 967_Lithonia_GA Config Context Definitions
+  description: 967_Lithonia_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.92
+site_router1_ip: 10.49.3.43
+site_router2_ip: 10.210.10.114

@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: AA2_Maysville_KY Config Context Definitions
+  description: AA2_Maysville_KY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch3_ip: 10.140.3.88
+core_switch1_ip: 10.94.3.91
+core_switch2_ip: 10.94.3.94
+site_router1_ip: 10.94.3.90
+site_router2_ip: 10.94.3.93
+site_router3_ip: 10.210.10.13
+
+# Meraki Network ID
+networkId: N_3823556083637551127

@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: C17_Ovar_POR Config Context Definitions
+  description: C17_Ovar_POR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.242
+core_switch2_ip: 10.42.3.243
+site_router1_ip: 10.42.3.240
+site_router2_ip: 10.42.3.241
+site_router3_ip: 10.42.3.248

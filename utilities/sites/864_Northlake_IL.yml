@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 864_Northlake_IL Config Context Definitions
+  description: 864_Northlake_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.126
+site_router1_ip: 10.14.3.17
+site_router2_ip: 10.210.10.202
+
+# Meraki Network ID
+networkId: N_712131691078009826

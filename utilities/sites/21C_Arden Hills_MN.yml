@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 21C_Arden Hills_MN Config Context Definitions
+  description: 21C_Arden Hills_MN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.77
+site_router1_ip: 172.16.3.13
+site_router2_ip: 10.210.11.24
+
+# Meraki Network ID
+networkId: N_712131691078007817

@@ -1,29 +1,14 @@
-import csv
+import json
 from pathlib import Path
 from typing import Any
 
 import yaml
 
 
-def read_csv_file_to_dict(file_path):
-    """Reads a CSV file and returns its contents as a list of dictionaries."""
-    with Path(file_path).open(mode="r", newline="") as csvfile:
-        reader = csv.DictReader(csvfile)
-        return [row for row in reader]
-
-
-def sort_lines_by_field_into_list(field_name: str, csv_dict: list[dict]):
-    """Sorts lines of a CSV dictionary by a specified field and returns a list of sorted lines."""
-    discovered_fields = []
-    dict_of_fields = {}
-    for node_dict in csv_dict:
-        if field := node_dict.get(field_name):
-            if field not in discovered_fields:
-                discovered_fields.append(field)
-                dict_of_fields[field] = []
-            if node_dict not in dict_of_fields[field]:
-                dict_of_fields[field].append(node_dict)
-    return dict_of_fields
+def read_json_file_to_dict(file_path):
+    """Reads a JSON file and returns its contents as a list of dictionaries."""
+    with Path(file_path).open(mode="r", newline="") as jsonfile:
+        return json.load(fp=jsonfile)
 
 
 def write_core_router_ips(
@@ -74,26 +59,43 @@ def write_snmp_metadata(
         pass
 
 
-def write_csv_dict_to_context(yaml_dir: Path, dict_of_fields: dict[Any, Any]):
-    """Writes a CSV dictionary to a YAML file."""
-    for field, nodes in dict_of_fields.items():
-        yaml_file_name = yaml_dir.joinpath(f"{field}.yml")
-        with yaml_file_name.open(mode="w") as yamlfile:
-            yamlfile.write("---\n")
-            yaml_dict = {
-                "_metadata": {
-                    "name": f"{field} Config Context Definitions",
-                    "description": f"{field} Definitions",
-                    "is_active": True,
-                    "weight": 2500,
-                },
-            }
-            yaml.dump(
-                data=yaml_dict,
-                stream=yamlfile,
-                default_flow_style=False,
-                sort_keys=False,
-            )
+def write_meraki_network_ids(
+    nodes: str,
+    yaml_dict: dict[Any, Any],
+) -> dict[Any, Any]:
+    yaml_dict.update({"networkId": list(nodes.values())[0]})
+    return yaml_dict
+
+
+def write_json_obj_to_context(yaml_dir: Path, json_obj: dict[Any, Any]):
+    """Writes a JSON dictionary to a YAML file."""
+    for nodes in json_obj:
+        loc_id: str = list(nodes.keys())[0][:3]
+        file_exists: bool = len(list(yaml_dir.glob(f"{loc_id}*.yml"))) == 1
+        if file_exists:
+            existing_file = list(yaml_dir.glob(f"{loc_id}*.yml"))[0]
+        else:
+            existing_file = None
+        yaml_file_name = existing_file or yaml_dir.joinpath(
+            f"{list(nodes.keys())[0]}.yml"
+        )
+        with yaml_file_name.open(mode="a") as yamlfile:
+            if not file_exists:
+                yamlfile.write("---\n")
+                yaml_dict = {
+                    "_metadata": {
+                        "name": f"{list(nodes.keys())[0]} Config Context Definitions",
+                        "description": f"{list(nodes.keys())[0]} Definitions",
+                        "is_active": True,
+                        "weight": 2500,
+                    },
+                }
+                yaml.dump(
+                    data=yaml_dict,
+                    stream=yamlfile,
+                    default_flow_style=False,
+                    sort_keys=False,
+                )
             yaml_dict: dict[Any, Any] = {}
             if file_path == "Router_Core_IPs.csv":
                 yamlfile.write("\n# Core and Router IPs\n")
@@ -107,6 +109,12 @@ def write_csv_dict_to_context(yaml_dir: Path, dict_of_fields: dict[Any, Any]):
                     nodes=nodes,
                     yaml_dict=yaml_dict,
                 )
+            if file_path == "networks.json":
+                yamlfile.write("\n# Meraki Network ID\n")
+                write_meraki_network_ids(
+                    nodes=nodes,
+                    yaml_dict=yaml_dict,
+                )
             yaml.dump(
                 data=yaml_dict,
                 stream=yamlfile,
@@ -115,20 +123,17 @@ def write_csv_dict_to_context(yaml_dir: Path, dict_of_fields: dict[Any, Any]):
             )
 
 
-file_path = "Router_Core_IPs.csv"
-csv_dict = read_csv_file_to_dict(file_path=file_path)
-sorted_sites = sort_lines_by_field_into_list(
-    field_name="Site",
-    csv_dict=csv_dict,
-)
-context_site_dir = Path(__file__).parent.parent.parent.joinpath(
-    "ip_repos",
-    "Templates",
-    "config_contexts",
-    "sites",
-)
+file_path = "networks.json"
+json_obj = read_json_file_to_dict(file_path=file_path)
+# context_site_dir = Path(__file__).parent.parent.parent.joinpath(
+#     "ip_repos",
+#     "Templates",
+#     "config_contexts",
+#     "sites",
+# )
+context_site_dir = Path(__file__).parent.joinpath("sites")
 context_site_dir.mkdir(parents=True, exist_ok=True)
-write_csv_dict_to_context(
+write_json_obj_to_context(
     yaml_dir=context_site_dir,
-    dict_of_fields=sorted_sites,
+    json_obj=json_obj,
 )

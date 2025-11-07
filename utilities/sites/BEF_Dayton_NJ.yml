@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BEF_Dayton_NJ Config Context Definitions
+  description: BEF_Dayton_NJ Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.96.3.201
+site_router1_ip: 10.96.3.200
+site_router2_ip: 10.210.9.190

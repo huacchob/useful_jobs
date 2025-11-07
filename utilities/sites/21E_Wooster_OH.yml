@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 21E_Wooster_OH Config Context Definitions
+  description: 21E_Wooster_OH Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 172.16.3.16
+site_router2_ip: 10.210.11.23
+
+# Meraki Network ID
+networkId: N_712131691078009470

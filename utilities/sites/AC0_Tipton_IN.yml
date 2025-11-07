@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AC0_Tipton_IN Config Context Definitions
+  description: AC0_Tipton_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.94.3.41
+site_router1_ip: 10.94.3.42
+site_router2_ip: 10.210.9.249
+
+# Meraki Network ID
+networkId: N_712131691078009247

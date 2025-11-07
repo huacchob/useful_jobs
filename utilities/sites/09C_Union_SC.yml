@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 09C_Union_SC Config Context Definitions
+  description: 09C_Union_SC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.8.3.52
+site_router1_ip: 10.8.3.49

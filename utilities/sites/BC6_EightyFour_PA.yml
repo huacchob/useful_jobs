@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: BC6_EightyFour_PA Config Context Definitions
+  description: BC6_EightyFour_PA Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078004607

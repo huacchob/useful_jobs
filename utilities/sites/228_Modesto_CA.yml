@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 228_Modesto_CA Config Context Definitions
+  description: 228_Modesto_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.112
+site_router1_ip: 172.16.3.26
+site_router2_ip: 10.210.11.17

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 35E_Decatur_AL Config Context Definitions
+  description: 35E_Decatur_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.53
+site_router1_ip: 10.7.3.23
+site_router2_ip: 10.210.10.242
+
+# Meraki Network ID
+networkId: N_712131691078007811

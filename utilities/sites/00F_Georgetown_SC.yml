@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 00F_Georgetown_SC Config Context Definitions
+  description: 00F_Georgetown_SC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch2_ip: 172.20.3.76
+core_switch1_ip: 172.20.3.75
+core_switch3_ip: 10.140.3.52
+site_router1_ip: 172.20.3.62
+site_router2_ip: 172.20.3.21
+site_router3_ip: 10.210.11.43
+
+# Meraki Network ID
+networkId: N_712131691078010686

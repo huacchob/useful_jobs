@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 230_Mt. Carmel_PA Config Context Definitions
+  description: 230_Mt. Carmel_PA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 172.16.3.86
+site_router2_ip: 10.210.11.11

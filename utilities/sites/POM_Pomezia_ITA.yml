@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: POM_Pomezia_ITA Config Context Definitions
+  description: POM_Pomezia_ITA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.64
+core_switch2_ip: 10.42.3.65
+site_router1_ip: 10.40.3.194
+site_router2_ip: 10.42.3.46
+site_router3_ip: 10.210.11.105

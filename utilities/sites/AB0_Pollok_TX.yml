@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: AB0_Pollok_TX Config Context Definitions
+  description: AB0_Pollok_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.97.3.73
+site_router1_ip: 10.97.3.72

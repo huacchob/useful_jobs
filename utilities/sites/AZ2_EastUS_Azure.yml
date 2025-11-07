@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: AZ2_EastUS_Azure Config Context Definitions
+  description: AZ2_EastUS_Azure Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.31.126.33
+site_router2_ip: 10.31.126.34

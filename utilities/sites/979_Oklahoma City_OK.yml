@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 979_Oklahoma City_OK Config Context Definitions
+  description: 979_Oklahoma City_OK Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.136
+site_router1_ip: 10.48.3.9
+site_router2_ip: 10.210.10.102

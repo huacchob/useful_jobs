@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 98A_Salt Lake City_UT Config Context Definitions
+  description: 98A_Salt Lake City_UT Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.93
+site_router1_ip: 10.49.3.25
+site_router2_ip: 10.210.10.86

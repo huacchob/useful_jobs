@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: C40_Chaspuzac_FRA Config Context Definitions
+  description: C40_Chaspuzac_FRA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.173.193
+site_router1_ip: 10.40.3.159
+site_router2_ip: 10.40.3.160

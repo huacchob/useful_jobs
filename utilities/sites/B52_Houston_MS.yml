@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B52_Houston_MS Config Context Definitions
+  description: B52_Houston_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.68
+site_router1_ip: 10.7.3.33
+site_router2_ip: 10.210.9.223
+
+# Meraki Network ID
+networkId: N_712131691078007857

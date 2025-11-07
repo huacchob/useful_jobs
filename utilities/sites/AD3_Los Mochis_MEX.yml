@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AD3_Los Mochis_MEX Config Context Definitions
+  description: AD3_Los Mochis_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.3.5
+site_router1_ip: 10.22.3.6
+site_router2_ip: 10.210.11.72

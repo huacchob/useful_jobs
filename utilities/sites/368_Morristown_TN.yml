@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 368_Morristown_TN Config Context Definitions
+  description: 368_Morristown_TN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.101
+site_router1_ip: 10.7.3.35
+site_router2_ip: 10.210.10.239

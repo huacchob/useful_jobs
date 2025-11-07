@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: BB4_Oglethorpe_GA Config Context Definitions
+  description: BB4_Oglethorpe_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.56.3.9
+core_switch2_ip: 10.56.3.10
+core_switch3_ip: 10.140.3.140
+site_router1_ip: 10.56.3.30
+site_router2_ip: 10.56.3.47
+site_router3_ip: 10.56.3.31
+
+# Meraki Network ID
+networkId: N_3823556083637551130

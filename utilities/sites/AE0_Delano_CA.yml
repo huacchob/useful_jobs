@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AE0_Delano_CA Config Context Definitions
+  description: AE0_Delano_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.163
+site_router1_ip: 172.16.3.162
+site_router2_ip: 10.210.9.243
+
+# Meraki Network ID
+networkId: N_712131691078007827

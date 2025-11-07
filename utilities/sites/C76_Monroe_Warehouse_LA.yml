@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C76_Monroe_Warehouse_LA Config Context Definitions
+  description: C76_Monroe_Warehouse_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_core_unknown_ip: 10.80.48.5
+site_router1_ip: 10.80.48.1

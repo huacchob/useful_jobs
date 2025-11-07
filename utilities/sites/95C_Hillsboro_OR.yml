@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 95C_Hillsboro_OR Config Context Definitions
+  description: 95C_Hillsboro_OR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.154
+site_router1_ip: 10.49.3.32
+site_router2_ip: 10.210.10.121
+
+# Meraki Network ID
+networkId: N_712131691078007806

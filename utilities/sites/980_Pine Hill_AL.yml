@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 980_Pine Hill_AL Config Context Definitions
+  description: 980_Pine Hill_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.80
+core_switch2_ip: 10.49.3.81
+core_switch3_ip: 10.140.3.40
+site_router1_ip: 10.49.3.52
+site_router2_ip: 10.50.3.94
+site_router3_ip: 10.210.10.95
+
+# Meraki Network ID
+networkId: N_3823556083637551135

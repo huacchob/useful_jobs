@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C55_Ticonderoga Fiber_NY Config Context Definitions
+  description: C55_Ticonderoga Fiber_NY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.20.3.106
+site_router1_ip: 172.20.3.105

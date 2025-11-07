@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 5CD_Puebla_MEX Config Context Definitions
+  description: 5CD_Puebla_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.20.3.141
+site_router1_ip: 10.22.3.44
+site_router2_ip: 10.210.11.65

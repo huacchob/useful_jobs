@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 859_Kansas City_MO Config Context Definitions
+  description: 859_Kansas City_MO Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.47
+site_router1_ip: 10.14.3.73
+site_router2_ip: 10.210.10.208

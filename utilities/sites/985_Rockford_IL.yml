@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 985_Rockford_IL Config Context Definitions
+  description: 985_Rockford_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.48.3.23
+site_router2_ip: 10.210.10.90
+
+# Meraki Network ID
+networkId: N_712131691078009812

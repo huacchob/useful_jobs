@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 02C_Selma_AL Config Context Definitions
+  description: 02C_Selma_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.23.3.51
+core_switch2_ip: 172.23.3.50
+core_switch3_ip: 10.140.3.72
+site_router1_ip: 172.23.3.20
+site_router2_ip: 172.23.3.73
+site_router3_ip: 10.210.11.38
+
+# Meraki Network ID
+networkId: N_3823556083637551134

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 854_Decatur_AL Config Context Definitions
+  description: 854_Decatur_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.158
+site_router1_ip: 10.7.3.157
+site_router2_ip: 10.210.10.209
+
+# Meraki Network ID
+networkId: N_712131691078007814

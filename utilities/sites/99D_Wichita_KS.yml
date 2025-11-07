@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 99D_Wichita_KS Config Context Definitions
+  description: 99D_Wichita_KS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.220
+site_router1_ip: 10.48.3.24
+site_router2_ip: 10.210.10.69

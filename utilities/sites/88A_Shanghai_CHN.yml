@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 88A_Shanghai_CHN Config Context Definitions
+  description: 88A_Shanghai_CHN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.60.3.131
+core_switch2_ip: 10.60.3.132
+site_router1_ip: 10.60.3.6

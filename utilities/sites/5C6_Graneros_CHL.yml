@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 5C6_Graneros_CHL Config Context Definitions
+  description: 5C6_Graneros_CHL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.20.3.136
+site_router1_ip: 10.21.3.218

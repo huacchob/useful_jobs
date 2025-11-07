@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 97B_Olympia_WA Config Context Definitions
+  description: 97B_Olympia_WA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.202
+site_router1_ip: 10.49.3.50
+site_router2_ip: 10.210.10.100
+
+# Meraki Network ID
+networkId: N_712131691078007807

@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: AC8_WheatRidgeCont_CO Config Context Definitions
+  description: AC8_WheatRidgeCont_CO Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078010090

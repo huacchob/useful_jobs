@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: B70_Bay Minette_AL Config Context Definitions
+  description: B70_Bay Minette_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.6.3.9
+site_router1_ip: 10.6.3.10
+site_router2_ip: 10.210.9.216

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 86B_Dothan_AL Config Context Definitions
+  description: 86B_Dothan_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.63
+site_router1_ip: 10.14.3.62
+site_router2_ip: 10.210.10.200
+
+# Meraki Network ID
+networkId: N_712131691078007777

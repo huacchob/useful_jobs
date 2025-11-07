@@ -1,0 +1,15 @@
+---
+_metadata:
+  name: 946_Charlotte_NC Config Context Definitions
+  description: 946_Charlotte_NC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.75
+core_switch3_ip: 10.140.3.116
+site_router1_ip: 10.49.3.247
+site_router2_ip: 10.210.10.167
+
+# Meraki Network ID
+networkId: N_712131691078007782

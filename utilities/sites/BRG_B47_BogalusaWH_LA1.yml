@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: BRG_B47_BogalusaWH_LA1 Config Context Definitions
+  description: BRG_B47_BogalusaWH_LA1 Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078008881

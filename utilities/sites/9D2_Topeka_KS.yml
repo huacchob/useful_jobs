@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 9D2_Topeka_KS Config Context Definitions
+  description: 9D2_Topeka_KS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.193
+site_router1_ip: 172.16.3.192
+site_router2_ip: 10.210.10.60

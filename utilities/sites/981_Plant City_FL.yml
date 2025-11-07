@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 981_Plant City_FL Config Context Definitions
+  description: 981_Plant City_FL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.49.3.30
+site_router2_ip: 10.210.10.94

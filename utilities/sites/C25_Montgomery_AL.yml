@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C25_Montgomery_AL Config Context Definitions
+  description: C25_Montgomery_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.153
+site_router2_ip: 10.14.3.152

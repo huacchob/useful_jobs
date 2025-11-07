@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B84_Carson_CA Config Context Definitions
+  description: B84_Carson_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.210
+site_router1_ip: 10.7.3.209
+site_router2_ip: 10.210.9.210
+
+# Meraki Network ID
+networkId: N_712131691078008976

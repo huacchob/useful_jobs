@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: A7A_Crawfordsville_IN Config Context Definitions
+  description: A7A_Crawfordsville_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.93.3.201
+site_router1_ip: 10.93.3.202
+site_router2_ip: 10.210.10.32

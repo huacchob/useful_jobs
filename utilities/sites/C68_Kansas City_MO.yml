@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: C68_Kansas City_MO Config Context Definitions
+  description: C68_Kansas City_MO Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.108.5
+site_router1_ip: 10.80.108.1
+site_router2_ip: 10.80.108.2

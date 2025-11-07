@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 991_Tampa_FL Config Context Definitions
+  description: 991_Tampa_FL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.128
+site_router1_ip: 10.49.3.31
+site_router2_ip: 10.210.10.80
+
+# Meraki Network ID
+networkId: N_712131691078007780

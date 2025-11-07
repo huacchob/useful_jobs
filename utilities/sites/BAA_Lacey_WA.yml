@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: BAA_Lacey_WA Config Context Definitions
+  description: BAA_Lacey_WA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.107
+site_router1_ip: 10.210.9.200
+
+# Meraki Network ID
+networkId: N_712131691078003355

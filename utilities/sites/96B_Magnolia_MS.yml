@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 96B_Magnolia_MS Config Context Definitions
+  description: 96B_Magnolia_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.98
+site_router1_ip: 10.48.3.26
+site_router2_ip: 10.210.10.111
+
+# Meraki Network ID
+networkId: N_712131691078009388

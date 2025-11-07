@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: A70_Bogalusa_LA Config Context Definitions
+  description: A70_Bogalusa_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.94.3.104
+site_router2_ip: 10.210.10.39
+
+# Meraki Network ID
+networkId: N_712131691078007842

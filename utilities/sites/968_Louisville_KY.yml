@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 968_Louisville_KY Config Context Definitions
+  description: 968_Louisville_KY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.48.3.8
+site_router2_ip: 10.48.3.122
+
+# Meraki Network ID
+networkId: N_712131691078009381

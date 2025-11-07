@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 935_Beaverton_OR Config Context Definitions
+  description: 935_Beaverton_OR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.76
+site_router1_ip: 10.49.3.29
+site_router2_ip: 10.210.10.184

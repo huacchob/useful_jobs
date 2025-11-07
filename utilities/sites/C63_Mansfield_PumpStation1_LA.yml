@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C63_Mansfield_PumpStation1_LA Config Context Definitions
+  description: C63_Mansfield_PumpStation1_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.10.61

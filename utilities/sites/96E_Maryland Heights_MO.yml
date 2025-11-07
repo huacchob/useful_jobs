@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 96E_Maryland Heights_MO Config Context Definitions
+  description: 96E_Maryland Heights_MO Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.79
+site_router1_ip: 10.48.3.165
+site_router2_ip: 10.210.10.109
+
+# Meraki Network ID
+networkId: N_712131691078010821

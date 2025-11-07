@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B8E_Richland_MS Config Context Definitions
+  description: B8E_Richland_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.61
+site_router1_ip: 10.50.3.60
+site_router2_ip: 10.210.9.208
+
+# Meraki Network ID
+networkId: N_712131691078007858

@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: AE3_SantaMaria_CA Config Context Definitions
+  description: AE3_SantaMaria_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.92.7
+site_router1_ip: 10.80.92.1

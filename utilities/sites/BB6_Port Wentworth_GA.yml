@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: BB6_Port Wentworth_GA Config Context Definitions
+  description: BB6_Port Wentworth_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.56.3.2
+site_router1_ip: 10.56.3.56
+site_router2_ip: 10.56.3.57
+
+# Meraki Network ID
+networkId: N_712131691078009442

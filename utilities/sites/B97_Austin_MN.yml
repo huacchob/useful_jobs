@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B97_Austin_MN Config Context Definitions
+  description: B97_Austin_MN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.185
+site_router1_ip: 10.50.3.184
+site_router2_ip: 10.210.9.206
+
+# Meraki Network ID
+networkId: N_712131691078010082

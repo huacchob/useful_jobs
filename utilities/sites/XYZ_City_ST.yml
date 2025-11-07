@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: XYZ_City_ST Config Context Definitions
+  description: XYZ_City_ST Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691077996760

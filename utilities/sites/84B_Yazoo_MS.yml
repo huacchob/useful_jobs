@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 84B_Yazoo_MS Config Context Definitions
+  description: 84B_Yazoo_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.29.3.196
+site_router1_ip: 172.29.3.197
+site_router2_ip: 10.210.10.210

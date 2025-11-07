@@ -1,0 +1,12 @@
+---
+_metadata:
+  name: BIL_Arrigorriaga_SPA Config Context Definitions
+  description: BIL_Arrigorriaga_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.160
+core_switch2_ip: 10.42.3.161
+site_router1_ip: 10.40.3.13
+site_router2_ip: 10.42.3.44

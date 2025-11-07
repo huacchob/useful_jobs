@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BA9_Prattville_AL Config Context Definitions
+  description: BA9_Prattville_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.6.3.104
+site_router1_ip: 10.6.3.108
+site_router2_ip: 10.210.9.201

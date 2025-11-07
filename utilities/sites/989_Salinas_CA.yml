@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 989_Salinas_CA Config Context Definitions
+  description: 989_Salinas_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.96
+site_router1_ip: 10.48.3.22
+site_router2_ip: 10.210.10.87
+
+# Meraki Network ID
+networkId: N_712131691078009319

@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: C20_Atlanta_GA Config Context Definitions
+  description: C20_Atlanta_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.4.3.102
+site_router1_ip: 10.4.3.100
+
+# Meraki Network ID
+networkId: N_712131691078011895

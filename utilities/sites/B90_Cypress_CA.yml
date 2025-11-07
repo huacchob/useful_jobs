@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B90_Cypress_CA Config Context Definitions
+  description: B90_Cypress_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.239
+site_router1_ip: 10.49.3.238
+site_router2_ip: 10.210.9.207
+
+# Meraki Network ID
+networkId: N_712131691078003871

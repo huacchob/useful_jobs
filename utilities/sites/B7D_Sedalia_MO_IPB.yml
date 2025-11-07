@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: B7D_Sedalia_MO_IPB Config Context Definitions
+  description: B7D_Sedalia_MO_IPB Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.97.3.131
+site_router1_ip: 10.97.3.130
+site_router2_ip: 10.210.9.212

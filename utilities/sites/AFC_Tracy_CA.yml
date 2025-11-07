@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AFC_Tracy_CA Config Context Definitions
+  description: AFC_Tracy_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.93.3.113
+site_router1_ip: 10.93.3.241
+site_router2_ip: 10.210.9.232
+
+# Meraki Network ID
+networkId: N_712131691078007721

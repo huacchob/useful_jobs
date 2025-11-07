@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 3B5_Savannah_GA Config Context Definitions
+  description: 3B5_Savannah_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch3_ip: 10.140.3.8
+core_switch1_ip: 10.6.3.58
+core_switch2_ip: 10.6.3.59
+site_router1_ip: 10.6.3.57
+site_router2_ip: 10.6.3.61
+site_router3_ip: 10.210.10.228
+
+# Meraki Network ID
+networkId: N_3823556083637551129

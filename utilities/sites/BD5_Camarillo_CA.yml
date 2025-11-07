@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BD5_Camarillo_CA Config Context Definitions
+  description: BD5_Camarillo_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.56.3.22
+site_router1_ip: 10.14.3.55
+site_router2_ip: 10.210.9.184

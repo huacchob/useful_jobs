@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AD8_Reynosa_MEX Config Context Definitions
+  description: AD8_Reynosa_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.3.21
+site_router1_ip: 10.22.3.20
+site_router2_ip: 10.210.11.74

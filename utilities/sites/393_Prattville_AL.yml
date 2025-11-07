@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 393_Prattville_AL Config Context Definitions
+  description: 393_Prattville_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch3_ip: 10.140.3.16
+core_switch1_ip: 10.6.3.95
+core_switch2_ip: 10.6.3.96
+site_router1_ip: 10.6.3.109
+site_router2_ip: 10.6.3.113
+site_router3_ip: 10.210.10.233

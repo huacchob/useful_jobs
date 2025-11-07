@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: TFN_Tenerife_SPA Config Context Definitions
+  description: TFN_Tenerife_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.40.3.77
+core_switch2_ip: 10.40.3.78
+site_router1_ip: 10.40.3.17
+site_router2_ip: 10.42.3.35
+site_router3_ip: 10.210.11.96

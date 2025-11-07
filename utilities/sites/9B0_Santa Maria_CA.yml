@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 9B0_Santa Maria_CA Config Context Definitions
+  description: 9B0_Santa Maria_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.84.7
+site_router1_ip: 10.80.84.1
+site_router2_ip: 10.80.84.2

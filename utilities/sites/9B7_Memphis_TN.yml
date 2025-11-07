@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 9B7_Memphis_TN Config Context Definitions
+  description: 9B7_Memphis_TN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.206.3.51
+site_router2_ip: 10.210.10.63
+
+# Meraki Network ID
+networkId: N_712131691078007841

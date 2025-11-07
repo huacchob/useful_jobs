@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C01_Los Mochis_MEX Config Context Definitions
+  description: C01_Los Mochis_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.60.1

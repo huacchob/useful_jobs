@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: 02A_Southwind_IPGuestHE Config Context Definitions
+  description: 02A_Southwind_IPGuestHE Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078007834

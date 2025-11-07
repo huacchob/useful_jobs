@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: ESP_Espaly_FRA Config Context Definitions
+  description: ESP_Espaly_FRA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.3.13
+core_switch2_ip: 10.41.3.14
+site_router1_ip: 10.40.3.151
+site_router2_ip: 10.40.3.154
+site_router3_ip: 10.210.11.89

@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: A04_Lumberton_NC Config Context Definitions
+  description: A04_Lumberton_NC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.128.2
+site_router1_ip: 10.80.128.1

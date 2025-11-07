@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: C54_Wheat Ridge_CO Config Context Definitions
+  description: C54_Wheat Ridge_CO Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.7
+site_router1_ip: 10.14.3.6
+site_router2_ip: 10.210.9.186
+
+# Meraki Network ID
+networkId: N_712131691078002492

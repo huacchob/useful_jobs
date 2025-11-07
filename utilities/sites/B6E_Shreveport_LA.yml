@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: B6E_Shreveport_LA Config Context Definitions
+  description: B6E_Shreveport_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.28.3.241
+site_router1_ip: 172.28.3.240
+site_router2_ip: 10.210.9.217

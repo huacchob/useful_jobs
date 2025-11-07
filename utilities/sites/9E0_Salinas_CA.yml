@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 9E0_Salinas_CA Config Context Definitions
+  description: 9E0_Salinas_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.80.76.7
+site_router1_ip: 10.80.76.1

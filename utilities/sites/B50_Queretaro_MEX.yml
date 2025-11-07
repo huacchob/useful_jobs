@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: B50_Queretaro_MEX Config Context Definitions
+  description: B50_Queretaro_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.3.57
+site_router1_ip: 10.22.3.56
+site_router2_ip: 10.210.11.75

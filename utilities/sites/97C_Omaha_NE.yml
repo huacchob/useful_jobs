@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 97C_Omaha_NE Config Context Definitions
+  description: 97C_Omaha_NE Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.145
+site_router1_ip: 10.50.3.144
+site_router2_ip: 10.210.10.99
+
+# Meraki Network ID
+networkId: N_712131691078010851

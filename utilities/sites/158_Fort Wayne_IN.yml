@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 158_Fort Wayne_IN Config Context Definitions
+  description: 158_Fort Wayne_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.169
+site_router1_ip: 172.16.3.38
+site_router2_ip: 10.210.11.30

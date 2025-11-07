@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: C18_Saint Amand_FRA Config Context Definitions
+  description: C18_Saint Amand_FRA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.40.3.47
+core_switch2_ip: 10.40.3.48
+site_router1_ip: 10.40.3.45
+site_router2_ip: 10.40.3.46
+site_router3_ip: 10.40.3.49

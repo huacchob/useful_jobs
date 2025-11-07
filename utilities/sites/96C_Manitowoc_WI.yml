@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 96C_Manitowoc_WI Config Context Definitions
+  description: 96C_Manitowoc_WI Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.95
+site_router1_ip: 10.48.3.53
+site_router2_ip: 10.210.10.110
+
+# Meraki Network ID
+networkId: N_712131691078007781

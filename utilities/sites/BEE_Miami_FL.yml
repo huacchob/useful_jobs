@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BEE_Miami_FL Config Context Definitions
+  description: BEE_Miami_FL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.21.3.46
+site_router1_ip: 172.21.3.45
+site_router2_ip: 10.210.9.191

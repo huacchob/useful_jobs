@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 955_Fremont_CA Config Context Definitions
+  description: 955_Fremont_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.114
+site_router1_ip: 10.48.3.35
+site_router2_ip: 10.210.10.156

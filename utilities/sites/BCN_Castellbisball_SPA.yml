@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: BCN_Castellbisball_SPA Config Context Definitions
+  description: BCN_Castellbisball_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.40.3.15
+site_router2_ip: 10.42.3.40

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B9E_Portsmouth_VA Config Context Definitions
+  description: B9E_Portsmouth_VA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.190
+site_router1_ip: 10.50.3.189
+site_router2_ip: 10.210.9.205
+
+# Meraki Network ID
+networkId: N_712131691078008649

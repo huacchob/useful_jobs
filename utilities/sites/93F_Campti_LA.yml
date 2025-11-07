@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 93F_Campti_LA Config Context Definitions
+  description: 93F_Campti_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch3_ip: 10.140.3.44
+core_switch1_ip: 10.50.3.83
+core_switch2_ip: 10.50.3.84
+site_router1_ip: 10.50.3.85
+site_router2_ip: 10.50.3.86
+site_router3_ip: 10.210.10.174
+
+# Meraki Network ID
+networkId: N_712131691078011757

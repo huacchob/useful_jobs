@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 8EA_Richmond_VA Config Context Definitions
+  description: 8EA_Richmond_VA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.138
+site_router1_ip: 172.16.3.137
+site_router2_ip: 10.210.10.194
+
+# Meraki Network ID
+networkId: N_712131691078007767

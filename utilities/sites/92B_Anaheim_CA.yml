@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 92B_Anaheim_CA Config Context Definitions
+  description: 92B_Anaheim_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.89
+site_router1_ip: 10.49.3.20
+site_router2_ip: 10.210.10.191

@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: C69_Oklahoma City_OK Config Context Definitions
+  description: C69_Oklahoma City_OK Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.162
+site_router1_ip: 10.14.3.181
+site_router2_ip: 10.210.11.53
+
+# Meraki Network ID
+networkId: N_3823556083637551147

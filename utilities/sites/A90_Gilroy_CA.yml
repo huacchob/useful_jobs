@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: A90_Gilroy_CA Config Context Definitions
+  description: A90_Gilroy_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.93.3.9
+site_router1_ip: 10.93.3.8
+site_router2_ip: 10.210.10.26
+
+# Meraki Network ID
+networkId: N_712131691078007465

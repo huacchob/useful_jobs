@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: 31D_Courtland_AL Config Context Definitions
+  description: 31D_Courtland_AL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_core_unknown_ip: 10.4.3.254
+site_router1_ip: 10.4.3.225

@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AF8_Binghamton_NY Config Context Definitions
+  description: AF8_Binghamton_NY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.14.3.177
+site_router1_ip: 10.14.3.176
+site_router2_ip: 10.210.10.41

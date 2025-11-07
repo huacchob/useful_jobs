@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: ABA_Santa Fe Springs_CA Config Context Definitions
+  description: ABA_Santa Fe Springs_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.92.3.81
+site_router1_ip: 10.92.3.80
+site_router2_ip: 10.210.9.253
+
+# Meraki Network ID
+networkId: N_712131691078009322

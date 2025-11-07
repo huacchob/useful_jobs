@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: BCE_Shreveport_LA Config Context Definitions
+  description: BCE_Shreveport_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.6.3.111
+site_router1_ip: 10.6.3.112
+site_router2_ip: 10.210.9.195
+
+# Meraki Network ID
+networkId: N_3823556083637551149

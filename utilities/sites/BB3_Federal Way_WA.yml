@@ -1,0 +1,16 @@
+---
+_metadata:
+  name: BB3_Federal Way_WA Config Context Definitions
+  description: BB3_Federal Way_WA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.56.3.19
+core_switch2_ip: 10.56.3.20
+site_router1_ip: 10.56.3.48
+site_router2_ip: 10.56.3.43
+site_router3_ip: 10.56.3.29
+
+# Meraki Network ID
+networkId: N_712131691078009246

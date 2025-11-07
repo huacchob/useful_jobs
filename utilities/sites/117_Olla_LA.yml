@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 117_Olla_LA Config Context Definitions
+  description: 117_Olla_LA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.29.3.206
+site_router1_ip: 172.29.3.205
+site_router2_ip: 10.210.11.31
+
+# Meraki Network ID
+networkId: N_712131691078010381

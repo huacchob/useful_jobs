@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 8A2_AgadirChems_MOR Config Context Definitions
+  description: 8A2_AgadirChems_MOR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.3.130
+core_switch2_ip: 10.41.3.131
+site_router1_ip: 10.41.3.71
+site_router2_ip: 10.41.3.73
+site_router3_ip: 10.42.3.86

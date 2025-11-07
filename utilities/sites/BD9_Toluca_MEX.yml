@@ -1,0 +1,12 @@
+---
+_metadata:
+  name: BD9_Toluca_MEX Config Context Definitions
+  description: BD9_Toluca_MEX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.22.3.129
+core_switch2_ip: 10.22.3.130
+site_router1_ip: 10.22.3.132
+site_router2_ip: 10.22.3.131

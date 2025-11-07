@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 99A_Waterloo_IA Config Context Definitions
+  description: 99A_Waterloo_IA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.107
+site_router1_ip: 10.49.3.14
+site_router2_ip: 10.210.10.71

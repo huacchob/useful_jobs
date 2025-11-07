@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AC4_Utica_NY Config Context Definitions
+  description: AC4_Utica_NY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.96.3.225
+site_router1_ip: 10.96.3.224
+site_router2_ip: 10.210.9.246
+
+# Meraki Network ID
+networkId: N_712131691078007798

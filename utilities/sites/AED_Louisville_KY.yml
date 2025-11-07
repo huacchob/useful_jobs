@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AED_Louisville_KY Config Context Definitions
+  description: AED_Louisville_KY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.93.3.177
+site_router1_ip: 10.93.3.176
+site_router2_ip: 10.210.9.239
+
+# Meraki Network ID
+networkId: N_712131691078007824

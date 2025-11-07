@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 872_Laurens_SC Config Context Definitions
+  description: 872_Laurens_SC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.14.3.13
+site_router2_ip: 10.210.10.199
+
+# Meraki Network ID
+networkId: N_712131691078009311

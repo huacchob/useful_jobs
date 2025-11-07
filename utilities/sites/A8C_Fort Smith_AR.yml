@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: A8C_Fort Smith_AR Config Context Definitions
+  description: A8C_Fort Smith_AR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.92.3.9
+site_router1_ip: 10.92.3.10
+site_router2_ip: 10.210.10.28
+
+# Meraki Network ID
+networkId: N_712131691078009789

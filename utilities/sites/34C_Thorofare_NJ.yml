@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 34C_Thorofare_NJ Config Context Definitions
+  description: 34C_Thorofare_NJ Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.150
+site_router1_ip: 10.7.3.149
+site_router2_ip: 10.7.3.148
+
+# Meraki Network ID
+networkId: N_712131691078008674

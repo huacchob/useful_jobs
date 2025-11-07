@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 959_Grand Prairie_TX Config Context Definitions
+  description: 959_Grand Prairie_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.100
+site_router1_ip: 10.49.3.58
+site_router2_ip: 10.210.10.125
+
+# Meraki Network ID
+networkId: N_712131691078010621

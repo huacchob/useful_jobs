@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 956_Fridley_MN Config Context Definitions
+  description: 956_Fridley_MN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.107
+site_router1_ip: 10.48.3.14
+site_router2_ip: 10.210.10.155
+
+# Meraki Network ID
+networkId: N_712131691078010664

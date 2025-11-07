@@ -1,0 +1,17 @@
+---
+_metadata:
+  name: 38B_Franklin_VA Config Context Definitions
+  description: 38B_Franklin_VA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch3_ip: 10.140.3.100
+core_switch1_ip: 10.8.3.71
+core_switch2_ip: 10.8.3.72
+site_router1_ip: 10.8.3.197
+site_router2_ip: 10.8.3.198
+site_router3_ip: 10.210.10.236
+
+# Meraki Network ID
+networkId: N_712131691078011756

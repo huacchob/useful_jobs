@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 22C_Edinburg_TX Config Context Definitions
+  description: 22C_Edinburg_TX Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 172.16.3.85
+site_router1_ip: 172.16.3.30
+site_router2_ip: 10.210.11.14

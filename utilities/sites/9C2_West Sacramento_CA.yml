@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 9C2_West Sacramento_CA Config Context Definitions
+  description: 9C2_West Sacramento_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.50.3.5
+site_router1_ip: 10.48.3.5
+site_router2_ip: 10.210.10.62

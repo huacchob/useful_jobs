@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: B23_Gettysburg_PA Config Context Definitions
+  description: B23_Gettysburg_PA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.97.3.226
+site_router1_ip: 10.97.3.225
+site_router2_ip: 10.210.9.230
+
+# Meraki Network ID
+networkId: N_712131691078007836

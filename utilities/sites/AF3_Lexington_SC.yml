@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: AF3_Lexington_SC Config Context Definitions
+  description: AF3_Lexington_SC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.97.3.17
+site_router1_ip: 10.97.3.16
+site_router2_ip: 10.210.9.234

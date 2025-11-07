@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: CHA_Chalon_FRA Config Context Definitions
+  description: CHA_Chalon_FRA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.3.161
+core_switch2_ip: 10.41.3.162
+site_router1_ip: 10.40.3.208
+site_router2_ip: 10.40.3.209
+site_router3_ip: 10.210.11.86

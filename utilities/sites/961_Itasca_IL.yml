@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 961_Itasca_IL Config Context Definitions
+  description: 961_Itasca_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.111
+site_router1_ip: 10.48.3.28
+site_router2_ip: 10.210.10.118

@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: BD3_Geneva_CHE Config Context Definitions
+  description: BD3_Geneva_CHE Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.40.3.59
+site_router1_ip: 10.40.3.60
+site_router2_ip: 10.210.11.92

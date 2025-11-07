@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 951_Elk Grove_CA Config Context Definitions
+  description: 951_Elk Grove_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.85
+site_router1_ip: 10.48.3.21
+site_router2_ip: 10.210.10.159
+
+# Meraki Network ID
+networkId: N_712131691078003919

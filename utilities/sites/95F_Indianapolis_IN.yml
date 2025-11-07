@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 95F_Indianapolis_IN Config Context Definitions
+  description: 95F_Indianapolis_IN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.229
+site_router1_ip: 10.49.3.54
+site_router2_ip: 10.210.10.119

@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: A1D_Delaware_OH Config Context Definitions
+  description: A1D_Delaware_OH Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.50.3.62
+site_router2_ip: 10.210.10.56
+
+# Meraki Network ID
+networkId: N_712131691078010835

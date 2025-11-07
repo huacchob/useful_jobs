@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 949_Columbus_GA Config Context Definitions
+  description: 949_Columbus_GA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.64
+site_router1_ip: 10.49.3.11
+site_router2_ip: 10.210.10.164
+
+# Meraki Network ID
+networkId: N_712131691078007800

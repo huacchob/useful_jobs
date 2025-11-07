@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: C10_Montblanc_SPA Config Context Definitions
+  description: C10_Montblanc_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.50
+core_switch2_ip: 10.42.3.51
+site_router1_ip: 10.42.3.48
+site_router2_ip: 10.42.3.49
+site_router3_ip: 10.210.11.120

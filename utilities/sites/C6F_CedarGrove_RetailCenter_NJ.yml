@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: C6F_CedarGrove_RetailCenter_NJ Config Context Definitions
+  description: C6F_CedarGrove_RetailCenter_NJ Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.7.3.124
+site_router1_ip: 172.27.3.60
+site_router2_ip: 10.210.9.221
+
+# Meraki Network ID
+networkId: N_712131691078007786

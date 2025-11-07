@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: C41_Grinon_SPA Config Context Definitions
+  description: C41_Grinon_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.3.113
+core_switch2_ip: 10.41.3.114
+site_router1_ip: 10.40.3.220
+site_router2_ip: 10.40.3.221
+site_router3_ip: 10.210.11.156

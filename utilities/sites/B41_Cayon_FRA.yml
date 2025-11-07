@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: B41_Cayon_FRA Config Context Definitions
+  description: B41_Cayon_FRA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.17.91.1
+site_router1_ip: 10.210.11.54

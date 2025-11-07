@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AAC_Orlando_FL Config Context Definitions
+  description: AAC_Orlando_FL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.92.3.145
+site_router1_ip: 10.92.3.144
+site_router2_ip: 10.210.10.7
+
+# Meraki Network ID
+networkId: N_712131691078007799

@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: C14_Fort Smith_AR Config Context Definitions
+  description: C14_Fort Smith_AR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.92.3.59
+site_router1_ip: 10.92.3.58
+site_router2_ip: 10.92.3.60

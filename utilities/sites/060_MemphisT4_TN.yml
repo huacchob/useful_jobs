@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: 060_MemphisT4_TN Config Context Definitions
+  description: 060_MemphisT4_TN Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.200.3.68
+core_switch2_ip: 10.200.3.69
+
+# Meraki Network ID
+networkId: N_712131691078007850

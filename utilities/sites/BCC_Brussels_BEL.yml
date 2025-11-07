@@ -1,0 +1,13 @@
+---
+_metadata:
+  name: BCC_Brussels_BEL Config Context Definitions
+  description: BCC_Brussels_BEL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.41.3.11
+core_switch2_ip: 10.41.3.12
+site_router1_ip: 10.40.3.107
+site_router2_ip: 10.41.3.209
+site_router3_ip: 10.210.11.83

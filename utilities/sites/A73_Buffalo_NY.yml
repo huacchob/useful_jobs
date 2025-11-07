@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: A73_Buffalo_NY Config Context Definitions
+  description: A73_Buffalo_NY Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.94.3.209
+site_router1_ip: 10.94.3.208
+site_router2_ip: 10.210.10.37
+
+# Meraki Network ID
+networkId: N_712131691078008669

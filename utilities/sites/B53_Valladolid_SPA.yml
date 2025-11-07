@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: B53_Valladolid_SPA Config Context Definitions
+  description: B53_Valladolid_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.185
+site_router1_ip: 10.42.3.184

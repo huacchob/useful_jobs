@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: BE7_Corona_CA Config Context Definitions
+  description: BE7_Corona_CA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.48.3.76
+site_router1_ip: 10.48.3.59
+site_router2_ip: 10.210.9.192
+
+# Meraki Network ID
+networkId: N_712131691078003870

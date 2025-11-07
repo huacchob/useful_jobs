@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: AEE_Carol Stream_IL Config Context Definitions
+  description: AEE_Carol Stream_IL Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.93.3.57
+site_router1_ip: 10.93.3.56
+site_router2_ip: 10.210.9.238
+
+# Meraki Network ID
+networkId: N_712131691078009326

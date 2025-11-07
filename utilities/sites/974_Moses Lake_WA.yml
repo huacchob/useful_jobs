@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 974_Moses Lake_WA Config Context Definitions
+  description: 974_Moses Lake_WA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.91
+site_router1_ip: 10.49.3.36
+site_router2_ip: 10.210.10.106

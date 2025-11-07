@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: C2F_Charlotte_NC Config Context Definitions
+  description: C2F_Charlotte_NC Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+site_router1_ip: 10.210.11.5

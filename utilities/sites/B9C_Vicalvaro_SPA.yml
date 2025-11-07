@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: B9C_Vicalvaro_SPA Config Context Definitions
+  description: B9C_Vicalvaro_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.3.157
+site_router1_ip: 10.42.3.156
+site_router2_ip: 10.210.11.117

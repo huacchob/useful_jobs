@@ -1,0 +1,9 @@
+---
+_metadata:
+  name: 050_MemphisTwr1-TN Config Context Definitions
+  description: 050_MemphisTwr1-TN Definitions
+  is_active: true
+  weight: 2500
+
+# Meraki Network ID
+networkId: N_712131691078008733

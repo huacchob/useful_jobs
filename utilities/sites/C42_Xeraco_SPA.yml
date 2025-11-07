@@ -1,0 +1,10 @@
+---
+_metadata:
+  name: C42_Xeraco_SPA Config Context Definitions
+  description: C42_Xeraco_SPA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.42.101.129
+site_router1_ip: 10.42.3.89

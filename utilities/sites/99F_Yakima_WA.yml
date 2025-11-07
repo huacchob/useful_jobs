@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 99F_Yakima_WA Config Context Definitions
+  description: 99F_Yakima_WA Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.72
+site_router1_ip: 10.49.3.35
+site_router2_ip: 10.210.10.68

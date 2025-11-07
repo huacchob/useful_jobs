@@ -1,0 +1,14 @@
+---
+_metadata:
+  name: 957_Golden_CO Config Context Definitions
+  description: 957_Golden_CO Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.73
+site_router1_ip: 10.49.3.16
+site_router2_ip: 10.210.10.154
+
+# Meraki Network ID
+networkId: N_712131691078003893

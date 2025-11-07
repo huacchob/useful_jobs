@@ -1,0 +1,11 @@
+---
+_metadata:
+  name: 982_Portland_OR Config Context Definitions
+  description: 982_Portland_OR Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.49.3.145
+site_router1_ip: 10.49.3.24
+site_router2_ip: 10.210.10.93

@@ -1,0 +1,18 @@
+---
+_metadata:
+  name: BB1_Columbus_MS Config Context Definitions
+  description: BB1_Columbus_MS Definitions
+  is_active: true
+  weight: 2500
+
+# Core and Router IPs
+core_switch1_ip: 10.56.3.5
+core_switch2_ip: 10.56.3.6
+core_switch3_ip: 10.140.3.132
+site_router1_ip: 10.56.3.24
+site_router2_ip: 10.56.3.45
+site_router3_ip: 10.56.3.25
+site_router_unknown_ip: 10.56.251.126
+
+# Meraki Network ID
+networkId: N_712131691078007831
