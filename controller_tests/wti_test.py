@@ -6,11 +6,11 @@ from pathlib import Path
 from requests import request
 import urllib3
 from dotenv import load_dotenv
+from retrieve_secrets import get_secret
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 cur_dir: Path = Path(__file__).parent
-load_dotenv(dotenv_path=cur_dir.joinpath("creds.env"))
 
 
 def base_64_encode_credentials(username: str, password: str) -> str:
@@ -35,6 +35,10 @@ def base_64_encode_credentials(username: str, password: str) -> str:
 
 data_put: dict[str, str] = {"unitid": {
         "hostname": "02B-WTI-OOB-LAB1",
+        "siteid": "02B - Memphis Test Lab, TN",
+        "location": "02B_Memphis Test Lab_TN",
+        "assettag": "123",
+        "domain": "ipaper.com",
 },}
 
 def WTI1():
@@ -44,9 +48,10 @@ def WTI1():
 
     # put in the username and password to your WTI device here
     BASE_PATH = "/api/v2/config/hostname"
+    username, password = get_secret("wti")
     encoded_creds = base_64_encode_credentials(
-        username=environ["WTI_USERNAME"],
-        password=environ["WTI_PASSWORD"],
+        username=username,
+        password=password,
     )
     HEADER = {
         "Authorization": encoded_creds,

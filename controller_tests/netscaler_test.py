@@ -6,8 +6,10 @@ from requests.exceptions import JSONDecodeError
 from retrieve_secrets import get_secret
 from urllib3.util import Retry
 
-verify: bool = True
+verify: bool = False
 username, password = get_secret("netscaler")
+hostname = "https://i02a-devtest-lb"
+endpoint = f"{hostname}/nitro/v1/config/auditsyslogaction"
 
 
 class ConnectionMixin:
@@ -111,17 +113,13 @@ class ConnectionMixin:
             return response
 
 
-hostname = "i335nsvpxlbsnip.ipaper.com"
 session = ConnectionMixin().configure_session()
-endpoint = f"{hostname}/nitro/v1/config/ntpserver"
 
 get_headers = {
     "X-NITRO-USER": username,
     "X-NITRO-PASS": password,
     "Content-Type": "application/json",
 }
-
-device_url: str = f"https://{hostname}"
 
 response: Any = ConnectionMixin().return_response_content(
     session=session,
@@ -130,3 +128,5 @@ response: Any = ConnectionMixin().return_response_content(
     headers=get_headers,
     verify=verify,
 )
+
+print(response)

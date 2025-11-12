@@ -2,6 +2,10 @@ import logging
 from typing import Any, Dict, Optional
 
 from netmiko import ConnectHandler
+from retrieve_secrets import get_secret
+
+
+username, password = get_secret("ios")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -50,6 +54,7 @@ def netmiko_connect(
 
     try:
         connection = ConnectHandler(**device_params)
+        breakpoint()
         if secret:
             connection.enable()
         logger.info(f"Successfully connected to {host}")
@@ -62,12 +67,11 @@ def netmiko_connect(
 
 params: Dict[str, Any] = {
     "device_type": "cisco_ios",
-    "host": "192.168.1.1",
-    "username": "admin",
-    "password": "password",
-    "secret": "secret",
+    "host": "10.206.24.2",
+    "username": username,
+    "password": password,
+    "secret": password,
     "port": 22,
     "timeout": 10,
 }
 connection = netmiko_connect(**params)
-breakpoint()

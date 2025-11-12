@@ -1,6 +1,7 @@
 """nornir dispatcher for cisco Meraki."""
 
 import pdb
+from pprint import pprint
 
 from meraki import DashboardAPI
 from retrieve_secrets import get_secret
@@ -17,7 +18,7 @@ dashboard = DashboardAPI(
 # resp = dashboard.organizations.updateOrganization(
 #     organizationId="1278859", name="test-org"
 # )
-print(dashboard.administered.getAdministeredIdentitiesMe())
+pprint(dashboard.wireless.getNetworkWirelessSsids(networkId="N_712131691078004328"))
 # print(dashboard.organizations.getOrganizations())
 # print(resp.values())
 # pdb.set_trace()
