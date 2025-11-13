@@ -36,9 +36,7 @@ class ControllerRemediation:
         self.feature_name = feature_name
         self.intended_config = intended_config
         self.backup_config = backup_config
-        self.required_parameters: list[str] = remediation_endpoint[0]["parameters"][
-            "non_optional"
-        ]
+        self.required_parameters: list[str] = remediation_endpoint[0]["parameters"]["non_optional"]
 
     def _filter_allowed_params(
         self,
@@ -63,11 +61,12 @@ class ControllerRemediation:
             if not endpoint.get("parameters", {}).get("optional"):
                 return {}
             all_optional_arguments.extend(endpoint["parameters"]["optional"])
+            self.required_parameters.extend(endpoint["parameters"]["non_optional"])
 
         if isinstance(config[feature_name], dict):
             valid_payload_config: dict[str, Any] = {feature_name: {}}
             for key, value in config[feature_name].items():
-                if key in all_optional_arguments:
+                if key in all_optional_arguments or key in self.required_parameters:
                     valid_payload_config[feature_name][key] = value
             return valid_payload_config
 
@@ -76,11 +75,12 @@ class ControllerRemediation:
             for item in config[feature_name]:
                 params_dict = {}
                 for key, value in item.items():
-                    if key in all_optional_arguments:
+                    if key in all_optional_arguments or key in self.required_parameters:
                         params_dict[key] = value
                 if params_dict:
                     valid_payload_config[feature_name].append(params_dict)
             return valid_payload_config
+        return {}
 
     def _process_diff(
         self,
@@ -109,7 +109,7 @@ class ControllerRemediation:
                     if dict_key not in current:
                         current[dict_key] = [] if isinstance(next_key, int) else {}
                     current = current[dict_key]
-            elif isinstance(key, str) or isinstance(key, float):
+            elif isinstance(key, (str, float)):
                 if is_last:
                     current[key] = value
                 else:
@@ -120,7 +120,9 @@ class ControllerRemediation:
             elif isinstance(key, int):
                 # current must be a list
                 if not isinstance(current, list):
-                    raise TypeError(f"Expected list at index {i}, got {type(current)}")
+                    raise TypeError(
+                        f"Expected list at index {i}, got {type(current)}",
+                    )
                 while len(current) <= key:
                     current.append({})
                 if is_last:
@@ -152,7 +154,13 @@ class ControllerRemediation:
         """
         for key, value in intended.items():
             if isinstance(value, dict):
-                stack.append((path + (DictKey(key=key),), actual[key], intended[key]))
+                stack.append(
+                    (
+                        path + (DictKey(key=key),),
+                        actual[key],
+                        value,
+                    ),
+                )
                 self._dict_config(
                     intended=value,
                     actual=actual[key],
@@ -161,7 +169,13 @@ class ControllerRemediation:
                     stack=stack,
                 )
             elif isinstance(value, list):
-                stack.append((path + (DictKey(key=key),), actual[key], intended[key]))
+                stack.append(
+                    (
+                        path + (DictKey(key=key),),
+                        actual[key],
+                        value,
+                    ),
+                )
                 self._list_config(
                     intended=value,
                     actual=actual[key],
@@ -169,20 +183,16 @@ class ControllerRemediation:
                     path=path + (DictKey(key=key),),
                     stack=stack,
                 )
-            elif (
-                isinstance(value, str)
-                or isinstance(value, int)
-                or isinstance(value, float)
-            ):
+            elif isinstance(value, (str, int, float, bool)):
                 if key not in actual:
                     self._process_diff(
                         diff=diff,
                         path=path + (DictKey(key=key),),
-                        value=intended[key],
+                        value=value,
                     )
                 else:
                     self._str_int_float_config(
-                        intended=intended[key],
+                        intended=value,
                         actual=actual[key],
                         diff=diff,
                         path=path + (DictKey(key=key),),
@@ -208,12 +218,16 @@ class ControllerRemediation:
         """
         for index, intended_item in enumerate(intended):
             if index >= len(actual):
-                self._process_diff(diff=diff, path=path + (index,), value=intended_item)
+                self._process_diff(
+                    diff=diff,
+                    path=path + (index,),
+                    value=intended_item,
+                )
                 continue
             actual_item = actual[index]
 
             if isinstance(intended_item, dict):
-                stack.append((path + (index,), actual_item, intended[index]))
+                stack.append((path + (index,), actual_item, intended_item))
                 self._dict_config(
                     intended=intended_item,
                     actual=actual_item,
@@ -222,24 +236,13 @@ class ControllerRemediation:
                     stack=stack,
                 )
             elif isinstance(intended_item, list):
-                stack.append((path + (index,), actual_item, intended[index]))
+                stack.append((path + (index,), actual_item, intended_item))
                 self._list_config(
                     intended=intended_item,
                     actual=actual_item,
                     diff=diff,
                     path=path + (index,),
                     stack=stack,
-                )
-            elif (
-                isinstance(intended_item, str)
-                or isinstance(intended_item, int)
-                or isinstance(intended_item, float)
-            ):
-                self._str_int_float_config(
-                    intended=intended_item,
-                    actual=actual_item,
-                    diff=diff,
-                    path=path + (index,),
                 )
             else:
                 self._str_int_float_config(
@@ -289,13 +292,17 @@ class ControllerRemediation:
             for key in diff:
                 if key in intended:
                     self._inject_required_fields(
-                        diff=diff[key], intended=intended[key], path=path + (key,)
+                        diff=diff[key],
+                        intended=intended[key],
+                        path=path + (key,),
                     )
 
         elif isinstance(diff, list) and isinstance(intended, list):
             for idx, (d_item, i_item) in enumerate(zip(diff, intended)):
                 self._inject_required_fields(
-                    diff=d_item, intended=i_item, path=path + (idx,)
+                    diff=d_item,
+                    intended=i_item,
+                    path=path + (idx,),
                 )
 
         return diff
@@ -317,13 +324,12 @@ class ControllerRemediation:
                     cleaned[k] = cleaned_value
             return cleaned
 
-        elif isinstance(diff, list):
+        if isinstance(diff, list):
             cleaned = [self._clean_diff(item) for item in diff]
             cleaned = [item for item in cleaned if item not in ({}, [], None)]
-            return cleaned if cleaned else []
+            return cleaned or []
 
-        else:
-            return diff
+        return diff
 
     def controller_remediation(self) -> str:
         """Controller remediation.
@@ -346,7 +352,7 @@ class ControllerRemediation:
         )
         if not actual or not intended:
             raise ValidationError(
-                "There was no config context passed or the config context does not have optional parameters."
+                "There was no config context passed or the config context does not have optional parameters.",
             )
         diff: Dict[str, Any] = {}
         stack: deque[Tuple[Tuple[str, ...], Any, Any]] = deque()
@@ -384,7 +390,7 @@ class ControllerRemediation:
             return ""
         if not diff.get(self.feature_name):
             raise ValidationError(
-                f"Feature {self.feature_name} not found in the config."
+                f"Feature {self.feature_name} not found in the config.",
             )
         valid_diff: Dict[Any, Any] = self._inject_required_fields(
             diff=diff,
@@ -412,7 +418,7 @@ intended_config = {
             "name": "ntp3",
             "version": "1.2.3",
         },
-    ]
+    ],
 }
 backup_config = {
     "ntp": [
@@ -431,7 +437,7 @@ backup_config = {
             "name": "ntp3",
             "version": "1.2.3",
         },
-    ]
+    ],
 }
 remediation_endpoint = [
     {

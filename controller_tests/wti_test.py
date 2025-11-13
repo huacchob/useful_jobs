@@ -3,9 +3,8 @@ from base64 import b64encode
 from os import environ
 from pathlib import Path
 
-from requests import request
 import urllib3
-from dotenv import load_dotenv
+from requests import request
 from retrieve_secrets import get_secret
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -29,17 +28,222 @@ def base_64_encode_credentials(username: str, password: str) -> str:
     if not username or not password:
         raise ValueError("Username and/or password not passed, can't encode.")
 
-    credentials_str: bytes = f"{username}:{password}".encode(encoding="utf-8")
+    credentials_str: bytes = f"{username}:{password}".encode()
     return f"Basic {b64encode(s=credentials_str).decode(encoding='utf-8')}"
 
 
-data_put: dict[str, str] = {"unitid": {
-        "hostname": "02B-WTI-OOB-LAB1",
-        "siteid": "02B - Memphis Test Lab, TN",
-        "location": "02B_Memphis Test Lab_TN",
-        "assettag": "123",
-        "domain": "ipaper.com",
-},}
+data_put: dict[str, str] = {
+    "snmpaccess": {
+        "eth0": [
+            {
+                "ietf-ipv4": {
+                    "enable": 1,
+                    "version": 1,
+                    "readonly": 0,
+                    "systemname": "02B-WTI-OOB-LAB",
+                    "contact": "Telecom - Data Services",
+                    "location": "02B_Memphis Test Lab_TN",
+                    "rocommunity": "public",
+                    "rwcommunity": "public",
+                    "users": [
+                        {
+                            "username": "nms21Orion",
+                            "authpriv": 1,
+                            "authpass": "<<<AUTH_PASSWORD>>>",
+                            "authproto": 1,
+                            "privpass": "<<<PRIV_PASSWORD>>>",
+                            "privproto": 1,
+                            "index": 1,
+                        },
+                        {
+                            "username": "test_user",
+                            "authpriv": 1,
+                            "authpass": "<<<AUTH_PASSWORD>>>",
+                            "authproto": 1,
+                            "privpass": "<<<PRIV_PASSWORD>>>",
+                            "privproto": 1,
+                            "index": 2,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 3,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 4,
+                        },
+                    ],
+                },
+                "ietf-ipv6": {
+                    "enable": 0,
+                    "version": 0,
+                    "readonly": 0,
+                    "systemname": "",
+                    "contact": "",
+                    "location": "",
+                    "rocommunity": "public",
+                    "rwcommunity": "public",
+                    "users": [
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 1,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 2,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 3,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 4,
+                        },
+                    ],
+                },
+            },
+        ],
+        "eth1": [
+            {
+                "ietf-ipv4": {
+                    "enable": 0,
+                    "version": 0,
+                    "readonly": 0,
+                    "systemname": "",
+                    "contact": "",
+                    "location": "",
+                    "rocommunity": "public",
+                    "rwcommunity": "public",
+                    "users": [
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 1,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 2,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 3,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 4,
+                        },
+                    ],
+                },
+                "ietf-ipv6": {
+                    "enable": 0,
+                    "version": 0,
+                    "readonly": 0,
+                    "systemname": "",
+                    "contact": "",
+                    "location": "",
+                    "rocommunity": "public",
+                    "rwcommunity": "public",
+                    "users": [
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 1,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 2,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 3,
+                        },
+                        {
+                            "username": "",
+                            "authpriv": 0,
+                            "authpass": "",
+                            "authproto": 0,
+                            "privpass": "",
+                            "privproto": 0,
+                            "index": 4,
+                        },
+                    ],
+                },
+            },
+        ],
+    },
+}
+# data_put: dict[str, str] = {"unitid": {
+#         "hostname": "02B-WTI-OOB-LAB1",
+#         "siteid": "02B - Memphis Test Lab, TN",
+#         "location": "02B_Memphis Test Lab_TN",
+#         "assettag": "123",
+#         "domain": "ipaper.com",
+# },}
+
 
 def WTI1():
     # Address of the WTI device
@@ -47,7 +251,7 @@ def WTI1():
     SITE_NAME = "164.103.40.67"
 
     # put in the username and password to your WTI device here
-    BASE_PATH = "/api/v2/config/hostname"
+    BASE_PATH = "/api/v2/config/snmpaccess"
     username, password = get_secret("wti")
     encoded_creds = base_64_encode_credentials(
         username=username,
@@ -60,11 +264,11 @@ def WTI1():
 
     x = request(
         url=URI + SITE_NAME + BASE_PATH,
-	# method="GET",
+        # method="GET",
         method="PUT",
         verify=False,
         headers=HEADER,
-	data=data_put
+        data=data_put,
         # params="ports=eth0",
     )
     print(json.dumps(x.json(), indent=4))
@@ -89,7 +293,7 @@ def WTI2():
 
     x = request(
         url=URI + SITE_NAME + BASE_PATH,
-	method="GET",
+        method="GET",
         verify=False,
         headers=HEADER,
         params="service=tacacs",
