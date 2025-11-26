@@ -18,7 +18,16 @@ dashboard = DashboardAPI(
 # resp = dashboard.organizations.updateOrganization(
 #     organizationId="1278859", name="test-org"
 # )
-pprint(dashboard.wireless.getNetworkWirelessSsids(networkId="N_712131691078004328"))
+# pprint(dashboard.wireless.getNetworkWirelessSsids(networkId="N_712131691078004328"))
 # print(dashboard.organizations.getOrganizations())
 # print(resp.values())
 # pdb.set_trace()
+
+data = {
+    "users": [],
+    "access": "none",
+    "communityString": "test_string",
+}
+print(dashboard.network.updateNetworkSnmp(networkId="N_712131691078004328", **data))
+# print(dashboard.organizations.getOrganizations())
+# print(resp.values())
