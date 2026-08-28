@@ -87,14 +87,3 @@ permissions:
       - namespace__name: "Cleanup"
     groups:
       - "IPAM Admins"
-
-  - name: "NAUTOBOT_DEVICE_DISCOVERY_VACD"
-    app: "nautobot_device_discovery"
-    action: "VACD"
-    models:
-      - "discoveryprofile"
-      - "discovereddevice"
-      - "discoveryresult"
-    constraints: null
-    groups:
-      - "Device Discovery Admins"
