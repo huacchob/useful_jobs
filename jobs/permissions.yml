@@ -71,7 +71,7 @@ permissions:
     models:
       - "device"
     constraints:
-      status__name: "Active"
+      - status__name: "Active"
     groups:
       - "Network Operators"
 

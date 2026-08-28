@@ -171,11 +171,13 @@ class ManagePermissionsFromYAML(Job):  # pylint: disable=abstract-method
         models: list[str] = entry["models"]
         if entry.get("additional_actions") and not isinstance(entry.get("additional_actions"), str):
             raise PermissionsDefinitionError(
-                f"Permission {permission_name}'s additional_actions valus must be a string."
+                f"Permission {permission_name}'s additional_actions valus must be a string or absent from the permission entry."
             )
         additional_actions = entry.get("additional_actions")
-        if entry.get("constraints") and not isinstance(entry.get("constraints"), dict):
-            raise PermissionsDefinitionError(f"Permission '{permission_name}': 'constraints' must be a string or null.")
+        if entry.get("constraints") and not isinstance(entry.get("constraints"), list):
+            raise PermissionsDefinitionError(
+                f"Permission '{permission_name}': 'constraints' must be a list or absent from the permission entry."
+            )
         constraints = entry["constraints"]
         return {
             "name": permission_name,
