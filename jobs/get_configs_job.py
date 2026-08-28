@@ -28,7 +28,6 @@ from nautobot.apps.choices import (
     SecretsGroupSecretTypeChoices,
 )
 from nautobot.apps.jobs import BooleanVar, ChoiceVar, Job, MultiObjectVar, ObjectVar
-from nautobot.core.celery import register_jobs
 from nautobot.dcim.models import Device, DeviceType, Location, Platform
 from nautobot.extras.models import (
     GitRepository,
@@ -89,11 +88,9 @@ def format_base_url_with_params(
     if not base_url or not parameters:
         raise ValueError("Base or parameters not passed, can not properly format url.")
 
-    if base_url.endswith("/"):
-        base_url = base_url[:-1]
+    base_url = base_url.removesuffix("/")
 
-    if parameters.startswith("/"):
-        parameters = parameters[1:]
+    parameters = parameters.removeprefix("/")
 
     return f"{base_url}/{parameters}"
 
@@ -164,7 +161,7 @@ def base_64_encode_credentials(username: str, password: str) -> str:
     if not username or not password:
         raise ValueError("Username and/or password not passed, can't encode.")
 
-    credentials_str: bytes = f"{username}:{password}".encode(encoding="utf-8")
+    credentials_str: bytes = f"{username}:{password}".encode()
     return f"Basic {b64encode(s=credentials_str).decode(encoding='utf-8')}"
 
 
@@ -231,9 +228,7 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
 
         if check_repository_secrets_group(repository=repository):
             repository_secrets_group: SecretsGroup = repository.secrets_group
-            self.token_user, self.token = parse_credentials(
-                credentials=repository_secrets_group
-            )
+            self.token_user, self.token = parse_credentials(credentials=repository_secrets_group)
 
             if self.debug:
                 self.logger.info("Parsing repository secrets group.")
@@ -294,9 +289,7 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
             conflicting_files: list[str] = []
             for line in status.splitlines():
                 if "both modified" in line:
-                    conflicting_files.append(
-                        line.split(sep="both modified: ")[1].strip()
-                    )
+                    conflicting_files.append(line.split(sep="both modified: ")[1].strip())
 
             for file in conflicting_files:
                 self.git_session.checkout("--ours", file)
@@ -332,16 +325,11 @@ class GitBase:  # pylint: disable=too-many-instance-attributes
             batch_size (int, optional): Batch size per commit. Defaults to 500.
         """
         modified_files: list[str] = self.repo.untracked_files
-        batches = [
-            modified_files[batch : (batch + batch_size)]
-            for batch in range(0, len(modified_files), batch_size)
-        ]
+        batches = [modified_files[batch : (batch + batch_size)] for batch in range(0, len(modified_files), batch_size)]
 
         for num, batch in enumerate(iterable=batches):
             self.git_session.add(batch)
-            commit_message = (
-                f"Partial commit {num + 1}/{len(batches)} - {commit_description}"
-            )
+            commit_message = f"Partial commit {num + 1}/{len(batches)} - {commit_description}"
             self.git_index.commit(message=commit_message)
             self.git_session.push("origin", self.branch)
             self.logger.info(f"Pushed partial commit {num + 1}/{len(batches)}")
@@ -386,9 +374,7 @@ class GitLab(GitBase):
             if f"invalid reference: {self.branch}" in str(e):
                 if self.debug:
                     self.logger.info(f"Can't find branch {self.branch}")
-                raise GitCommandError(
-                    command=f"Switch command can't find branch {self.branch}"
-                ) from e
+                raise GitCommandError(command=f"Switch command can't find branch {self.branch}") from e
             raise GitCommandError(command=f"Other branching error: {e}") from e
 
     def merge_with_remote(self) -> None:
@@ -400,12 +386,11 @@ class GitLab(GitBase):
         try:
             self.git_session.merge(f"origin/{self.branch}")
         except GitCommandError as e:
-            if f"couldn't find remote ref {self.branch}" in str(e):
-                if self.debug:
-                    self.logger.info(f"Can't find branch {self.branch}")
-                    raise GitCommandError(
-                        command=f"Pull command can't find branch {self.branch}",
-                    ) from e
+            if f"couldn't find remote ref {self.branch}" in str(e) and self.debug:
+                self.logger.info(f"Can't find branch {self.branch}")
+                raise GitCommandError(
+                    command=f"Pull command can't find branch {self.branch}",
+                ) from e
             if "exit code(128)" in str(e):
                 self.clean_unmerged_files_from_local()
             if "exit code(1)" in str(e):
@@ -427,9 +412,7 @@ class GitLab(GitBase):
                 if keyword in str(e):
                     if self.debug:
                         self.logger.info("Error pushing configs to remote repository.")
-                    raise GitCommandError(
-                        command=f"Error pushing configs to remote repository: {str(e)}"
-                    ) from e
+                    raise GitCommandError(command=f"Error pushing configs to remote repository: {e!s}") from e
 
             if "tip of your current branch is behind" in str(e):
                 try:
@@ -440,19 +423,13 @@ class GitLab(GitBase):
                     )
                 except GitCommandError as git_error:
                     self.sync_head_with_remote()
-                    raise GitCommandError(
-                        command=f"Could not push changes to remote: {git_error}"
-                    ) from git_error
+                    raise GitCommandError(command=f"Could not push changes to remote: {git_error}") from git_error
 
             if "authentication failed" in str(e):
-                raise GitCommandError(
-                    command="Authentication fail. Please check your credentials."
-                ) from e
+                raise GitCommandError(command="Authentication fail. Please check your credentials.") from e
 
             if "permission denied" in str(e):
-                raise GitCommandError(
-                    command="Permission denied. Please check your access rights."
-                ) from e
+                raise GitCommandError(command="Permission denied. Please check your access rights.") from e
 
             if "pre-receive hook declined" in str(e):
                 raise GitCommandError(command="Pre-received hook error.") from e
@@ -585,9 +562,7 @@ def replace_secret(
                 flags=re.MULTILINE,
             )
         except re.error as e:
-            raise re.error(
-                msg=f"Regex pattern: {pattern}, Replacement: {replacement}, error: {e}"
-            ) from e
+            raise re.error(msg=f"Regex pattern: {pattern}, Replacement: {replacement}, error: {e}") from e
     return sanitized_config
 
 
@@ -646,8 +621,7 @@ GeneratorAny = t.Generator[t.Any, None, None]
 
 
 def get_list_of_networks() -> list[tuple[str, str]]:
-    """
-    Return the list of networks names to ID mappings.
+    """Return the list of networks names to ID mappings.
 
     Mappings take the form of tuple['network_id': str, 'network_name': str].
     Network name is in the UI and the ID will be used in API calls.
@@ -687,13 +661,9 @@ def get_list_of_networks() -> list[tuple[str, str]]:
             raise HTTPError
 
     except SSLError as e:
-        raise SSLError(
-            f"Can't find host for url {url}, or certification is invalid: {str(e)}"
-        ) from e
+        raise SSLError(f"Can't find host for url {url}, or certification is invalid: {e!s}") from e
     except HTTPError as e:
-        raise HTTPError(
-            f"Can't connect to Forward Networks. Is Forward Networks unavailable? Error: {str(e)}"
-        ) from e
+        raise HTTPError(f"Can't connect to Forward Networks. Is Forward Networks unavailable? Error: {e!s}") from e
 
     json_response: t.Union[dict[t.Any, t.Any], list[dict[str, str]]] = response.json()
 
@@ -762,9 +732,7 @@ class NautobotUtility:
         if self.regions:
             for region in self.regions:
                 if region.descendants:
-                    sites_q.append(
-                        Q(location__in=region.descendants(include_self=True))
-                    )
+                    sites_q.append(Q(location__in=region.descendants(include_self=True)))
 
         if self.sites:
             for site in self.sites:
@@ -797,9 +765,7 @@ class NautobotUtility:
 
     def get_valid_filtered_devices(self) -> None:
         """Get all network devices from Nautobot."""
-        self.valid_devices_names = set(
-            item.name.lower() for item in self.filtered_devices if item.name
-        )
+        self.valid_devices_names = set(item.name.lower() for item in self.filtered_devices if item.name)
 
 
 class ForwardNetworksUtility(ConnectionMixin):
@@ -909,9 +875,7 @@ class ForwardNetworksUtility(ConnectionMixin):
 
     def nb_fw_common_devices(self) -> tuple[set[Device], set[str]]:
         """Get common devices between Nautobot and Forward Networks."""
-        self.fw_device_case_mapper: dict[str, str] = {
-            item.lower(): item for item in self.fw_devices
-        }
+        self.fw_device_case_mapper: dict[str, str] = {item.lower(): item for item in self.fw_devices}
 
         fw_net_nb_common_devices: set[Device] = set()
 
@@ -920,19 +884,13 @@ class ForwardNetworksUtility(ConnectionMixin):
                 fw_net_nb_common_devices.add(selected_device)
 
         if not fw_net_nb_common_devices:
-            raise ValueError(
-                "There are no common devices between the Nautobot filtered devices and Forward Networks."
-            )
+            raise ValueError("There are no common devices between the Nautobot filtered devices and Forward Networks.")
 
         devices_not_in_forward_networks: set[str] = set(
-            item
-            for item in self.nb_device_names
-            if item not in list(self.fw_device_case_mapper.keys())
+            item for item in self.nb_device_names if item not in list(self.fw_device_case_mapper.keys())
         )
 
-        self.logger.info(
-            "Grabbed all common devices between Nautobot and Forward Networks."
-        )
+        self.logger.info("Grabbed all common devices between Nautobot and Forward Networks.")
 
         return fw_net_nb_common_devices, devices_not_in_forward_networks
 
@@ -947,14 +905,10 @@ class ForwardNetworksUtility(ConnectionMixin):
             if fw_net_device is None:
                 continue
 
-            fw_net_device_name: str = self.fw_device_case_mapper.get(
-                fw_net_device.name.lower(), ""
-            )
+            fw_net_device_name: str = self.fw_device_case_mapper.get(fw_net_device.name.lower(), "")
 
             params: str = (
-                f"api/snapshots/"
-                f"{self.fw_networks_snapshot_id}/devices/"
-                f"{fw_net_device_name}/files/configuration.txt"
+                f"api/snapshots/{self.fw_networks_snapshot_id}/devices/{fw_net_device_name}/files/configuration.txt"
             )
 
             url: str = format_base_url_with_params(
@@ -979,23 +933,16 @@ class ForwardNetworksUtility(ConnectionMixin):
                 )
 
         if not self.device_config_mapper:
-            raise ValueError(
-                "There were no device configurations files collected from Forward Networks."
-            )
+            raise ValueError("There were no device configurations files collected from Forward Networks.")
 
         self.logger.info("Got config for devices in the selected scope.")
         self.logger.success(f"Total backed up devices: {len(fw_net_nb_common_devices)}")
 
-        if self.debug:
-            if devices_not_in_forward_networks:
-                self.logger.warning(
-                    "Not all in Nautobot were found in Forward Networks."
-                )
-                for device in devices_not_in_forward_networks:
-                    self.logger.warning(f"Device not in Forward Networks: {device}")
-                self.logger.warning(
-                    f"Total devices not found in Forward Networks: {len(devices_not_in_forward_networks)}"
-                )
+        if self.debug and devices_not_in_forward_networks:
+            self.logger.warning("Not all in Nautobot were found in Forward Networks.")
+            for device in devices_not_in_forward_networks:
+                self.logger.warning(f"Device not in Forward Networks: {device}")
+            self.logger.warning(f"Total devices not found in Forward Networks: {len(devices_not_in_forward_networks)}")
 
 
 class ForwardNetworksBackup(Job):
@@ -1136,16 +1083,12 @@ class ForwardNetworksBackup(Job):
         self.status = status_filter
 
         try:
-            golden_config_setting: GoldenConfigSetting = (
-                GoldenConfigSetting.objects.get(backup_repository=backup_repository)
+            golden_config_setting: GoldenConfigSetting = GoldenConfigSetting.objects.get(
+                backup_repository=backup_repository
             )
         except GoldenConfigSetting.DoesNotExist as e:
-            self.logger.warning(
-                "The backup repository selected is not tied to any Golden Config Setting."
-            )
-            raise GoldenConfigSetting.DoesNotExist(
-                f"Please select a valid Golden Config Backup repository: {e}"
-            ) from e
+            self.logger.warning("The backup repository selected is not tied to any Golden Config Setting.")
+            raise GoldenConfigSetting.DoesNotExist(f"Please select a valid Golden Config Backup repository: {e}") from e
 
         self.logger.info("Parsed repo credentials.")
 
@@ -1196,14 +1139,9 @@ class ForwardNetworksBackup(Job):
                     obj, created = model.objects.get_or_create(**kwargs)
                     return obj, created
             except OperationalError as e:
-                if (
-                    "Lock wait timeout exceeded; try restarting transaction"
-                    in e.args[1]
-                ):
+                if "Lock wait timeout exceeded; try restarting transaction" in e.args[1]:
                     retry += 1
-                    self.logger.warning(
-                        f"Encountered deadlock. Retrying {retry}/{max_retries}"
-                    )
+                    self.logger.warning(f"Encountered deadlock. Retrying {retry}/{max_retries}")
                     time.sleep(retry)
                     continue
                 self.logger.warning(f"Encountered DB error: {e}")
@@ -1226,18 +1164,14 @@ class ForwardNetworksBackup(Job):
         loaded_any: bool = False
 
         for platform_name, platform_regex_dict in config_replace_mapper.items():
-            self.logger.info(
-                f"Loading regex replace rules for Platform {platform_name}."
-            )
+            self.logger.info(f"Loading regex replace rules for Platform {platform_name}.")
             try:
                 platform_object: Platform = Platform.objects.get(name=platform_name)
             except Platform.DoesNotExist:
                 self.logger.warning(f"Platform {platform_name} does not exist.")
                 continue
 
-            replace_patterns: BaseManager[ConfigReplace] = ConfigReplace.objects.filter(
-                platform=platform_object
-            )
+            replace_patterns: BaseManager[ConfigReplace] = ConfigReplace.objects.filter(platform=platform_object)
 
             if not replace_patterns.exists():
                 continue
@@ -1263,17 +1197,13 @@ class ForwardNetworksBackup(Job):
         loaded_any: bool = False
 
         for platform_name, platform_regex_list in config_remove_mapper.items():
-            self.logger.info(
-                f"Loading regex remove rules for Platform {platform_name}."
-            )
+            self.logger.info(f"Loading regex remove rules for Platform {platform_name}.")
             try:
                 platform_object: Platform = Platform.objects.get(name=platform_name)
             except Platform.DoesNotExist:
                 self.logger.warning(f"Platform {platform_name} does not exist.")
 
-            remove_patterns: BaseManager[ConfigRemove] = ConfigRemove.objects.filter(
-                platform=platform_object
-            )
+            remove_patterns: BaseManager[ConfigRemove] = ConfigRemove.objects.filter(platform=platform_object)
 
             if not remove_patterns.exists():
                 continue
@@ -1306,9 +1236,7 @@ class ForwardNetworksBackup(Job):
 
         self.logger.info("Sanitizing configs and adding to local working directory.")
         backup_time: datetime = datetime.now()
-        backup_time_w_timezone: datetime = backup_time.replace(
-            tzinfo=pytz.timezone(zone="UTC")
-        )
+        backup_time_w_timezone: datetime = backup_time.replace(tzinfo=pytz.timezone(zone="UTC"))
 
         for config_obj in self.fw.device_config_mapper:
             device: Device = config_obj.get("device")
@@ -1316,23 +1244,17 @@ class ForwardNetworksBackup(Job):
             try:
                 rendered_string: str = template.render(obj=device)
             except UndefinedError:
-                self.logger.warning(
-                    f"Could not find full backup path for {device}. Skipping..."
-                )
+                self.logger.warning(f"Could not find full backup path for {device}. Skipping...")
                 continue
 
             if device.platform.name in platform_regex_replace_mapper:
                 sanitized_config: str = remove_secret(
-                    regex_remove_mapper=platform_regex_remove_mapper[
-                        device.platform.name
-                    ],
+                    regex_remove_mapper=platform_regex_remove_mapper[device.platform.name],
                     full_config=config_obj["config"],
                 )
 
                 sanitized_config: str = replace_secret(
-                    platform_regex_mapper=platform_regex_replace_mapper[
-                        device.platform.name
-                    ],
+                    platform_regex_mapper=platform_regex_replace_mapper[device.platform.name],
                     full_config=sanitized_config,
                 )
             else:
@@ -1346,29 +1268,20 @@ class ForwardNetworksBackup(Job):
             ):
                 raise ValueError("Backup repo local path is not a string.")
 
-            full_system_device_path: Path = Path(
-                self.git_config["backup_repository_local_path"]
-            ).joinpath(Path(rendered_string).parent)
+            full_system_device_path: Path = Path(self.git_config["backup_repository_local_path"]).joinpath(
+                Path(rendered_string).parent
+            )
 
             full_system_device_path.mkdir(
                 parents=True,
                 exist_ok=True,
             )
 
-            full_system_device_file_path: Path = Path(full_system_device_path).joinpath(
-                device_filename
-            )
+            full_system_device_file_path: Path = Path(full_system_device_path).joinpath(device_filename)
 
-            with open(
-                file=full_system_device_file_path,
-                mode="w",
-                encoding="utf-8",
-            ) as f:
-                f.write(sanitized_config.strip())
+            Path(full_system_device_file_path).write_text(sanitized_config.strip(), encoding="utf-8")
 
-            backup_obj, created = self.atomic_get_or_create(
-                model=GoldenConfig, device=device
-            )
+            backup_obj, created = self.atomic_get_or_create(model=GoldenConfig, device=device)
 
             backup_obj.backup_last_attempt_date = backup_time_w_timezone
             backup_obj.backup_last_success_date = backup_time_w_timezone
@@ -1387,7 +1300,7 @@ class ForwardNetworksBackup(Job):
                 )
 
         repository.push(
-            commit_description=f"BACKUP TAKEN AT {str(backup_time)}",
+            commit_description=f"BACKUP TAKEN AT {backup_time!s}",
             batch_size=500,
         )
 
@@ -1446,6 +1359,6 @@ class ForwardNetworksBackup(Job):
             self.logger.success("Finished running the job!")
 
 
-jobs: list[type[Job]] = [ForwardNetworksBackup]
+# jobs: list[type[Job]] = [ForwardNetworksBackup]
 
-register_jobs(*jobs)
+# register_jobs(*jobs)
