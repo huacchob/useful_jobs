@@ -213,12 +213,12 @@ class ManagePermissionsFromYAML(Job):  # pylint: disable=abstract-method
         for entry in entries:
             valid_perm_attrs: dict[str, Any] = self.validate_entry(entry)
             if valid_perm_attrs["name"] in seen:
-                raise PermissionsDefinitionError(f"Duplicate permission name '{valid_perm_attrs["name"]}'.")
+                raise PermissionsDefinitionError(f"Duplicate permission name '{valid_perm_attrs['name']}'.")
             seen.add(valid_perm_attrs["name"])
             for group_name in valid_perm_attrs["groups"]:
                 if group_name not in group_names:
                     raise PermissionsDefinitionError(
-                        f"Permission '{valid_perm_attrs["name"]}' references group '{group_name}', "
+                        f"Permission '{valid_perm_attrs['name']}' references group '{group_name}', "
                         "which is not listed under 'groups'."
                     )
 
@@ -298,7 +298,7 @@ class ManagePermissionsFromYAML(Job):  # pylint: disable=abstract-method
         permission.validated_save()
         permission.object_types.set(entry["object_types"])
         permission.groups.set(assigned_groups)
-        self.logger.info(f"Updated permission '{permission_name}': {"; ".join(changes)}", extra={"object": permission})
+        self.logger.info(f"Updated permission '{permission_name}': {'; '.join(changes)}", extra={"object": permission})
         return "updated"
 
     def run(self, *, dryrun: bool = False) -> str:  # pylint: disable=arguments-differ
