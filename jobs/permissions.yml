@@ -1,0 +1,100 @@
+---
+# Nautobot permissions and groups as code.
+#
+# Applied by the "Manage Permissions from YAML" job (permissions_manage_job.py).
+# This file is the source of truth; the job makes Nautobot match it.
+#
+# Naming convention -- the permission name carries the app label and the actions,
+# so neither is repeated anywhere else in this file:
+#
+#     <APP_LABEL>_<ACTIONS>        V = view   A = add   C = change   D = delete
+#
+#     DCIM_V      -> app "dcim",  actions [view]
+#     DCIM_VA     -> app "dcim",  actions [view, add]
+#     IPAM_VAC    -> app "ipam",  actions [view, add, change]
+#     IPAM_VACD   -> app "ipam",  actions [view, add, change, delete]
+#
+# Letters must appear in VACD order with no repeats. The app label is everything
+# before the final underscore, lower-cased.
+#
+# Schema:
+#   groups:        list of group names. Created automatically if missing.
+#   permissions:   list of permission definitions.
+#     name:        as above. Unique; this is the reconciliation key.
+#     models:      model names only -- the app label comes from the name, so
+#                  "device" under DCIM_V resolves to "dcim.device".
+#     constraints: optional ORM filter (mapping), or a list of mappings that
+#                  Nautobot ORs together. Use null for "all objects".
+#     groups:      groups this permission is assigned to. Every name listed
+#                  here must also appear under the top-level groups.
+
+groups:
+  - "Network Read Only"
+  - "Network Operators"
+  - "Device Discovery Admins"
+  - "IPAM Admins"
+
+permissions:
+  - name: "DCIM_V"
+    app: "dcim"
+    action: "V"
+    models:
+      - "device"
+      - "interface"
+      - "location"
+      - "platform"
+      - "rack"
+    constraints: null
+    groups:
+      - "Network Read Only"
+      - "Network Operators"
+      - "Device Discovery Admins"
+    additional_actions: null
+
+  - name: "IPAM_V"
+    app: "ipam"
+    action: "V"
+    models:
+      - "ipaddress"
+      - "namespace"
+      - "prefix"
+      - "vlan"
+    constraints: null
+    groups:
+      - "Network Read Only"
+      - "Network Operators"
+
+  # A single mapping constrains every action to the matching objects.
+  - name: "DCIM_VACD"
+    app: "dcim"
+    action: "VACD"
+    models:
+      - "device"
+    constraints:
+      status__name: "Active"
+    groups:
+      - "Network Operators"
+
+  # A list of mappings is OR'd together by Nautobot.
+  - name: "IPAM_VACD"
+    app: "ipam"
+    action: "VACD"
+    models:
+      - "prefix"
+      - "ipaddress"
+    constraints:
+      - namespace__name: "Global"
+      - namespace__name: "Cleanup"
+    groups:
+      - "IPAM Admins"
+
+  - name: "NAUTOBOT_DEVICE_DISCOVERY_VACD"
+    app: "nautobot_device_discovery"
+    action: "VACD"
+    models:
+      - "discoveryprofile"
+      - "discovereddevice"
+      - "discoveryresult"
+    constraints: null
+    groups:
+      - "Device Discovery Admins"
