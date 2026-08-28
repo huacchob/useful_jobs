@@ -11,7 +11,7 @@ four actions on ``ipam``.
 """
 
 from pathlib import Path
-from typing import Any, Optional, Union
+from typing import Any
 
 import yaml
 from django.contrib.auth.models import Group
@@ -119,7 +119,7 @@ def resolve_object_types(app_label: str, models: Any, permission_name: str) -> l
     return object_types
 
 
-def normalize_constraints(constraints: Any) -> Optional[Union[dict, list]]:
+def normalize_constraints(constraints: Any) -> dict | list | None:
     """Normalize the several ways of spelling "no constraint" to ``None``.
 
     Args:
@@ -174,7 +174,7 @@ class ManagePermissionsFromYAML(Job):  # pylint: disable=abstract-method
                 f"Permission {permission_name}'s additional_actions valus must be a string."
             )
         additional_actions = entry.get("additional_actions")
-        if entry.get("constraints") and not isinstance(entry.get("constraints"), str):
+        if entry.get("constraints") and not isinstance(entry.get("constraints"), dict):
             raise PermissionsDefinitionError(f"Permission '{permission_name}': 'constraints' must be a string or null.")
         constraints = entry["constraints"]
         return {
